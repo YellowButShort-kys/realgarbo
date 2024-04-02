@@ -216,19 +216,13 @@ master_client:RegisterCommand(get_users)
 local god_have_mercy = master_client:NewCommand()
 god_have_mercy.command = "god_have_mercy"
 god_have_mercy.description = "{nil}"
-god_have_mercy.__callback = function(user, chat, msg)
-    chat:SendMessage("for I have sinned...")
-    error("Intentional stoppage from the admin panel")
-end
 god_have_mercy.callback = function(user, chat, msg) 
     if user.id ~= 386513759 then
         return
     end
-    
-    local r = {pcall(god_have_mercy.__callback, user, chat, msg)}
-    for i, var in pairs(r) do
-        chat:SendMessage(i .. ": " .. tostring(var))
-    end
+
+    chat:SendMessage("for I have sinned...")
+    error("Intentional stoppage from the admin panel")
 end
 master_client:RegisterCommand(god_have_mercy)
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
