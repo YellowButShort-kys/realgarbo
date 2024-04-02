@@ -84,6 +84,7 @@ issue_promocode.__callback = function(user, chat, msg)
         tokens = tonumber(target_tokens)
     }
     love.filesystem.write(PATH_PROMOCODES, prettyjson(client.promocodes))
+    return name
 end
 issue_promocode.callback = function(user, chat, msg)
     if user.id ~= 386513759 then
@@ -122,6 +123,7 @@ issue_referal.__callback = function(user, chat, msg)
         referal = tonumber(referal)
     }
     love.filesystem.write(PATH_PROMOCODES, prettyjson(client.promocodes))
+    return name
 end
 issue_referal.callback = function(user, chat, msg)
     if user.id ~= 386513759 then
@@ -142,9 +144,9 @@ change_user.command = "change_user"
 change_user.description = "{user}, {key}, {value}"
 change_user.__callback = function(user, chat, msg)
     local args = split(msg, " ")
-    local id = args[1]
+    local id = tonumber(args[1])
     local key = args[2]
-    local value = args[3]
+    local value = tonumber(args[3])
     UpdateUserToDB(id, key, value)
 end
 change_user.callback = function(user, chat, msg) 
