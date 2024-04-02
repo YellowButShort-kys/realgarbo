@@ -235,7 +235,7 @@ get_user_chat.__callback = function(user, chat, msg)
     local args = split(msg, " ")
     local id = tonumber(args[1])
     local chats = GetUserChat(GetUserFromDB(id))
-    for _, var in ipairs(chats) do
+    for _, var in pairs(chats) do
         chat:SendMessage(var.char.name .. " | " .. var.content:sub(0, 4000))
     end
 end
