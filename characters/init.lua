@@ -20,7 +20,7 @@ hub[2] = setmetatable(require(... .. ".anime_megumin"), {__index = base})
 hub[3] = setmetatable(require(... .. ".anime_kazuma_sato"), {__index = base})
 hub[4] = setmetatable(require(... .. ".games_tf2heavy"), {__index = base})
 hub[5] = setmetatable(require(... .. ".games_tf2soldier"), {__index = base})
-hub[6] = setmetatable(require(... .. ".anime_morgan_le_fay"), {__index = base})
+hub[6] = setmetatable(require(... .. ".anime_morgan_le_fey"), {__index = base})
 
 for _, var in ipairs(hub) do
     for _, tag in ipairs(var.tags) do
