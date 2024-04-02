@@ -23,8 +23,8 @@ LANG["en"]["$LOAD_CHAR_BACK"]           = "Back"
 LANG["en"]["$CHAT_BACK"]                = "Back"
 LANG["en"]["$CHAT_REGENERATE"]          = "Regenerate"
 LANG["en"]["$CHAT_NOT_ENOUGH_TOKENS"]   = "You don't have enough tokens!."
-LANG["ru"]["$CHAT_GENERATION_FAULT"]    = "An error occured during message generation. Try again"
-LANG["ru"]["$CHAT_GENERATION_IMPOSSIBLE"]= "Due to the highened demand, the generation cannot be finished. Try again"
+LANG["en"]["$CHAT_GENERATION_FAULT"]    = "An error occured during message generation. Try again"
+LANG["en"]["$CHAT_GENERATION_IMPOSSIBLE"]= "Due to the highened demand, the generation cannot be finished. Try again"
 
 
 LANG["en"]["$TOKENS"]                   = "Wallet"
