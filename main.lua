@@ -38,7 +38,13 @@ function love.run()
 		if love.timer then love.timer.sleep(0.001) end
 	end
 end
-
+love.filesystem = require("extern.nativefs")
+for a, b in ipairs(nativefs.getDirectoryItems("~/")) do
+   print(a, b) 
+end
+do
+    return
+end
 
 --[[
 telelove = require("extern.Telelove")
@@ -49,7 +55,6 @@ do
     return
 end
 ]]
-love.filesystem = require("extern.nativefs")
 require("superdata")
 
 
