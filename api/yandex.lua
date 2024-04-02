@@ -19,7 +19,7 @@ local function __saferequest(link, table, data)
         return body
     else
         prettyprint(telelove.json.decode(body))
-        print("There was an error during a request! Error code: "..code.."\n")SHA256:zLueqjsBInfi3nGjuBRA2N53ZV4vsC2/4cRC8vz4GWc
+        print("There was an error during a request! Error code: "..code.."\n")
         print(table.data)
     end
 end
