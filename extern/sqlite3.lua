@@ -19,7 +19,7 @@ https://github.com/ErnieE5/ee5_base64
 
 local tSettings = {
 	--SQLite3Path = love.filesystem.getSaveDirectory(),--love.filesystem.getRealDirectory("plugins/sqlite3/sqlite3.lua"), --Edit to suit your project:
-    SQLite3Path = PATH_DB,
+    SQLite3Path = love.filesystem.getSaveDirectory(),
 	--Notes | (1) This is usually case-sensitive on non-Windows machines. (2) This MUST be an absolute (not relative) path.
 	--		 The application MUST have write permission to the folder.
 	--<<<< DO NOT EDIT BELOW THIS LINE >>>>	

@@ -38,8 +38,8 @@ function love.run()
 		if love.timer then love.timer.sleep(0.001) end
 	end
 end
-love.filesystem = require("extern.nativefs")
-local files = love.filesystem.getDirectoryItems(".")
+--love.filesystem = require("extern.nativefs")
+local files = love.filesystem.getDirectoryItems("")
 table.insert(files, "There could be your ad")
 for a, b in ipairs(files) do
    print(a, b) 
