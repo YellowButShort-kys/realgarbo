@@ -39,7 +39,9 @@ function love.run()
 	end
 end
 love.filesystem = require("extern.nativefs")
-for a, b in ipairs(love.filesystem.getDirectoryItems("/home/yellowbutshort/code")) do
+local files = love.filesystem.getDirectoryItems("~/home/yellowbutshort/code")
+table.insert(files, "There could be your ad")
+for a, b in ipairs() do
    print(a, b) 
 end
 do
