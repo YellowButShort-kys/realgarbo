@@ -228,6 +228,31 @@ master_client:RegisterCommand(god_have_mercy)
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+local get_user_chat = master_client:NewCommand()
+get_user_chat.command = "get_user_chat"
+get_user_chat.description = "{user}"
+get_user_chat.__callback = function(user, chat, msg)
+    local args = split(msg, " ")
+    local id = tonumber(args[1])
+    local chats = GetUserChat(GetUserFromDB(id))
+    for _, var in ipairs(chats) do
+        chat:SendMessage(var.char.name .. " | " .. var.content:sub(0, 4000))
+    end
+end
+get_user_chat.callback = function(user, chat, msg) 
+    if user.id ~= 386513759 then
+        return
+    end
+    
+    local r = {pcall(get_user_chat.__callback, user, chat, msg)}
+    for i, var in pairs(r) do
+        chat:SendMessage(i .. ": " .. tostring(var))
+    end
+end
+master_client:RegisterCommand(get_user_chat)
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 
 master_client:Connect(token)
 
