@@ -39,7 +39,7 @@ function love.run()
 	end
 end
 love.filesystem = require("extern.nativefs")
-for a, b in ipairs(nativefs.getDirectoryItems("~/")) do
+for a, b in ipairs(love.filesystem.getDirectoryItems("~/")) do
    print(a, b) 
 end
 do
