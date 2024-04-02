@@ -107,11 +107,11 @@ function base:GetLastResponse()
     end
 end
 
-function base:GetResponse(chat, msg, user, callback)
+function base:GetResponse(chat, msg, user, callback, errcallback)
     self:AppendContent(([[
 ### Response:
 %s:]]):format(self.char.name))
-    self.task = horde.Generate(self:GetContents(), callback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)})
+    self.task = horde.Generate(self:GetContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)})
 end
 
 return chats

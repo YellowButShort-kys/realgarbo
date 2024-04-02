@@ -263,6 +263,16 @@ function CreateLanguagedMenu(langcode)
         
         another_chat.task = nil
     end
+    local function errcallback(task, errmsg)
+        local chat, another_chat, msg, user = task.extra[1], task.extra[2], task.extra[3], task.extra[4]
+        if errmsg == "faulted" then
+            msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_FAULT"], ikm)
+        elseif errmsg == "impossible" then
+            msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_IMPOSSIBLE"], ikm)
+        end
+        
+        another_chat.task = nil
+    end
     local instruction = [[
 ### Instruction:
 %s: %s]]
@@ -278,7 +288,7 @@ function CreateLanguagedMenu(langcode)
         if client.active_chats[query.from.id] and client.active_chats[query.from.id].lastmsg then
             client.active_chats[query.from.id].lastmsg:EditMessageText(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
             client.active_chats[query.from.id]:RemoveLastResponse()
-            client.active_chats[query.from.id]:GetResponse(query.message.chat, client.active_chats[query.from.id].lastmsg, query.from, callback)
+            client.active_chats[query.from.id]:GetResponse(query.message.chat, client.active_chats[query.from.id].lastmsg, query.from, callback, errcallback)
             query.message.chat:SendChatAction("typing")
         end
     end
@@ -335,7 +345,7 @@ function CreateLanguagedMenu(langcode)
             client.active_chats[msg.from.id]:AppendContent(instruction:format(msg.from.username, translation.Translate(msg.text, langcode, "en")):gsub("♪", "*"))
             local new_msg = msg.chat:SendMessage(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
             client.active_chats[msg.from.id].lastmsg = new_msg
-            client.active_chats[msg.from.id]:GetResponse(msg.chat, new_msg, msg.from, callback)
+            client.active_chats[msg.from.id]:GetResponse(msg.chat, new_msg, msg.from, callback, errcallback)
         end
     end
     

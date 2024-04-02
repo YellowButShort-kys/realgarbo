@@ -128,10 +128,10 @@ local headers = {
     ["Content-Type"] = "application/json"
 }
 
-function horde.Generate(prompt, callback, extra, stop_sequence)
-    return __promise(0.5, horde.__Generate, prompt, callback, extra, stop_sequence)
+function horde.Generate(prompt, callback, errcallback, extra, stop_sequence)
+    return __promise(0.5, horde.__Generate, prompt, callback, errcallback, extra, stop_sequence)
 end
-function horde.__Generate(prompt, callback, extra, stop_sequence)
+function horde.__Generate(prompt, callback, errcallback, extra, stop_sequence)
     local task = {}
     payload["prompt"] = prompt
     
@@ -155,6 +155,7 @@ function horde.__Generate(prompt, callback, extra, stop_sequence)
         task.id = telelove.json.decode(body).id
         task.prompt = prompt
         task.callback = callback
+        task.err = errcallback
         task.extra = extra
         
         task.finished = 0
@@ -173,11 +174,15 @@ function horde.__Generate(prompt, callback, extra, stop_sequence)
         tasks[task.id] = task
         return task
     else
+        print()
+        print("HORDE ERROR:")
+        print(code)
         print(body)
+        print()
         return false
     end
 end
-function horde.GenerateStoryBook(prompt, callback, extra)
+function horde.GenerateStoryBook(prompt, callback, errcallback, extra)
     local task = {}
     payload_storybook["params"]["prompt"] = prompt_storybook.."\n"..prompt.."\nOutput:"
     
@@ -248,6 +253,14 @@ function horde.FetchUpdate(task)
                 task:callback(task.text ~= "" and task.text or " ")
             end
             RemoveByValue(tasks, task)
+        end
+        if task.faulted then
+            RemoveByValue(tasks, task)
+            task:err("faulted")
+        end
+        if not task.is_possible then
+            RemoveByValue(tasks, task)
+            task:err("impossible")
         end
         return true
     end
