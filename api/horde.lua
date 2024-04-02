@@ -82,7 +82,8 @@ local payload = {
         ["stop_sequence"] = {
             "#",
             "###",
-            "**"
+            "**",
+            "OOC:"
         },
         ["min_p"] = 0,
         ["dynatemp_range"] = 0,
