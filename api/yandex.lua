@@ -26,8 +26,11 @@ end
 function translator.RetriveToken()
     local r = __saferequest("https://iam.api.cloud.yandex.net/iam/v1/tokens", {method = "post", data = telelove.json.encode({yandexPassportOauthToken = "y0_AgAAAAB1Lo5VAATuwQAAAAEAgJ10AADHpMX4thFH-rlsOzbbt56wYqFfRw"})})
     if r then
+        print()
         print("New token recieved!")
-        body["headers"]["Authorization"] = "Bearer" .. telelove.json.decode(r).iamToken
+        body["headers"]["Authorization"] = "Bearer " .. telelove.json.decode(r).iamToken
+        print(body["headers"]["Authorization"])
+        print()
         return true
     else
         print("TOKEN ERROR!")
