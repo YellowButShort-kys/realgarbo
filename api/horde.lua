@@ -91,7 +91,6 @@ local payload = {
     ["models"] = {
         "aphrodite/KoboldAI/LLaMA2-13B-Estopia",
         "koboldcpp/Mixtral-8x7B-Instruct-v0.1",
-        "aphrodite/jebcarter/psyonic-cetacean-20B",
         "aphrodite/KoboldAI/LLaMA2-13B-Psyfighter2"
     },
     ["allow_downgrade"] = true,
