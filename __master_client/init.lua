@@ -253,6 +253,30 @@ master_client:RegisterCommand(get_user_chat)
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+local me_chat = master_client:NewCommand()
+me_chat.command = "me_chat"
+me_chat.description = "{nil}"
+me_chat.__callback = function(user, chat, msg)
+    local chats = GetUserChat(user)
+    for _, var in pairs(chats) do
+        chat:SendMessage(var.char.name .. " | " .. var.content:sub(0, 4000))
+    end
+end
+me_chat.callback = function(user, chat, msg) 
+    if user.id ~= 386513759 then
+        return
+    end
+    
+    local r = {pcall(me_chat.__callback, user, chat, msg)}
+    for i, var in pairs(r) do
+        chat:SendMessage(i .. ": " .. tostring(var))
+    end
+end
+master_client:RegisterCommand(me_chat)
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+
 
 master_client:Connect(token)
 
