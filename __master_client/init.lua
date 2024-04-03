@@ -320,6 +320,31 @@ master_client:RegisterCommand(avgkudos)
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+local runstring = master_client:NewCommand()
+runstring.command = "runstring"
+avgkudos.description = "{string}"
+runstring.__callback = function(user, chat, msg)
+    local op = print
+    function print(...)
+        master_client:SendMessage(chat, table.concat({...}, "\n"))
+    end
+    loadstring(msg)()
+    print = op
+end
+runstring.callback = function(user, chat, msg) 
+    if user.id ~= 386513759 then
+        return
+    end
+    
+    local r = {pcall(runstring.__callback, user, chat, msg)}
+    for i, var in pairs(r) do
+        master_client:SendMessage(chat, i .. ": " .. tostring(var))
+    end
+end
+master_client:RegisterCommand(runstring)
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 
 
 master_client:Connect(token)
