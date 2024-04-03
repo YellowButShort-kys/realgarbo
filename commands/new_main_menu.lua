@@ -294,7 +294,7 @@ function CreateLanguagedMenu(langcode)
     ikm.inline_keyboard = {{back, regenerate}}
     
     local function onMessage(self, msg)
-        if msg.text ~= "" then
+        if msg.text == "" then
             return
         end
         
