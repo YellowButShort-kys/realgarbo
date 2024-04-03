@@ -257,9 +257,9 @@ function CreateLanguagedMenu(langcode)
         local chat, another_chat, msg, user = task.extra[1], task.extra[2], task.extra[3], task.extra[4]
         local translated_text = telegramformat(translation.Translate(text, "en", langcode))
         msg:EditMessageText(translated_text, ikm)
-        another_chat:AppendContent(text)
+        another_chat:AppendContent(text, "assistant")
         
-        UpdateUserToDB(user.id, "tokens", GetUserFromDB(user.id).tokens - task.kudos)
+        UpdateUserToDB(user.id, "tokens", GetUserFromDB(user.id).tokens - task.price)
         
         another_chat.task = nil
     end
@@ -287,7 +287,7 @@ function CreateLanguagedMenu(langcode)
     regenerate.callback = function(self, query)
         if client.active_chats[query.from.id] and client.active_chats[query.from.id].lastmsg then
             client.active_chats[query.from.id].lastmsg:EditMessageText(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
-            client.active_chats[query.from.id]:RemoveLastResponse()
+            client.active_chats[query.from.id]:RegenerateLastResponse()
             client.active_chats[query.from.id]:GetResponse(query.message.chat, client.active_chats[query.from.id].lastmsg, query.from, callback, errcallback)
             query.message.chat:SendChatAction("typing")
         end
@@ -342,7 +342,7 @@ function CreateLanguagedMenu(langcode)
             end
             
             msg.chat:SendChatAction("typing")
-            client.active_chats[msg.from.id]:AppendContent(instruction:format(msg.from.username, translation.Translate(msg.text, langcode, "en")):gsub("♪", "*"))
+            client.active_chats[msg.from.id]:AppendContent(translation.Translate(msg.text, langcode, "en"):gsub("♪", "*"), "user")
             local new_msg = msg.chat:SendMessage(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
             client.active_chats[msg.from.id].lastmsg = new_msg
             client.active_chats[msg.from.id]:GetResponse(msg.chat, new_msg, msg.from, callback, errcallback)

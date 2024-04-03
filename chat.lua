@@ -2,8 +2,10 @@ local chats = {}
 local base = {}
 
 function chats.NewChat(owner, char)
-    local chat = setmetatable({}, {__index = base}):__new(owner, char)
-    return NewUserChat(chat)
+    local chat = NewUserChat(setmetatable({}, {__index = base}):__new(owner, char))
+    chat:AppendContent(char:GetGreeting(), "system")
+    chat:AppendContent(char:GetFirstMessage(), "assistant")
+    return chat
 end
 function chats.SetMetatable(t)
     return setmetatable(t, {__index = base})
@@ -66,14 +68,16 @@ function base:__new(owner, char)
     self.owner = owner
     self.id = char.id
     self.char = char
-    self.content = char:GetGreeting(owner)
+    self.content = {}
+    --self.content = char:GetGreeting(owner)
     return self
 end
 function base:__load(owner, id, char, content)
     self.owner = owner
     self.id = char.id
     self.char = char
-    self.content = content
+    self.content = {}
+    --self.content = content
     return self
 end
 
@@ -81,14 +85,16 @@ function base:GetContents()
     return self.content
 end
 
-function base:AppendContent(str)
-    self.content = self.content .. str
-    ChangeUserChat(self)
+function base:AppendContent(str, role)
+    table.insert(self.content, {text = str, role = role, i = #self.content+1})
+    
+    AppendUserChat(self)
 end
 function base:SetContent(str)
     self.content = str
     ChangeUserChat(self)
 end
+--[[
 function base:RemoveLastResponse()
     local str = self:GetContents()
     --FIX: that shit is brokey
@@ -106,12 +112,15 @@ function base:GetLastResponse()
         return characters.GetCharacter(self.id):GetFirstMessage(self.owner)
     end
 end
+]]
+function base:ChangeLastResponse(str)
+    self.content[#self.content].text = str
+    ModifyLastMessageChat(self)
+end
 
 function base:GetResponse(chat, msg, user, callback, errcallback)
-    self:AppendContent(([[
-### Response:
-%s:]]):format(self.char.name))
-    self.task = horde.Generate(self:GetContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)})
+    --self.task = horde.Generate(self:GetContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)})
+    self.task = yandexgpt.Generate(self, callback, errcallback)
 end
 
 return chats

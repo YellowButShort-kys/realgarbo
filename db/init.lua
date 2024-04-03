@@ -50,25 +50,29 @@ local query_get_chat = [[
 
     SELECT * FROM ("%s");
 ]]
-local query_add_chat =  [[
+local query_create_chat =  [[
     CREATE TABLE IF NOT EXISTS "%s" (
         id INTEGER PRIMARY KEY,
-        content TEXT
-    );    
-
-    INSERT INTO "%s" (
-        id,
-        content
-    )
-    VALUES (
-        %s,
-        "%s"
+        i INTEGER,
+        role TEXT,
+        text TEXT
     );
+]]
+local query_append_chat = [[
+    INSERT INTO "%s" 
+    (id, i, role, text)
+    VALUES
+    (?, ?, ?, ?);
 ]]
 local query_set_chat = [[
     UPDATE "%s" 
     SET content = "%s" 
     WHERE id = %s;
+]]
+local query_change_last_chat = [[
+    UPDATE "%s"
+    SET text = ?
+    WHERE id = ? AND i = ?;
 ]]
 
 
@@ -374,9 +378,33 @@ function db_Load()
             db_ram_chats[chat.owner.id][chat.id] = chat
             --table.insert(db_chats_additions, chat)
             local commit = sqlite3.open(PATH_DB_CHATS)
-            commit:execute(query_add_chat:format(chat.owner.id, chat.owner.id, chat.id, chat.char:GetGreeting(chat.owner)))
+            commit:execute(query_create_chat)
             commit:close()
             return chat
+        end
+        function AppendUserChat(chat)
+            local commit = sqlite3.open(PATH_DB_CHATS)
+            --commit:execute(query_set_chat:format(chat.owner.id, chat.content, chat.id))
+            local stmt = commit:prepare(query_append_chat:format(chat.owner.id))
+            
+            local msg = chat.content[#chat.content]
+            --(id, i, role, text)
+            stmt:bind_values(chat.id, msg.i, msg.role, msg.text)
+            stmt:step()
+            stmt:finalize()
+            commit:close()
+        end
+        function ModifyLastMessageChat(chat, msgid)
+            msgid = msgid or #chat.content
+            --text id i
+            
+            local commit = sqlite3.open(PATH_DB_CHATS)
+            local stmt = commit:prepare(query_change_last_chat:format(chat.owner.id))
+            local msg = chat.content[msgid]
+            stmt:bind_values(msg.text, chat.id, msg.i)
+            stmt:step()
+            stmt:finalize()
+            commit:close()
         end
         function ChangeUserChat(chat)
             --table.insert(db_chats_changes, chat)
@@ -391,10 +419,7 @@ function db_Load()
             ]]):format(chat.owner.id))
             stmt:bind_values(chat.content, tostring(chat.id))
             stmt:step()
-            if not stmt then
-                print("FUCK MY ASS AAAAAAAAAAAAAAAAAA")
-            end
-            print(stmt:finalize())
+            stmt:finalize()
             
             commit:close()
             
