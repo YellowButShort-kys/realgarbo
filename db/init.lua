@@ -391,10 +391,7 @@ function db_Load()
             ]]):format(chat.owner.id))
             stmt:bind_values(chat.content, tostring(chat.id))
             stmt:step()
-            if not stmt then
-                print("FUCK MY ASS AAAAAAAAAAAAAAAAAA")
-            end
-            print(stmt:finalize())
+            stmt:finalize()
             
             commit:close()
             

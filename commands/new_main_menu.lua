@@ -150,16 +150,13 @@ function CreateLanguagedMenu(langcode)
             local user_chats = chats.GetChats(query.from)
             local translated = {}
             for x = 1, #available_chats do
-                translated[x] = 0
-            end
-            for _, var in ipairs(user_chats) do
-                translated[var.id] = 1
+                translated[x] = user_chats[x] and 1 or 0
             end
             
             for i, var in ipairs(translated) do
                 if var == 1 then
                     if #ikm.inline_keyboard[#ikm.inline_keyboard] > 3 then
-                        table.insert(ikm.inline_keyboard, {}) 
+                        table.insert(ikm.inline_keyboard, {})
                     end
                     table.insert(ikm.inline_keyboard[#ikm.inline_keyboard], available_chats[i])
                 end

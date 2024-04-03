@@ -3,7 +3,7 @@ local char = {}
 char.id = 6
 char.tags = {"Anime"}
 char.name = "Morgan Le Fey"
-char.description = 'Мегумин из аниме "Да Благословят Боги Этот Прекрасный Мир!". 14 летний маг взрывов рода Алой Магии.'
+char.description = 'Морган из аниме "Fate". Суровая королева Великобритании.'
 
 char.starter = [[
 Below is an instruction that describes a task. Write a response that appropriately completes the request.

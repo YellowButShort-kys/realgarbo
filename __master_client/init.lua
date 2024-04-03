@@ -278,6 +278,28 @@ master_client:RegisterCommand(me_chat)
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+local announcement = master_client:NewCommand()
+announcement.command = "announcement"
+announcement.description = "{string}"
+announcement.__callback = function(user, chat, msg)
+    for _, var in pairs(GetAllUsers()) do
+        client:SendMessage(var.char.name .. " | " .. var.content:sub(0, 4000))
+    end
+end
+announcement.callback = function(user, chat, msg) 
+    if user.id ~= 386513759 then
+        return
+    end
+    
+    local r = {pcall(announcement.__callback, user, chat, msg)}
+    for i, var in pairs(r) do
+        chat:SendMessage(i .. ": " .. tostring(var))
+    end
+end
+master_client:RegisterCommand(announcement)
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 
 
 master_client:Connect(token)
