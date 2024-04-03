@@ -257,6 +257,8 @@ function CreateLanguagedMenu(langcode)
         another_chat:AppendContent(text)
         
         UpdateUserToDB(user.id, "tokens", GetUserFromDB(user.id).tokens - task.kudos)
+        AVG_KUDOS_PRICE = AVG_KUDOS_PRICE + task.kudos
+        AVG_KUDOS_PRICE_N = AVG_KUDOS_PRICE_N + 1
         
         another_chat.task = nil
     end

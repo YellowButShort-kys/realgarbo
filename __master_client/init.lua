@@ -300,6 +300,26 @@ master_client:RegisterCommand(announcement)
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+local avgkudos = master_client:NewCommand()
+avgkudos.command = "avgkudos"
+avgkudos.description = "{}"
+avgkudos.__callback = function(user, chat, msg)
+    master_client:SendMessage(chat, "Average: "..tostring(AVG_KUDOS_PRICE/AVG_KUDOS_PRICE_N).."\nTotal: "..AVG_KUDOS_PRICE)
+end
+avgkudos.callback = function(user, chat, msg) 
+    if user.id ~= 386513759 then
+        return
+    end
+    
+    local r = {pcall(avgkudos.__callback, user, chat, msg)}
+    for i, var in pairs(r) do
+        master_client:SendMessage(chat, i .. ": " .. tostring(var))
+    end
+end
+master_client:RegisterCommand(avgkudos)
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 
 
 master_client:Connect(token)
