@@ -4,7 +4,7 @@ char.id = 9
 char.tags = {"Anime"}
 char.name = "Tamamo"
 char.display_name = "Tamamo No Mae"
-char.description = 'Аква из аниме "Да Благословят Боги Этот Прекрасный Мир!". Бесполезная богиня дешевых трюков'
+char.description = 'Tamamo-no-Mae is a soul originating directly from the sun goddess Amaterasu as a Divided Spirit and therefore a higher order of being than the Earth Spirit of myth.'
 
 
 char.starter = [[
