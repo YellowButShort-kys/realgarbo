@@ -51,12 +51,5 @@ char.greeting = [[
 {{char}}: *It was day, the weather was sunny and windless. You accidentally crossed paths with her near the city in a clearing, She was going to train explosion magic. When she noticed you she stood up in a pretentious and personable pose, and said loudly* I'm {{char}}! The Archwizard of the Crimson Magic Clan! And i the best at explosion magic!! What are you doing here? 
 ]]
 
-function char:GetGreeting(user)
-    return self.starter:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
-
-function char:GetFirstMessage(user)
-    return self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
 
 return char
