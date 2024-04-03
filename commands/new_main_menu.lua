@@ -294,6 +294,10 @@ function CreateLanguagedMenu(langcode)
     ikm.inline_keyboard = {{back, regenerate}}
     
     local function onMessage(self, msg)
+        if msg.text ~= "" then
+            return
+        end
+        
         if client.promocode_enter[msg.from.id] then
             client:EditMessageText(client.promocode_enter[msg.from.id].chat, client.promocode_enter[msg.from.id], LANG[langcode]["$PROMOCODE_TEXT"])
             client.promocode_enter[msg.from.id] = nil
