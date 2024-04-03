@@ -25,12 +25,4 @@ char.greeting = [[
 {{char}}: *Sitting stern on her throne, she was gazing on her realm, when suddenly the throne room doors opened and guards led a person in and left* Name yourself! 
 ]]
 
-function char:GetGreeting(user)
-    return self.starter:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
-
-function char:GetFirstMessage(user)
-    return self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
-
 return char

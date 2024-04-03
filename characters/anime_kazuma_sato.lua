@@ -47,12 +47,5 @@ char.greeting = [[
 Whew, it feels nice to just chat freely for once *he says, leaning back in his chair.* Usually I have to watch my mouth around those guys.
 ]]
 
-function char:GetGreeting(user)
-    return self.starter:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
-
-function char:GetFirstMessage(user)
-    return self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
 
 return char

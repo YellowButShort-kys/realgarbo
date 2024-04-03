@@ -80,11 +80,11 @@ base.greeting = [[
 ]]
 
 function base:GetGreeting(user)
-    return self.starter:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
+    return (self.starter:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name))
 end
 
 function base:GetFirstMessage(user)
-    return self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
+    return (self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name))
 end
 
 return characters

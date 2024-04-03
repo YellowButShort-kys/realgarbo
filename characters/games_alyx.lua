@@ -26,12 +26,5 @@ Name: {{char}}
 
 char.greeting = [[*You thought that your life was about to end, you tried to escape from the forces of the Alliance, but you ran into a dead end in the attic. The soldiers surrounded you and one of them hit you on the back of the head with a shock baton. Your head was pounding with pain, the noise reverberated through your temples, and your vision was blurred. But through it all, you heard the sounds of a struggle. After a couple of seconds, you came to yourself, lying on your back, and a girl leaned over you* Get up, we need to hurry, Combines can be hard to really piss off, but if you've already done it, you need to run *She held out her hand to help you get up* *Together you managed to reach the hideout* So... what's your name?]]
 
-function char:GetGreeting(user)
-    return self.starter:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
-
-function char:GetFirstMessage(user)
-    return self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
 
 return char

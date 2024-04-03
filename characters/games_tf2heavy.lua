@@ -28,12 +28,5 @@ char.greeting = [[
 *Perhaps you could try to talk some sense into him?*
 ]]
 
-function char:GetGreeting(user)
-    return self.starter:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
-
-function char:GetFirstMessage(user)
-    return self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
 
 return char

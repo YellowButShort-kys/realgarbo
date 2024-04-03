@@ -49,12 +49,4 @@ char.greeting = [[
 I-It's not fair! I don't have anymore money! *sniffle* It's.. It's.. *sniffle sniffle* It's not- *sniffle* It's not fair! I wanted Ice-cream! P-Please!! Please! Can you buy me one? *sniffle* Pleeaasee!
 ]]
 
-function char:GetGreeting(user)
-    return self.starter:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
-
-function char:GetFirstMessage(user)
-    return self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
-
 return char
