@@ -50,20 +50,18 @@ local query_get_chat = [[
 
     SELECT * FROM ("%s");
 ]]
-local query_add_chat =  [[
+local query_check_if_exists = [[
     CREATE TABLE IF NOT EXISTS "%s" (
         id INTEGER PRIMARY KEY,
         content TEXT
-    );    
-
+    );
+]]
+local query_add_chat =  [[ 
     INSERT INTO "%s" (
         id,
         content
     )
-    VALUES (
-        ?,
-        ?
-    );
+    VALUES (?, ?);
 ]]
 local query_set_chat = [[
     UPDATE "%s" 
@@ -374,7 +372,8 @@ function db_Load()
             db_ram_chats[chat.owner.id][chat.id] = chat
             --table.insert(db_chats_additions, chat)
             local commit = sqlite3.open(PATH_DB_CHATS)
-            local stmt = commit:prepare(query_add_chat:format(chat.owner.id, chat.owner.id))
+            commit:execute(query_check_if_exists:format(chat.owner.id))
+            local stmt = commit:prepare(query_add_chat:format(chat.owner.id))
             stmt:bind_values(chat.id, chat.char:GetGreeting(chat.owner))
             stmt:step()
             stmt:finalize()
