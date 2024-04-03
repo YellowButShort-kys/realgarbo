@@ -61,8 +61,8 @@ local query_add_chat =  [[
         content
     )
     VALUES (
-        %s,
-        "%s"
+        ?,
+        ?
     );
 ]]
 local query_set_chat = [[
@@ -374,7 +374,10 @@ function db_Load()
             db_ram_chats[chat.owner.id][chat.id] = chat
             --table.insert(db_chats_additions, chat)
             local commit = sqlite3.open(PATH_DB_CHATS)
-            commit:execute(query_add_chat:format(chat.owner.id, chat.owner.id, chat.id, chat.char:GetGreeting(chat.owner)))
+            local stmt = commit:prepare(query_add_chat:format(chat.owner.id, chat.owner.id))
+            stmt:bind_values(chat.id, chat.char:GetGreeting(chat.owner))
+            stmt:step()
+            stmt:finalize()
             commit:close()
             return chat
         end
