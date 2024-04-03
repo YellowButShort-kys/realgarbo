@@ -341,7 +341,7 @@ function CreateLanguagedMenu(langcode)
             end
             
             msg.chat:SendChatAction("typing")
-            client.active_chats[msg.from.id]:AppendContent(instruction:format(msg.from.username, translation.Translate(msg.text, langcode, "en")):gsub("♪", "*"))
+            client.active_chats[msg.from.id]:AppendContent(instruction:format(GetUserName(msg.from), translation.Translate(msg.text, langcode, "en")):gsub("♪", "*"))
             local new_msg = msg.chat:SendMessage(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
             client.active_chats[msg.from.id].lastmsg = new_msg
             client.active_chats[msg.from.id]:GetResponse(msg.chat, new_msg, msg.from, callback, errcallback)
