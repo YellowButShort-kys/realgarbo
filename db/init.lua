@@ -19,7 +19,7 @@ local query_init_userlist = [[
         display_name TEXT DEFAULT "_NONAME_" NOT NULL,
         referal INTEGER DEFAULT 0 NOT NULL, 
         lang TEXT DEFAULT "ru" NOT NULL, 
-        next_daily INTEGER DEFAULT 0 NOT NULL
+        next_daily INTEGER DEFAULT 0 NOT NULL,
         tokens INTEGER
     );
 ]]
