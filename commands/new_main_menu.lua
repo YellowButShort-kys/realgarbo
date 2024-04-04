@@ -234,7 +234,7 @@ function CreateLanguagedMenu(langcode)
             lang_button.text = var["$SYMBOL"]
             lang_button.callback = function(self, query)
                 UpdateUserToDB(query.from.id, "lang", i)
-                client:EditMessageText(query.message.chat, query.message, LANG[self.text]["$INTRODUCTION"], languaged_menu[self.text])
+                client:EditMessageText(query.message.chat, query.message, LANG[i]["$INTRODUCTION"], languaged_menu[i])
             end
             table.insert(buttons.inline_keyboard[#buttons.inline_keyboard], lang_button)
         end
