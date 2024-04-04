@@ -109,7 +109,7 @@ issue_promocode.callback = function(user, chat, msg)
     
     local r = {pcall(issue_promocode.__callback, user, chat, msg)}
     for i, var in pairs(r) do
-        chat:SendMessage(i .. ": " .. tostring(var))
+        master_client:SendMessage(chat, i .. ": " .. tostring(var))
     end
 end
 master_client:RegisterCommand(issue_promocode)
@@ -163,7 +163,7 @@ issue_referal.callback = function(user, chat, msg)
     
     local r = {pcall(issue_referal.__callback, user, chat, msg)}
     for i, var in pairs(r) do
-        chat:SendMessage(i .. ": " .. tostring(var))
+        master_client:SendMessage(chat, i .. ": " .. tostring(var))
     end
 end
 master_client:RegisterCommand(issue_referal)
@@ -187,7 +187,7 @@ change_user.callback = function(user, chat, msg)
     
     local r = {pcall(change_user.__callback, user, chat, msg)}
     for i, var in pairs(r) do
-        chat:SendMessage(i .. ": " .. tostring(var))
+        master_client:SendMessage(chat, i .. ": " .. tostring(var))
     end
 end
 master_client:RegisterCommand(change_user)
@@ -208,8 +208,8 @@ get_users.__callback = function(user, chat, msg)
         end
     end
     
-    local norm = {"id", "first_name", "last_name", "username", "display_name", "tokens"}
-    local str = table.concat(norm, "|")
+    local norm = {"first_name", "last_name", "username", "display_name", "tokens"}
+    local str = table.concat(norm, "|") .. "\n"
     for _, var in pairs(t) do
         for _, value in ipairs(norm) do
             str = str .. tostring(var[value])
@@ -218,18 +218,18 @@ get_users.__callback = function(user, chat, msg)
         str = str .. "\n"
     end
     
-    chat:SendMessage(str:sub(0, 4000))
+    master_client:SendMessage(chat, str:sub(0, 4000))
     if str:len() > 4000 then
-        chat:SendMessage(str:sub(4000, 8000))
+        master_client:SendMessage(chat, str:sub(4000, 8000))
     end
     if str:len() > 8000 then
-        chat:SendMessage(str:sub(8000, 12000))
+        master_client:SendMessage(chat, str:sub(8000, 12000))
     end
     if str:len() > 12000 then
-        chat:SendMessage(str:sub(12000, 16000))
+        master_client:SendMessage(chat, str:sub(12000, 16000))
     end
     if str:len() > 16000 then
-        chat:SendMessage(str:sub(16000, 20000))
+        master_client:SendMessage(chat, str:sub(16000, 20000))
     end
 end
 get_users.callback = function(user, chat, msg) 
@@ -239,7 +239,7 @@ get_users.callback = function(user, chat, msg)
     
     local r = {pcall(get_users.__callback, user, chat, msg)}
     for i, var in pairs(r) do
-        chat:SendMessage(i .. ": " .. tostring(var))
+        master_client:SendMessage(chat, i .. ": " .. tostring(var))
     end
 end
 master_client:RegisterCommand(get_users)
@@ -254,7 +254,7 @@ god_have_mercy.callback = function(user, chat, msg)
         return
     end
 
-    chat:SendMessage("for I have sinned...")
+    master_client:SendMessage(chat, "for I have sinned...")
     error("Intentional stoppage from the admin panel")
 end
 master_client:RegisterCommand(god_have_mercy)
@@ -269,7 +269,7 @@ get_user_chat.__callback = function(user, chat, msg)
     local id = tonumber(args[1])
     local chats = GetUserChat(GetUserFromDB(id))
     for _, var in pairs(chats) do
-        chat:SendMessage(var.char.name .. " | " .. var.content:sub(0, 4000))
+        master_client:SendMessage(chat, var.char.name .. " | " .. var.content:sub(0, 4000))
     end
 end
 get_user_chat.callback = function(user, chat, msg) 
@@ -279,7 +279,7 @@ get_user_chat.callback = function(user, chat, msg)
     
     local r = {pcall(get_user_chat.__callback, user, chat, msg)}
     for i, var in pairs(r) do
-        chat:SendMessage(i .. ": " .. tostring(var))
+        master_client:SendMessage(chat, i .. ": " .. tostring(var))
     end
 end
 master_client:RegisterCommand(get_user_chat)
@@ -292,7 +292,7 @@ me_chat.description = "{nil}"
 me_chat.__callback = function(user, chat, msg)
     local chats = GetUserChat(user)
     for _, var in pairs(chats) do
-        chat:SendMessage(var.char.name .. " | " .. var.content:sub(0, 4000))
+        master_client:SendMessage(chat, var.char.name .. " | " .. var.content:sub(0, 4000))
     end
 end
 me_chat.callback = function(user, chat, msg) 
@@ -302,7 +302,7 @@ me_chat.callback = function(user, chat, msg)
     
     local r = {pcall(me_chat.__callback, user, chat, msg)}
     for i, var in pairs(r) do
-        chat:SendMessage(i .. ": " .. tostring(var))
+        master_client:SendMessage(chat, i .. ": " .. tostring(var))
     end
 end
 master_client:RegisterCommand(me_chat)
@@ -314,7 +314,7 @@ announcement.command = "announcement"
 announcement.description = "{string}"
 announcement.__callback = function(user, chat, msg)
     for _, var in pairs(GetAllUsers()) do
-        client:SendMessage(var.char.name .. " | " .. var.content:sub(0, 4000))
+        master_client:SendMessage(var.chatid, msg)
     end
 end
 announcement.callback = function(user, chat, msg) 
@@ -324,7 +324,7 @@ announcement.callback = function(user, chat, msg)
     
     local r = {pcall(announcement.__callback, user, chat, msg)}
     for i, var in pairs(r) do
-        chat:SendMessage(i .. ": " .. tostring(var))
+        master_client:SendMessage(chat, i .. ": " .. tostring(var))
     end
 end
 master_client:RegisterCommand(announcement)
@@ -355,19 +355,19 @@ local runstring = master_client:NewCommand()
 runstring.command = "runstring"
 avgkudos.description = "{string}"
 runstring.__callback = function(user, chat, msg)
-    local op = print
-    function print(...)
-        master_client:SendMessage(chat, table.concat({...}, "\n"))
-    end
     loadstring(msg)()
-    print = op
 end
 runstring.callback = function(user, chat, msg) 
     if user.id ~= 386513759 then
         return
     end
     
+    local op = print
+    function print(...)
+        master_client:SendMessage(chat, table.concat({...}, "\n"))
+    end
     local r = {pcall(runstring.__callback, user, chat, msg)}
+    print = op
     for i, var in pairs(r) do
         master_client:SendMessage(chat, i .. ": " .. tostring(var))
     end
