@@ -26,7 +26,7 @@ local query_init_userlist = [[
 ]]
 local query_update_userlist = [[
     UPDATE Users 
-    SET display_name = "%s", lang = "%s", tokens = %s
+    SET %s = "%s"
     WHERE id = %s;
 ]]
 local query_lang_userlist = [[
@@ -334,7 +334,8 @@ function db_Load()
             db_userlist_id[id][key] = value
             --table.insert(db_userlist_changes, db_userlist_id[id])
             local commit = sqlite3.open(PATH_DB_USERS)
-            commit:execute(query_update_userlist:format(db_userlist_id[id].display_name, db_userlist_id[id].lang, db_userlist_id[id].tokens, id))
+            --commit:execute(query_update_userlist:format(db_userlist_id[id].display_name, db_userlist_id[id].lang, db_userlist_id[id].tokens, id, ))
+            commit:execute(query_update_userlist:format(key, value, id))
             commit:close()
         end
         function AddUserToDB(user, chatid)
