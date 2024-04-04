@@ -301,9 +301,6 @@ function db_Load()
         local db = sqlite3.open(PATH_DB_USERS)
         local db_ram_userlist = db:execute([[
             SELECT * FROM (Users)
-            
-            ALTER TABLE chatid
-            ADD TEXT DEFAULT "EMPTY" NOT NULL;
         ]]) or {}
         local db_userlist_id = {}
         for _, var in ipairs(db_ram_userlist) do
