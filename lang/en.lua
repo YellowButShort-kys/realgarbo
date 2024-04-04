@@ -49,10 +49,10 @@ LANG["en"]["$PROMOCODE_SUCCESS"]         = "Promocode was activated!"
 LANG["en"]["$PROMOCODE_NOTFOUND"]        = "This promocode was not found. Please check the spelling"
 LANG["en"]["$PROMOCODE_ALREADYUSED"]     = "You have already used this promocode!"
 
-LANG["en"]["DAILIES"]                    = "Daily tokens"
-LANG["en"]["DAILIES_SUCCESS"]            = "You've received your daily bonus!"
-LANG["en"]["DAILIES_TIME_FAILURE"]       = "You've already received a daily bonus within last 24 hours!"
-LANG["en"]["DAILIES_BALANCE_FAILURE"]    = "You need to have less tokens on you to receive a bonus!"
+LANG["en"]["$DAILIES"]                    = "Daily tokens"
+LANG["en"]["$DAILIES_SUCCESS"]            = "You've received your daily bonus!"
+LANG["en"]["$DAILIES_TIME_FAILURE"]       = "You've already received a daily bonus within last 24 hours!"
+LANG["en"]["$DAILIES_BALANCE_FAILURE"]    = "You need to have less tokens on you to receive a bonus!"
 
 
 LANG["en"]["$LANG_CHANGE_TEXT"]          = "Select a language"

@@ -48,10 +48,10 @@ LANG["ru"]["$PROMOCODE_SUCCESS"]         = "Промокод успешно вв
 LANG["ru"]["$PROMOCODE_NOTFOUND"]        = "Данный промокод не был найден. Проверьте правильность написания"
 LANG["ru"]["$PROMOCODE_ALREADYUSED"]     = "Вы уже использовали этот промокод!"
 
-LANG["ru"]["DAILIES"]                    = "Ежедневные токены"
-LANG["ru"]["DAILIES_SUCCESS"]            = "Вы получили ежедневный бонус!"
-LANG["ru"]["DAILIES_TIME_FAILURE"]       = "Вы уже получали бонус в последние 24 часа!"
-LANG["ru"]["DAILIES_BALANCE_FAILURE"]    = "Для получения бонуса нужно иметь меньше токенов на балансе!"
+LANG["ru"]["$DAILIES"]                    = "Ежедневные токены"
+LANG["ru"]["$DAILIES_SUCCESS"]            = "Вы получили ежедневный бонус!"
+LANG["ru"]["$DAILIES_TIME_FAILURE"]       = "Вы уже получали бонус в последние 24 часа!"
+LANG["ru"]["$DAILIES_BALANCE_FAILURE"]    = "Для получения бонуса нужно иметь меньше токенов на балансе!"
 
 LANG["ru"]["$LANG_CHANGE_TEXT"]          = "Выберите язык"
 

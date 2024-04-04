@@ -413,18 +413,25 @@ local comms = {}
 
 local command = {}
 command.command = "start"
-command.available_for_menu = false
+command.available_for_menu = true
 table.insert(comms, client:NewCommand(command))
 function command.callback(user, chat, ...)
     if not GetUserFromDB(user.id) then
-        AddUserToDB(user)
+        AddUserToDB(user, tostring(chat.id))
     end
+    if GetUserFromDB(user.id).chatid == "EMPTY" then
+        UpdateUserToDB(user.id, "chatid", tostring(chat.id))
+    end
+    
     chat:SendMessage(LANG[GetUserLang(user.id)]["$INTRODUCTION"], {reply_markup = languaged_menu[GetUserLang(user.id)]})
 end
 
 function client:onMessage(msg)
     if not GetUserFromDB(msg.from.id) then
-        AddUserToDB(msg.from)
+        AddUserToDB(msg.from, tostring(msg.chat.id))
+    end
+    if GetUserFromDB(msg.from.id).chatid == "EMPTY" then
+        UpdateUserToDB(msg.from.id, "chatid", tostring(msg.chat.id))
     end
     
     onMessage[GetUserLang(msg.from.id)](client, msg)

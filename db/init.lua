@@ -20,7 +20,8 @@ local query_init_userlist = [[
         referal INTEGER DEFAULT 0 NOT NULL, 
         lang TEXT DEFAULT "ru" NOT NULL,
         tokens INTEGER,
-        next_daily INTEGER DEFAULT 0 NOT NULL
+        next_daily INTEGER DEFAULT 0 NOT NULL,
+        chatid TEXT
     );
 ]]
 local query_update_userlist = [[
@@ -39,8 +40,8 @@ local query_referal_userlist = [[
     WHERE id = %s;
 ]]
 local query_add_userlist =  [[
-    INSERT INTO "Users" (id, first_name, last_name, username, display_name, next_daily, tokens)
-    VALUES (%s, '%s', '%s', '%s', '_NONAME_', 0, %s);
+    INSERT INTO "Users" (id, first_name, last_name, username, display_name, next_daily, tokens, chatid)
+    VALUES (%s, '%s', '%s', '%s', '_NONAME_', 0, %s, '%s');
 ]]
 
 local query_get_chat = [[
@@ -300,6 +301,9 @@ function db_Load()
         local db = sqlite3.open(PATH_DB_USERS)
         local db_ram_userlist = db:execute([[
             SELECT * FROM (Users)
+            
+            ALTER TABLE chatid
+            ADD TEXT DEFAULT "EMPTY" NOT NULL;
         ]]) or {}
         local db_userlist_id = {}
         for _, var in ipairs(db_ram_userlist) do
@@ -336,12 +340,12 @@ function db_Load()
             commit:execute(query_update_userlist:format(db_userlist_id[id].display_name, db_userlist_id[id].lang, db_userlist_id[id].tokens, id))
             commit:close()
         end
-        function AddUserToDB(user)
-            db_userlist_id[user.id] = {id = user.id, first_name = user.first_name, last_name = user.last_name, username = user.username, lang = "ru", tokens = 50}
+        function AddUserToDB(user, chatid)
+            db_userlist_id[user.id] = {id = user.id, first_name = user.first_name, last_name = user.last_name, username = user.username, lang = "ru", tokens = 50, next_daily = 0, chatid = chatid}
             
             
             local commit = sqlite3.open(PATH_DB_USERS)
-            commit:execute(query_add_userlist:format(db_userlist_id[user.id].id, db_userlist_id[user.id].first_name or "", db_userlist_id[user.id].last_name or "", db_userlist_id[user.id].username or db_userlist_id[user.id].first_name, 100))
+            commit:execute(query_add_userlist:format(db_userlist_id[user.id].id, db_userlist_id[user.id].first_name or "", db_userlist_id[user.id].last_name or "", db_userlist_id[user.id].username or db_userlist_id[user.id].first_name, 100, chatid))
             commit:close()
             --table.insert(db_userlist_additions, db_userlist_id[user.id])
         end
