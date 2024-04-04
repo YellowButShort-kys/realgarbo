@@ -1,5 +1,5 @@
 LANG["en"] = {}
-LANG["en"]["$SYMBOL"] = "en"
+LANG["en"]["$SYMBOL"] = "🇺🇸"
 --LANG["en"]["$COMMAND_SELECT_DESCRIPTION"] = 
 LANG["en"]["$INTRODUCTION"]             = [[[CLOSED BETA VERSION]
 Welcome to another trap crap! This time it's an RP bot for people who are just too bored. Communicate with all sorts of characters without any limitation, I personally do not give a fuck. If you want your own character then DM me, I will add.
@@ -47,6 +47,12 @@ LANG["en"]["$PROMOCODE_REFERAL_FAILURE"] = "You have already entered a referal p
 LANG["en"]["$PROMOCODE_REFERAL_SUCCESS"] = "Referal promocode was activated!"
 LANG["en"]["$PROMOCODE_SUCCESS"]         = "Promocode was activated!"
 LANG["en"]["$PROMOCODE_NOTFOUND"]        = "This promocode was not found. Please check the spelling"
+LANG["en"]["$PROMOCODE_ALREADYUSED"]     = "You have already used this promocode!"
+
+LANG["en"]["DAILIES"]                    = "Daily tokens"
+LANG["en"]["DAILIES_SUCCESS"]            = "You've received your daily bonus!"
+LANG["en"]["DAILIES_TIME_FAILURE"]       = "You've already received a daily bonus within last 24 hours!"
+LANG["en"]["DAILIES_BALANCE_FAILURE"]    = "You need to have less tokens on you to receive a bonus!"
 
 
 LANG["en"]["$LANG_CHANGE_TEXT"]          = "Select a language"
