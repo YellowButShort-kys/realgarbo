@@ -345,6 +345,7 @@ function CreateLanguagedMenu(langcode)
                     else
                         msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_SUCCESS"], {reply_markup = {inline_keyboard = {{back}}}})
                         UpdateUserToDB(msg.from.id, "tokens", GetUserFromDB(msg.from.id).tokens + promo.tokens)
+                        if not promo.users then promo.users = {} end
                         table.insert(promo.users, msg.from.id)
                         if promo.singleuse then
                             client.promocodes[msg.text] = nil
