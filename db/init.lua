@@ -299,6 +299,9 @@ function db_Load()
     do
         local db = sqlite3.open(PATH_DB_USERS)
         local db_ram_userlist = db:execute([[
+            ALTER TABLE Users
+            ADD next_daily INTEGER DEFAULT 0 NOT NULL;    
+        
             SELECT * FROM (Users)
         ]]) or {}
         local db_userlist_id = {}
