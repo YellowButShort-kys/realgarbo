@@ -314,7 +314,9 @@ announcement.command = "announcement"
 announcement.description = "{string}"
 announcement.__callback = function(user, chat, msg)
     for _, var in pairs(GetAllUsers()) do
-        master_client:SendMessage(var.chatid, msg)
+        if var.chatid then
+            master_client:SendMessage(var.chatid, msg)
+        end
     end
 end
 announcement.callback = function(user, chat, msg) 
@@ -379,6 +381,7 @@ master_client:RegisterCommand(runstring)
 
 
 master_client:Connect(token)
+master_client:SetMyCommands()
 
 function MasterUpdate()
     master_client:Update()

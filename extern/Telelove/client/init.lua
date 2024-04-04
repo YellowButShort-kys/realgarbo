@@ -308,7 +308,7 @@ end
 
 function instance:__SetMyCommands(commands, scope)
     local coms = {}
-    for _, var in ipairs(commands) do
+    for _, var in ipairs(commands or self.__commands) do
         if var.available_for_menu and var.active then
             table.insert(coms, {command = var.command, description = var.description})
         end
