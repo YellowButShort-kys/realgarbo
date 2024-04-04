@@ -6,5 +6,6 @@ print("", PATH_DB_CHATS)
 
 AVG_KUDOS_PRICE = 0
 AVG_KUDOS_PRICE_N = 0
+DAILY_BONUS = 200
 
 --PATH_DB = "~/code/realgarbo/db/chats.db"

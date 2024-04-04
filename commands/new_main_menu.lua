@@ -26,12 +26,12 @@ function CreateLanguagedMenu(langcode)
     local menu = {}
     local new_chat, load_chat = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local donate, display_name = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
-    local promocode, my_tokens = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
+    local promocode, dailies, my_tokens = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local language = client:NewInlineKeyboardButton()
     menu.inline_keyboard = {
         {new_chat, load_chat},
         {donate, display_name},
-        {promocode, my_tokens},
+        {promocode, dailies, my_tokens},
         {language}
     }
     
@@ -293,6 +293,32 @@ function CreateLanguagedMenu(langcode)
     end
     ikm.inline_keyboard = {{back, regenerate}}
     
+    ----------------------------------------------------------------------
+    ------------------------------ DAILIES -------------------------------
+    ----------------------------------------------------------------------
+    
+    do
+        dailies.text = LANG[langcode]["$DAILIES"]
+        dailies.callback = function(self, query)
+            local user = GetUserFromDB(query.from.id)
+            if user.next_daily <= os.time() then
+                if user.tokens <= DAILY_BONUS/2 then
+                    client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DAILIES_SUCCESS"], {inline_keyboard = {{back}}})
+                    UpdateUserToDB(query.from.id, "tokens", user.tokens + DAILY_BONUS)
+                    UpdateUserToDB(query.from.id, "next_daily", os.time() + 86400)
+                else
+                    client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DAILIES_BALANCE_FAILURE"], {inline_keyboard = {{back}}})
+                end
+            else
+                client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DAILIES_TIME_FAILURE"], {inline_keyboard = {{back}}})
+            end
+        end
+    end
+    
+    ----------------------------------------------------------------------
+    ----------------------------- onMessage ------------------------------
+    ----------------------------------------------------------------------
+    
     local function onMessage(self, msg)
         if msg.text == "" then
             return
@@ -303,16 +329,30 @@ function CreateLanguagedMenu(langcode)
             client.promocode_enter[msg.from.id] = nil
             local promo = client.promocodes[msg.text]
             if promo then
-                if promo.referal then
-                    if not UpdateUserReferal(msg.from, promo.referal) then
-                        msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_REFERAL_FAILURE"], {reply_markup = {inline_keyboard = {{back}}}})
+                if not (promo.oneperuser and promo.users[msg.from.id]) then
+                    if promo.referal then
+                        if not UpdateUserReferal(msg.from, promo.referal) then
+                            msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_REFERAL_FAILURE"], {reply_markup = {inline_keyboard = {{back}}}})
+                        else
+                            msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_REFERAL_SUCCESS"], {reply_markup = {inline_keyboard = {{back}}}})
+                            UpdateUserToDB(msg.from.id, "tokens", GetUserFromDB(msg.from.id).tokens + promo.tokens)
+                            table.insert(promo.users, msg.from.id)
+                            if promo.singleuse then
+                                client.promocodes[msg.text] = nil
+                            end
+                            love.filesystem.write(PATH_PROMOCODES, prettyjson(client.promocodes))
+                        end
                     else
-                        msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_REFERAL_SUCCESS"], {reply_markup = {inline_keyboard = {{back}}}})
+                        msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_SUCCESS"], {reply_markup = {inline_keyboard = {{back}}}})
                         UpdateUserToDB(msg.from.id, "tokens", GetUserFromDB(msg.from.id).tokens + promo.tokens)
+                        table.insert(promo.users, msg.from.id)
+                        if promo.singleuse then
+                            client.promocodes[msg.text] = nil
+                        end
+                        love.filesystem.write(PATH_PROMOCODES, prettyjson(client.promocodes))
                     end
                 else
-                    msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_SUCCESS"], {reply_markup = {inline_keyboard = {{back}}}})
-                    UpdateUserToDB(msg.from.id, "tokens", GetUserFromDB(msg.from.id).tokens + promo.tokens)
+                    msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_ALREADYUSED"], {reply_markup = {inline_keyboard = {{back}}}})
                 end
             else
                 msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_NOTFOUND"], {reply_markup = {inline_keyboard = {{back}}}})

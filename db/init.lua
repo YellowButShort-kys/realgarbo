@@ -19,6 +19,7 @@ local query_init_userlist = [[
         display_name TEXT DEFAULT "_NONAME_" NOT NULL,
         referal INTEGER DEFAULT 0 NOT NULL, 
         lang TEXT DEFAULT "ru" NOT NULL, 
+        next_daily INTEGER DEFAULT 0 NOT NULL
         tokens INTEGER
     );
 ]]
@@ -38,8 +39,8 @@ local query_referal_userlist = [[
     WHERE id = %s;
 ]]
 local query_add_userlist =  [[
-    INSERT INTO "Users" (id, first_name, last_name, username, display_name, tokens)
-    VALUES (%s, '%s', '%s', '%s', '_NONAME_', %s);
+    INSERT INTO "Users" (id, first_name, last_name, username, display_name, next_daily, tokens)
+    VALUES (%s, '%s', '%s', '%s', '_NONAME_', 0, %s);
 ]]
 
 local query_get_chat = [[
@@ -305,6 +306,7 @@ function db_Load()
             db_userlist_id[tonumber(var.id)] = var
             db_userlist_id[tonumber(var.id)].tokens = tonumber(db_userlist_id[tonumber(var.id)].tokens)
             db_userlist_id[tonumber(var.id)].referal = tonumber(db_userlist_id[tonumber(var.id)].referal)
+            db_userlist_id[tonumber(var.id)].next_daily = tonumber(db_userlist_id[tonumber(var.id)].next_daily)
         end
         function GetUserFromDB(id)
             return db_userlist_id[id]

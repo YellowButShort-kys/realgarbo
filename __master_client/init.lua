@@ -25,7 +25,7 @@ local function GenerateRandomString(n)
     end
     return str
 end
-local function prettyjson(t)
+function prettyjson(t)
     local minified = master_client.__telelove.json.encode(t)
     
     local newtext = ""
@@ -65,11 +65,24 @@ end
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 local issue_promocode = master_client:NewCommand()
 issue_promocode.command = "issue_promocode"
-issue_promocode.description = "{target tokens}, {name}"
+issue_promocode.description = "{target tokens}, {key=value} (name, oneperuser, singleuse)"
 issue_promocode.__callback = function(user, chat, msg)
     local args = split(msg, " ")
     local target_tokens = args[1]
-    local name = args[2]
+    
+    local name
+    local oneperuser, singleuse = false, false
+    for x = 2, #args do
+        local key, val = unpack(split(args[x], "="))
+        
+        if key == "name" then
+            name = val
+        elseif key == "oneperuser" then
+            oneperuser = val == "true" and true or false
+        elseif key == "singleuse" then
+            singleuse = val == "true" and true or false
+        end
+    end
     if not name then
         while true do
             local s = GenerateRandomString(5)
@@ -81,7 +94,10 @@ issue_promocode.__callback = function(user, chat, msg)
     end
     
     client.promocodes[name] = {
-        tokens = tonumber(target_tokens)
+        tokens = tonumber(target_tokens),
+        singleuse = singleuse,
+        oneperuser = oneperuser,
+        users = {}
     }
     love.filesystem.write(PATH_PROMOCODES, prettyjson(client.promocodes))
     return name
@@ -102,12 +118,24 @@ master_client:RegisterCommand(issue_promocode)
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 local issue_referal = master_client:NewCommand()
 issue_referal.command = "issue_referal"
-issue_referal.description = "{target tokens}, {referal}, {name}"
+issue_referal.description = "{target tokens}, {referal}, {key=value} (name, oneperuser, singleuse)"
 issue_referal.__callback = function(user, chat, msg)
     local args = split(msg, " ")
     local target_tokens = args[1]
     local referal = args[2]
-    local name = args[3]
+    local name
+    local oneperuser, singleuse = false, false
+    for x = 3, #args do
+        local key, val = unpack(split(args[x], "="))
+        
+        if key == "name" then
+            name = val
+        elseif key == "oneperuser" then
+            oneperuser = val == "true" and true or false
+        elseif key == "singleuse" then
+            singleuse = val == "true" and true or false
+        end
+    end
     if not name then
         while true do
             local s = GenerateRandomString(5)
@@ -120,7 +148,10 @@ issue_referal.__callback = function(user, chat, msg)
     
     client.promocodes[name] = {
         tokens = tonumber(target_tokens),
-        referal = tonumber(referal)
+        referal = tonumber(referal),
+        singleuse = singleuse,
+        oneperuser = oneperuser,
+        users = {}
     }
     love.filesystem.write(PATH_PROMOCODES, prettyjson(client.promocodes))
     return name
