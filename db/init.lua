@@ -63,18 +63,16 @@ local query_get_all_chats = [[
 
 local query_check_if_exists = [[
     CREATE TABLE IF NOT EXISTS "%s" (
+        id INTEGER PRIMARY KEY
+    );
+    
+    CREATE TABLE IF NOT EXISTS "%s" (
         id INTEGER PRIMARY KEY,
         role TEXT,
         content TEXT
     );
 ]]
 local query_add_chat =  [[
-    CREATE TABLE IF NOT EXISTS "%s" (
-        id INTEGER PRIMARY KEY,
-        content TEXT,
-        role TEXT
-    );
-     
     INSERT INTO "%s" (
         id,
         role,
@@ -397,16 +395,16 @@ function db_Load()
             db_ram_chats[chat.owner.id][chat.id] = chat
             --table.insert(db_chats_additions, chat)
             local commit = sqlite3.open(PATH_DB_CHATS)
-            commit:execute(query_check_if_exists:format(chat.owner.id))
+            commit:execute(query_check_if_exists:format(chat.owner.id, chat.id .. "_" .. chat.owner.id))
             do 
-                local stmt = commit:prepare(query_add_chat:format(chat.id .. "_" .. chat.owner.id, chat.id .. "_" .. chat.owner.id))
+                local stmt = commit:prepare(query_add_chat:format(chat.id .. "_" .. chat.owner.id))
                 stmt:bind_values(chat.id, "system", chat.char:GetSystem(chat.owner))
                 stmt:step()
                 stmt:finalize()
                 table.insert(chat.content, {id = 1, role = "system", content = chat.char:GetSystem(chat.owner)})
             end
             do 
-                local stmt = commit:prepare(query_add_chat:format(chat.id .. "_" .. chat.owner.id, chat.id .. "_" .. chat.owner.id))
+                local stmt = commit:prepare(query_add_chat:format(chat.id .. "_" .. chat.owner.id))
                 stmt:bind_values(chat.id, "assistant", chat.char:GetGreeting(chat.owner))
                 stmt:step()
                 stmt:finalize()
