@@ -92,8 +92,8 @@ function base:GetFirstMessage(user)
     return (self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name))
 end
 
-function base:GetSystem()
-    return (self.system:gsub("{{user}}", GetUserName()):gsub("{{char}}", self.name))
+function base:GetSystem(user)
+    return (self.system:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name))
 end
 
 return characters
