@@ -415,7 +415,7 @@ function db_Load()
             return chat
         end
         function AppendUserChat(chat, role, str)
-            table.insert(chat.messages, {id = #chat.messages+1, role = role, str = str})
+            table.insert(chat.content, {id = #chat.content+1, role = role, str = str})
             
             local commit = sqlite3.open(PATH_DB_CHATS)
             local stmt = commit:prepare(([[
@@ -424,7 +424,7 @@ function db_Load()
                 VALUES
                 (?, ?, ?);
             ]]):format(chat.id .. "_" .. chat.owner.id))
-            stmt:bind_values(#chat.messages+1, role, str)
+            stmt:bind_values(#chat.content+1, role, str)
             stmt:step()
             stmt:finalize()
             
@@ -432,18 +432,18 @@ function db_Load()
         end
         function RemoveResponseChat(chat, i)
             if i then
-                for x = i, #chat.messages do
-                    table.remove(chat.messages, x)
+                for x = i, #chat.content do
+                    table.remove(chat.content, x)
                 end
             else
-                table.remove(chat.messages)
+                table.remove(chat.content)
             end
             local commit = sqlite3.open(PATH_DB_CHATS)
             local stmt = commit:prepare(([[
                 DELETE FROM "%s" 
                 WHERE id >= ?;
             ]]):format(chat.id .. "_" .. chat.owner.id))
-            stmt:bind_values(i or #chat.messages)
+            stmt:bind_values(i or #chat.content)
             stmt:step()
             stmt:finalize()
             
