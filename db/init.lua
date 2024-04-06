@@ -424,15 +424,16 @@ function db_Load()
                 VALUES
                 (?, ?, ?);
             ]]):format(chat.id .. "_" .. chat.owner.id))
-            stmt:bind_values(#chat.content+1, role, str)
+            stmt:bind_values(#chat.content, role, str)
             stmt:step()
             stmt:finalize()
             
             commit:close() 
         end
         function RemoveResponseChat(chat, i)
+            local size = #chat.content
             if i then
-                for x = i, #chat.content do
+                for x = i, #size do
                     table.remove(chat.content, x)
                 end
             else
@@ -443,7 +444,7 @@ function db_Load()
                 DELETE FROM "%s" 
                 WHERE id >= ?;
             ]]):format(chat.id .. "_" .. chat.owner.id))
-            stmt:bind_values(i or #chat.content)
+            stmt:bind_values(i or size)
             stmt:step()
             stmt:finalize()
             
