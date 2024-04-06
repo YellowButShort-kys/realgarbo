@@ -393,6 +393,7 @@ function db_Load()
         end
         function NewUserChat(chat)
             db_ram_chats[chat.owner.id][chat.id] = chat
+            chat.content = {}
             --table.insert(db_chats_additions, chat)
             local commit = sqlite3.open(PATH_DB_CHATS)
             commit:execute(query_check_if_exists:format(chat.owner.id, chat.id .. "_" .. chat.owner.id))
