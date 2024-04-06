@@ -81,7 +81,7 @@ function base:GetContents()
     for _, var in ipairs(self:GetRawContents()) do
         if var.role == "assistant" then
             str = str .. "### Response:\n"
-            str = str .. self.char:GetName()
+            str = str .. self.char.name
         elseif var.role == "user" then
             str = str .."### Instruction:\n"
             str = str .. GetUserName(self.owner)
