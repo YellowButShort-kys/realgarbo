@@ -399,14 +399,14 @@ function db_Load()
             commit:execute(query_check_if_exists:format(chat.owner.id, chat.id .. "_" .. chat.owner.id))
             do 
                 local stmt = commit:prepare(query_add_chat:format(chat.id .. "_" .. chat.owner.id))
-                stmt:bind_values(chat.id, "system", chat.char:GetSystem(chat.owner))
+                stmt:bind_values(1, "system", chat.char:GetSystem(chat.owner))
                 stmt:step()
                 stmt:finalize()
                 table.insert(chat.content, {id = 1, role = "system", content = chat.char:GetSystem(chat.owner)})
             end
             do 
                 local stmt = commit:prepare(query_add_chat:format(chat.id .. "_" .. chat.owner.id))
-                stmt:bind_values(chat.id, "assistant", chat.char:GetGreeting(chat.owner))
+                stmt:bind_values(2, "assistant", chat.char:GetGreeting(chat.owner))
                 stmt:step()
                 stmt:finalize()
                 table.insert(chat.content, {id = 2, role = "assistant", content = chat.char:GetGreeting(chat.owner)})
