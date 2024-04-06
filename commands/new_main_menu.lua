@@ -71,7 +71,7 @@ function CreateLanguagedMenu(langcode)
                 --chats.DeleteUserChat(query.from, self.owner.char)
                 --client.active_chats[query.from.id] = chats.NewChat(query.from, self.owner.char)
                 client.active_chats[query.from.id] = chats.GetUserChat(query.from, self.owner.char)
-                --client.active_chats[query.from.id]:SetContent(self.owner.char:GetGreeting(query.from))
+                --client.active_chats[query.from.id]:SetContent(self.owner.char:GetStarter(query.from))
                 client.active_chats[query.from.id]:ResetChat()
                 client:EditMessageText(query.message.chat, query.message, telegramformat(translation.Translate(self.owner.char:GetFirstMessage(query.from), "en", langcode)))
             end
@@ -387,7 +387,7 @@ function CreateLanguagedMenu(langcode)
             end
             
             msg.chat:SendChatAction("typing")
-            client.active_chats[msg.from.id]:AppendContent(instruction:format(GetUserName(msg.from), translation.Translate(msg.text, langcode, "en")):gsub("♪", "*"), "user")
+            client.active_chats[msg.from.id]:AppendContent(translation.Translate(msg.text, langcode, "en"):gsub("♪", "*"), "user")
             local new_msg = msg.chat:SendMessage(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
             client.active_chats[msg.from.id].lastmsg = new_msg
             client.active_chats[msg.from.id]:GetResponse(msg.chat, new_msg, msg.from, callback, errcallback)

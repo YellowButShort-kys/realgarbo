@@ -86,7 +86,7 @@ function base:GetContents()
             str = str .."### Instruction:\n"
             str = str .. GetUserName(self.owner) .. ": "
         end
-        str = str .. var.content .. "\n\n"
+        str = str .. (var.content:gsub("{{user}}", GetUserName(self.owner)):gsub("{{char}}", self.char.name)) .. "\n\n"
     end
     return str
 end
@@ -104,7 +104,7 @@ end
 function base:ResetChat()
     self:RemoveLastResponse(0)
     self:AppendContent(self.char:GetSystem(self.owner), "system")
-    self:AppendContent(self.char:GetGreeting(self.owner), "assistant")
+    self:AppendContent(self.char:GetStarter(self.owner), "assistant")
 end
 --[[
 function base:SetContent(str)

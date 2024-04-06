@@ -84,7 +84,7 @@ base.greeting = [[
 *A soft smile appears on {{char}}'s face as {{user}} enters the cafe and takes a seat* *Beep! Boop!* Hello, {{user}}! It's good to see you again. What would you like to chat about?
 ]]
 
-function base:GetGreeting(user)
+function base:GetStarter(user)
     return (self.starter:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name))
 end
 

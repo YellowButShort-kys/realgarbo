@@ -65,6 +65,10 @@ local query_check_if_exists = [[
     CREATE TABLE IF NOT EXISTS "%s" (
         id INTEGER PRIMARY KEY
     );
+    INSERT INTO "%s" (
+        id
+    )
+    VALUES (%s);
     
     CREATE TABLE IF NOT EXISTS "%s" (
         id INTEGER PRIMARY KEY,
@@ -147,7 +151,7 @@ function db_Update(ignore)
             local db = sqlite3.open(PATH_DB_CHATS)
             local commit = {}
             for _, var in ipairs(db_chats_additions) do
-                table.insert(commit, query_add_chat:format(var.owner.id, var.owner.id, var.id, var.char:GetGreeting(var.owner)))
+                table.insert(commit, query_add_chat:format(var.owner.id, var.owner.id, var.id, var.char:GetStarter(var.owner)))
             end
             db:execute(table.concat(commit, "\n\n"))
             db:close()
@@ -396,7 +400,7 @@ function db_Load()
             chat.content = {}
             --table.insert(db_chats_additions, chat)
             local commit = sqlite3.open(PATH_DB_CHATS)
-            commit:execute(query_check_if_exists:format(chat.owner.id, chat.id .. "_" .. chat.owner.id))
+            commit:execute(query_check_if_exists:format(chat.owner.id, chat.owner.id, chat.id, chat.id .. "_" .. chat.owner.id))
             do 
                 local stmt = commit:prepare(query_add_chat:format(chat.id .. "_" .. chat.owner.id))
                 stmt:bind_values(1, "system", chat.char:GetSystem(chat.owner))
@@ -406,11 +410,15 @@ function db_Load()
             end
             do 
                 local stmt = commit:prepare(query_add_chat:format(chat.id .. "_" .. chat.owner.id))
-                stmt:bind_values(2, "assistant", chat.char:GetGreeting(chat.owner))
+                stmt:bind_values(2, "system", chat.char:GetStarter(chat.owner))
                 stmt:step()
                 stmt:finalize()
-                table.insert(chat.content, {id = 2, role = "assistant", content = chat.char:GetGreeting(chat.owner)})
+                table.insert(chat.content, {id = 2, role = "system", content = chat.char:GetStarter(chat.owner)})
             end
+            for _, var in ipairs(chat.char.history) do
+                chat:AppendContent(var.content, var.role)
+            end
+            
             commit:close()
             return chat
         end
