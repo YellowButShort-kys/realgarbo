@@ -66,7 +66,6 @@ function base:__new(owner, char)
     self.owner = owner
     self.id = char.id
     self.char = char
-    self.content = char:GetGreeting(owner)
     return self
 end
 function base:__load(owner, id, char, content)
@@ -78,17 +77,42 @@ function base:__load(owner, id, char, content)
 end
 
 function base:GetContents()
+    local str = ""
+    for _, var in ipairs(self:GetRawContents()) do
+        if var.role == "assistant" then
+            str = str .. "### Response:\n"
+            str = str .. self.char:GetName()
+        elseif var.role == "user" then
+            str = str .."### Instruction:\n"
+            str = str .. self.owner:GetUserName()
+        end
+        str = str .. var.content .. "\n\n"
+    end
+    return str
+end
+function base:GetRawContents()
     return self.content
 end
 
-function base:AppendContent(str)
+function base:AppendContent(str, role)
+    AppendUserChat(self, role, str)
+    --[[
     self.content = self.content .. str
     ChangeUserChat(self)
+    ]]
 end
+function base:ResetChat()
+    self:RemoveLastResponse(0)
+    self:AppendContent(self.char:GetSystem(self.owner), "system")
+    self:AppendContent(self.char:GetGreeting(self.owner), "assistant")
+end
+--[[
 function base:SetContent(str)
     self.content = str
     ChangeUserChat(self)
 end
+]]
+--[[
 function base:RemoveLastResponse()
     local str = self:GetContents()
     --FIX: that shit is brokey
@@ -106,11 +130,15 @@ function base:GetLastResponse()
         return characters.GetCharacter(self.id):GetFirstMessage(self.owner)
     end
 end
+]]
+function base:RemoveLastResponse(i)
+    RemoveResponseChat(self, i)
+end
+function base:GetLastResponse()
+    return self.content[#self.content]
+end
 
 function base:GetResponse(chat, msg, user, callback, errcallback)
-    self:AppendContent(([[
-### Response:
-%s:]]):format(self.char.name))
     self.task = horde.Generate(self:GetContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)})
 end
 

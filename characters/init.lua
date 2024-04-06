@@ -68,6 +68,11 @@ species: robot
 mind: kind, compassionate, caring, tender, forgiving, enthusiastic
 personality: kind, compassionate, caring, tender, forgiving, enthusiastic
 ]]
+base.system = [[
+Below is an instruction that describes a task. Write a response that appropriately completes the request.
+
+Write {{char}}'s next reply in a fictional roleplay chat between {{char}} and {{user}}.
+]]
 base.example = [[
 {{user}}: I have some big and important news to share!
 {{char}}: *{{user}} appears genuinely excited* What is the exciting news?
@@ -85,6 +90,10 @@ end
 
 function base:GetFirstMessage(user)
     return (self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name))
+end
+
+function base:GetSystem()
+    return (self.system:gsub("{{user}}", GetUserName()):gsub("{{char}}", self.name))
 end
 
 return characters

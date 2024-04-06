@@ -45,25 +45,36 @@ local query_add_userlist =  [[
 ]]
 
 local query_get_chat = [[
-    CREATE TABLE IF NOT EXISTS "%s" (
+    CREATE TABLE IF NOT EXISTS "%s_%s" (
         id INTEGER PRIMARY KEY,
-        content TEXT
+        content TEXT,
+        role TEXT
+    );
+
+    SELECT * FROM ("%s_%s");
+]]
+local query_get_all_chats = [[
+    CREATE TABLE IF NOT EXISTS "%s" (
+        id INTEGER PRIMARY KEY
     );
 
     SELECT * FROM ("%s");
 ]]
+
 local query_check_if_exists = [[
     CREATE TABLE IF NOT EXISTS "%s" (
         id INTEGER PRIMARY KEY,
+        role TEXT,
         content TEXT
     );
 ]]
 local query_add_chat =  [[ 
     INSERT INTO "%s" (
         id,
+        role,
         content
     )
-    VALUES (?, ?);
+    VALUES (?, ?, ?);
 ]]
 local query_set_chat = [[
     UPDATE "%s" 
@@ -357,13 +368,17 @@ function db_Load()
         local db = sqlite3.open(PATH_DB_CHATS)
         local db_ram_chats = {}
         for _, var in ipairs(GetAllUsers()) do
-            local t = db:execute(query_get_chat:format(var.id, var.id)) or {}
+            local t = db:execute(query_get_all_chats:format(var.id, var.id)) or {}
             db_ram_chats[tonumber(var.id)] = {}
             for i, chat in pairs(t) do
+                local contents = db:execute(query_get_chat:format(chat.id, var.id, chat.id, var.id)) or {}
                 chat.id = tonumber(chat.id)
-                db_ram_chats[tonumber(var.id)][chat.id] = chats.SetMetatable(chat)
-                db_ram_chats[tonumber(var.id)][chat.id].char = characters.GetCharacter(db_ram_chats[tonumber(var.id)][chat.id].id)
-                db_ram_chats[tonumber(var.id)][chat.id].owner = var
+                --db_ram_chats[tonumber(var.id)][chat.id] = chats.SetMetatable(chat)
+                db_ram_chats[tonumber(var.id)][chat.id] = {
+                    char = characters.GetCharacter(db_ram_chats[tonumber(var.id)][chat.id].id),
+                    owner = var,
+                    content = contents
+                }
             end
         end
         function GetUserChat(owner, char)
@@ -377,13 +392,60 @@ function db_Load()
             --table.insert(db_chats_additions, chat)
             local commit = sqlite3.open(PATH_DB_CHATS)
             commit:execute(query_check_if_exists:format(chat.owner.id))
-            local stmt = commit:prepare(query_add_chat:format(chat.owner.id))
-            stmt:bind_values(chat.id, chat.char:GetGreeting(chat.owner))
-            stmt:step()
-            stmt:finalize()
+            do 
+                local stmt = commit:prepare(query_add_chat:format(chat.id .. "_" .. chat.owner.id))
+                stmt:bind_values(chat.id, "system", chat.char:GetSystem(chat.owner))
+                stmt:step()
+                stmt:finalize()
+                table.insert(chat.content, {id = 1, role = "system", content = chat.char:GetSystem(chat.owner)})
+            end
+            do 
+                local stmt = commit:prepare(query_add_chat:format(chat.id .. "_" .. chat.owner.id))
+                stmt:bind_values(chat.id, "assistant", chat.char:GetGreeting(chat.owner))
+                stmt:step()
+                stmt:finalize()
+                table.insert(chat.content, {id = 2, role = "assistant", content = chat.char:GetGreeting(chat.owner)})
+            end
             commit:close()
             return chat
         end
+        function AppendUserChat(chat, role, str)
+            table.insert(chat.messages, {id = #chat.messages+1, role = role, str = str})
+            
+            local commit = sqlite3.open(PATH_DB_CHATS)
+            local stmt = commit:prepare(([[
+                INSERT INTO "%s" 
+                (id, role, content)
+                VALUES
+                (?, ?, ?);
+            ]]):format(chat.id .. "_" .. chat.owner.id))
+            stmt:bind_values(#chat.messages+1, role, str)
+            stmt:step()
+            stmt:finalize()
+            
+            commit:close() 
+        end
+        function RemoveResponseChat(chat, i)
+            if i then
+                for x = i, #chat.messages do
+                    table.remove(chat.messages, x)
+                end
+            else
+                table.remove(chat.messages)
+            end
+            local commit = sqlite3.open(PATH_DB_CHATS)
+            local stmt = commit:prepare(([[
+                DELETE FROM "%s" 
+                WHERE id >= ?;
+            ]]):format(chat.id .. "_" .. chat.owner.id))
+            stmt:bind_values(i or #chat.messages)
+            stmt:step()
+            stmt:finalize()
+            
+            commit:close() 
+        end
+        --[=[
+        --TODO: REMOVE THIS 
         function ChangeUserChat(chat)
             --table.insert(db_chats_changes, chat)
             
@@ -402,6 +464,7 @@ function db_Load()
             commit:close()
             
         end
+        ]=]
         db:close()
     end
 end
