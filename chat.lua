@@ -84,7 +84,7 @@ function base:GetContents()
             str = str .. self.char:GetName()
         elseif var.role == "user" then
             str = str .."### Instruction:\n"
-            str = str .. self.owner:GetUserName()
+            str = str .. GetUserName(self.owner)
         end
         str = str .. var.content .. "\n\n"
     end
