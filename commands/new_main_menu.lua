@@ -112,14 +112,14 @@ function CreateLanguagedMenu(langcode)
             local back = client:NewInlineKeyboardButton()
             back.text = LANG[langcode]["$NEW_CHAR_BACK"]
             back.callback = function(self, query)
-                client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], ikm)
+                client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$NEW_CHAR_MSG"], ikm)
             end
             table.insert(tagikm.inline_keyboard, {back})
             
             local button = client:NewInlineKeyboardButton()
             button.text = tag
             button.callback = function(self, query)
-                client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], tagikm)
+                client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$NEW_CHAR_MSG"], tagikm)
             end
             table.insert(btns, button)
         end
