@@ -123,6 +123,7 @@ function CreateLanguagedMenu(langcode)
             end
             table.insert(btns, button)
         end
+        local counter = 1
         while true do
             if not btns[counter] then break end
             table.insert(ikm.inline_keyboard, {
