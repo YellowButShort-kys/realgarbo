@@ -1,6 +1,7 @@
 local characters = {}
 local hub = {}
 local hub_tags = {}
+local tags = {}
 local base = {}
 
 function characters.LoadCharacters()
@@ -25,15 +26,24 @@ hub[7] = setmetatable(require(... .. ".anime_aqua"), {__index = base})
 hub[8] = setmetatable(require(... .. ".games_alyx"), {__index = base})
 hub[9] = setmetatable(require(... .. ".anime_tamamo"), {__index = base})
 
+local _tags = {}
 for _, var in ipairs(hub) do
     for _, tag in ipairs(var.tags) do
         if not hub_tags[tag] then hub_tags[tag] = {} end
+        if not _tags[tag] then _tags[tag] = true end
         table.insert(hub_tags[tag], var)
     end
 end
+for i, var in pairs(_tags) do
+    table.insert(tags, i)
+end
+_tags = nil
 
 function characters.GetTagged()
     return hub_tags
+end
+function characters.GetTags()
+    return tags
 end
 
 -------------------------------------------------------------
@@ -94,6 +104,14 @@ end
 
 function base:GetSystem(user)
     return (self.system:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name))
+end
+
+function base:GetHistory()
+    return self.history
+end
+
+function base:GetName()
+    return self.name
 end
 
 return characters

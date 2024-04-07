@@ -86,17 +86,49 @@ function CreateLanguagedMenu(langcode)
             
             btn_select.rewrite = client:NewInlineKeyboardMarkup()
             btn_select.rewrite.inline_keyboard = {{btn_back, btn_rewrite_confirm}}
-            table.insert(chars, button_more)
+            for _, tag in ipairs(var.tags) do
+                if not chars[tag] then
+                    chars[tag] = {}
+                end
+                table.insert(chars[tag], button_more)
+            end
         end
         
+        
         local ikm = client:NewInlineKeyboardMarkup()
-        local counter = 1
+        local btns = {}
+        for tag, var in pairs(chars) do
+            local tagikm = client:NewInlineKeyboardMarkup()
+            local counter = 1
+            while true do
+                if not var[counter] then break end
+                table.insert(tagikm.inline_keyboard, {
+                    var[counter],
+                    var[counter+1],
+                    var[counter+2],
+                })
+                counter = counter + 3
+            end
+            local back = client:NewInlineKeyboardButton()
+            back.text = LANG[langcode]["$NEW_CHAR_BACK"]
+            back.callback = function(self, query)
+                client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], ikm)
+            end
+            table.insert(tagikm.inline_keyboard, {back})
+            
+            local button = client:NewInlineKeyboardButton()
+            button.text = tag
+            button.callback = function(self, query)
+                client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], tagikm)
+            end
+            table.insert(btns, button)
+        end
         while true do
-            if not chars[counter] then break end
+            if not btns[counter] then break end
             table.insert(ikm.inline_keyboard, {
-                chars[counter],
-                chars[counter+1],
-                chars[counter+2],
+                btns[counter],
+                btns[counter+1],
+                btns[counter+2],
             })
             counter = counter + 3
         end
