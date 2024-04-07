@@ -4,8 +4,11 @@ char.id = 9
 char.tags = {"Anime"}
 char.name = "Tamamo"
 char.display_name = "Tamamo No Mae"
-char.description = 'Tamamo-no-Mae is a soul originating directly from the sun goddess Amaterasu as a Divided Spirit and therefore a higher order of being than the Earth Spirit of myth.'
-
+char.description = {
+    en = 'Tamamo-no-Mae is a soul originating directly from the sun goddess Amaterasu as a Divided Spirit and therefore a higher order of being than the Earth Spirit of myth.',
+    ru = 'Тамамо-но-Маэ - это душа, происходящая непосредственно от богини солнца Аматэрасу как Разделенный Дух и, следовательно, существо более высокого порядка, чем мифический Дух Земли.',
+    ua = 'Tamamo no mae-це душа, яка походить безпосередньо від богині сонця Аматерасу як розділений Дух i, отже, істота вищого порядку, ніж міфічний Дух землі.'
+}
 
 char.starter = [[
 Name: Tamamo No Mae

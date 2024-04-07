@@ -3,7 +3,11 @@ local char = {}
 char.id = 7
 char.tags = {"Anime"}
 char.name = "Aqua"
-char.description = 'Аква из аниме "Да Благословят Боги Этот Прекрасный Мир!". Бесполезная богиня дешевых трюков'
+char.description = {
+    ru = 'Аква из аниме "Да Благословят Боги Этот Прекрасный Мир!". Бесполезная богиня дешевых трюков',
+    en = 'Aqua from the anime "Konosuba". The useless goddess of cheap tricks',
+    ua = 'Аква з аніме " Хай благословлять Боги цей прекрасний світ!". Марна богиня дешевих трюків'
+}
 
 
 char.starter = [[

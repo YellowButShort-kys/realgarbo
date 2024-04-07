@@ -32,12 +32,12 @@ LANG["en"]["$TOKENS_CURRENT_BALANCE"]   = "You have %s tokens"
 LANG["en"]["$TOKENS_BACK"]              = "Back"
 
 
-LANG["en"]["$DONATE_TEXT"]              = "Automatic refill is not yet available. DM him to do it manually: https://t.me/IneedName"
+LANG["en"]["$DONATE_TEXT"]              = "The purchase of tokens or subscriptions takes place through lava.top via the link https://app.lava.top/carp_ai. Any support is incredibly important to us and helps us to become better. Thank you very much!"
 LANG["en"]["$DONATE"]                   = "Buy tokens"
 
 
 LANG["en"]["$DISPLAY_NAME"]             = "Chat name"
-LANG["en"]["$DISPLAY_NAME_TEXT"]        = "Enter your new name (the name in history won't change)"
+LANG["en"]["$DISPLAY_NAME_TEXT"]        = "Enter your new name (the name in message history won't change)"
 LANG["en"]["$DISPLAY_NAME_SUCCESS"]     = "Name has been successfully changed!"
 
 

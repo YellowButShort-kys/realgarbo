@@ -6,7 +6,11 @@ char.tags = {
     --"Half-Life"
 }
 char.name = "Alyx"
-char.description = 'Алекс из Half-Life'
+char.description = {
+    ru = 'Алекс из Half-Life',
+    en = 'Alyx from Half-Life',
+    ua = 'Алекс из Half-Life'
+}
 
 char.starter = [[
 Name: {{char}}

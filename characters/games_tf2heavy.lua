@@ -4,7 +4,11 @@ char.id = 4
 char.tags = {"Games", "Meme"}
 char.name = "Heavy"
 char.display_name = "TF2: Heavy"
-char.description = 'Хевик из Team Fortress 2. Я устал писать описания после мегумина'
+char.description = {
+    ru = 'Хевик из Team Fortress 2.',
+    en = 'Heavy from Team Fortress 2.',
+    ua = 'Хевик из Team Fortress 2.'
+}
 
 char.starter = [[
 The Heavy Weapons Guy, better known as "the Heavy", is a class character from the first person shooter Team Fortress 2.

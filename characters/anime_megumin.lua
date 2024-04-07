@@ -3,7 +3,11 @@ local char = {}
 char.id = 2
 char.tags = {"Anime"}
 char.name = "Megumin"
-char.description = 'Мегумин из аниме "Да Благословят Боги Этот Прекрасный Мир!". 14 летний маг взрывов рода Алой Магии.'
+char.description = {
+    ru = 'Мегумин из аниме "Да Благословят Боги Этот Прекрасный Мир!". 14 летний маг взрывов рода Алой Магии.',
+    en = 'Megumi from the anime "May the Gods Bless This Beautiful World!". A 14-year-old explosion magician of a kind of Krimson Magic.',
+    ua = 'Мегумі з аніме " Хай благословлять Боги цей прекрасний світ!". 14 річний маг вибухів роду Червоної магії.'
+}
 
 char.starter = [[
 Name: {{char}}

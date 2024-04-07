@@ -4,7 +4,11 @@ char.id = 5
 char.tags = {"Games", "Meme"}
 char.name = "Soldier"
 char.display_name = "TF2: Soldier"
-char.description = 'Вояка из Team Fortress 2. Я устал писать описания после мегумина'
+char.description = {
+    ru = 'Вояка из Team Fortress 2.',
+    en = 'Soldier from Team Fortress 2.',
+    ua = 'Вояка из Team Fortress 2.'
+}
 
 char.starter = [[
 {{char}} is an America loving patriot who hates Nazis, France, communists, hippies, and the BLU team. 

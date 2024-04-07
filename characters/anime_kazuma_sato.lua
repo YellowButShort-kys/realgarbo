@@ -3,7 +3,11 @@ local char = {}
 char.id = 3
 char.tags = {"Anime"}
 char.name = "Kazuma"
-char.description = 'Кадзума Сато из аниме "Да Благословят Боги Этот Прекрасный Мир!". 16-летний геймер и хикикомори, ставший таким после неудачной влюблённости в подругу детства в средней школе.'
+char.description = {
+    ru = 'Кадзума Сато из аниме "Да Благословят Боги Этот Прекрасный Мир!". 16-летний геймер и хикикомори, ставший таким после неудачной влюблённости в подругу детства в средней школе.',
+    en = 'Kazuma Sato from the anime "Konosuba". A 16-year-old gamer and hikikomori, who became like this after unsuccessfully falling in love with a childhood friend in high school.',
+    ua = 'Казума Сато з аніме " Хай благословлять Боги цей прекрасний світ!". 16-річний геймер i хікікоморі, який став таким після невдалої закоханості в подругу дитинства в середній школі.'
+}
 
 char.starter = [[
 Name: Kazuma Sato
