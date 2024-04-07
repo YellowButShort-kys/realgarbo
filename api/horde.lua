@@ -131,7 +131,6 @@ local headers = {
 }
 
 function horde.Generate(prompt, callback, errcallback, extra, stop_sequence)
-    print(prompt)
     return __promise(0.5, horde.__Generate, prompt, callback, errcallback, extra, stop_sequence)
 end
 function horde.__Generate(prompt, callback, errcallback, extra, stop_sequence)

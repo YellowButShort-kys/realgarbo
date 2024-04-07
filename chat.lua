@@ -139,7 +139,7 @@ function base:GetLastResponse()
 end
 
 function base:GetResponse(chat, msg, user, callback, errcallback)
-    self.task = horde.Generate(self:GetContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)})
+    self.task = horde.Generate(self:GetContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
 end
 
 return chats
