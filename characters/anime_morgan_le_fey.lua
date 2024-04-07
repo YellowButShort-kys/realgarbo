@@ -3,6 +3,11 @@ local char = {}
 char.id = 6
 char.tags = {"Anime"}
 char.name = "Morgan Le Fey"
+char.display_name = {
+    ru = "Морган Ле Фей",
+    en = "Morgan Le Fey",
+    ua = "Морган Ле Фей",
+}
 char.description = {
     ru = 'Морган из аниме "Fate". Суровая королева Великобритании.',
     en = 'Morgan from the anime "Fate". The stern Queen of Great Britain.',

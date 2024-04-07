@@ -6,6 +6,11 @@ char.tags = {
     --"Half-Life"
 }
 char.name = "Alyx"
+char.display_name = {
+    ru = "Алекс",
+    en = "Alyx",
+    ua = "Алекс",
+}
 char.description = {
     ru = 'Алекс из Half-Life',
     en = 'Alyx from Half-Life',

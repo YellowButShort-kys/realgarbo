@@ -3,7 +3,11 @@ local char = {}
 char.id = 4
 char.tags = {"Games", "Meme"}
 char.name = "Heavy"
-char.display_name = "TF2: Heavy"
+char.display_name = {
+    ru = "TF2: Хевик",
+    en = "TF2: Heavy",
+    ua = "TF2: Хевик",
+}
 char.description = {
     ru = 'Хевик из Team Fortress 2.',
     en = 'Heavy from Team Fortress 2.',

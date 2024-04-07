@@ -2,6 +2,11 @@ local char = {}
 
 char.id = 1
 char.name = "Mia"
+char.display_name = {
+    ru = "Миа",
+    en = "Mia",
+    ua = "Миа",
+}
 char.description = {
     ru = "Вы едете домой после тяжелого рабочего дня. Вдруг, вы замечаете симпатичную девушку рядом. Это шанс?",
     en = "You are going home after a hard day's work. Suddenly, you notice a pretty girl next to you. Is this a chance?",

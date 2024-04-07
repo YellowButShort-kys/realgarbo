@@ -42,10 +42,10 @@ function CreateLanguagedMenu(langcode)
         local chars = {}
         for _, var in ipairs(characters.GetHub()) do
             local button_more = client:NewInlineKeyboardButton()
-            button_more.text = var.name
+            button_more.text = var.display_name[langcode] or var.name
             button_more.char = var
             button_more.callback = function(self, query)
-                client:EditMessageText(query.message.chat, query.message, self.char.name..":\n"..self.char.description[langcode], self.ikm)
+                client:EditMessageText(query.message.chat, query.message, var.display_name[langcode] or var.name..":\n"..var.description[langcode], self.ikm)
             end
             
             
@@ -201,6 +201,34 @@ function CreateLanguagedMenu(langcode)
         end
     end
     
+    ------------------------------------------------------------------------
+    ------------------------------- PROFILE --------------------------------
+    ------------------------------------------------------------------------
+
+    do
+        local back = client:NewInlineKeyboardButton()
+        back.text = LANG[langcode]["$TOKENS_BACK"]
+        back.callback = function(self, query)
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], menu)
+            client.promocode_enter[query.from.id] = nil
+        end
+        
+        my_tokens.text = LANG[langcode]["$TOKENS"]
+        my_tokens.callback = function(self, query)
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$TOKENS_CURRENT_BALANCE"]:format(GetUserFromDB(query.from.id).tokens), {inline_keyboard = {{back}}})
+        end
+        
+        donate.text = LANG[langcode]["$DONATE"]
+        donate.callback = function(self, query)
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_TEXT"], {inline_keyboard = {{back}}})
+        end
+        
+        promocode.text = LANG[langcode]["$PROMOCODE"]
+        promocode.callback = function(self, query)
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$PROMOCODE_TEXT"], {inline_keyboard = {{back}}})
+            client.promocode_enter[query.from.id] = query.message
+        end
+    end
     
     -----------------------------------------------------------------------
     ------------------------------- TOKENS --------------------------------

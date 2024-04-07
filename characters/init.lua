@@ -16,15 +16,18 @@ function characters.GetHub()
     return hub
 end
 
-hub[1] = setmetatable(require(... .. ".person_mia"), {__index = base})
-hub[2] = setmetatable(require(... .. ".anime_megumin"), {__index = base})
-hub[3] = setmetatable(require(... .. ".anime_kazuma_sato"), {__index = base})
-hub[4] = setmetatable(require(... .. ".games_tf2heavy"), {__index = base})
-hub[5] = setmetatable(require(... .. ".games_tf2soldier"), {__index = base})
-hub[6] = setmetatable(require(... .. ".anime_morgan_le_fey"), {__index = base})
-hub[7] = setmetatable(require(... .. ".anime_aqua"), {__index = base})
-hub[8] = setmetatable(require(... .. ".games_alyx"), {__index = base})
-hub[9] = setmetatable(require(... .. ".anime_tamamo"), {__index = base})
+hub[1]  = setmetatable(require(... .. ".person_mia"), {__index = base})
+hub[2]  = setmetatable(require(... .. ".anime_megumin"), {__index = base})
+hub[3]  = setmetatable(require(... .. ".anime_kazuma_sato"), {__index = base})
+hub[4]  = setmetatable(require(... .. ".games_tf2heavy"), {__index = base})
+hub[5]  = setmetatable(require(... .. ".games_tf2soldier"), {__index = base})
+hub[6]  = setmetatable(require(... .. ".anime_morgan_le_fey"), {__index = base})
+hub[7]  = setmetatable(require(... .. ".anime_aqua"), {__index = base})
+hub[8]  = setmetatable(require(... .. ".games_alyx"), {__index = base})
+hub[9]  = setmetatable(require(... .. ".anime_tamamo"), {__index = base})
+hub[10] = setmetatable(require(... .. ".helper_creativity"), {__index = base})
+hub[11] = setmetatable(require(... .. ".helper_elisa"), {__index = base})
+hub[12] = setmetatable(require(... .. ".games_dante"), {__index = base})
 
 local _tags = {}
 for _, var in ipairs(hub) do
