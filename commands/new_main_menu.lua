@@ -230,35 +230,6 @@ function CreateLanguagedMenu(langcode)
         end
     end
     
-    -----------------------------------------------------------------------
-    ------------------------------- TOKENS --------------------------------
-    -----------------------------------------------------------------------
-
-    do
-        local back = client:NewInlineKeyboardButton()
-        back.text = LANG[langcode]["$TOKENS_BACK"]
-        back.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], menu)
-            client.promocode_enter[query.from.id] = nil
-        end
-        
-        my_tokens.text = LANG[langcode]["$TOKENS"]
-        my_tokens.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$TOKENS_CURRENT_BALANCE"]:format(GetUserFromDB(query.from.id).tokens), {inline_keyboard = {{back}}})
-        end
-        
-        donate.text = LANG[langcode]["$DONATE"]
-        donate.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_TEXT"], {inline_keyboard = {{back}}})
-        end
-        
-        promocode.text = LANG[langcode]["$PROMOCODE"]
-        promocode.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$PROMOCODE_TEXT"], {inline_keyboard = {{back}}})
-            client.promocode_enter[query.from.id] = query.message
-        end
-    end
-    
     
     -----------------------------------------------------------------------
     ---------------------------- DISPLAY NAME -----------------------------
