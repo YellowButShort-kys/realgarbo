@@ -12,7 +12,7 @@ app = Flask(__name__)
 def webhook():
     data = request.get_json()
     print('Received data: ', data)
-    r = requests.post("https://translate.api.cloud.yandex.net/translate/v2/translate", json={r"sourceLanguageCode": r"ru",r"targetLanguageCode": r"en",r"texts": [data["ToTranslate"]],r"folderId": r"b1g15f5au931q1a4dqve"}, headers=headers).json()["translations"][0]
+    r = requests.post("https://translate.api.cloud.yandex.net/translate/v2/translate", json={r"sourceLanguageCode": r"ru",r"targetLanguageCode": r"en",r"texts": [data["ToTranslate"]],r"folderId": r"b1g15f5au931q1a4dqve"}, headers=headers).json()["translations"][0]["text"]
     return jsonify({"Translated": r})
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
