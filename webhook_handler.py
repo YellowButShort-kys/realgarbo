@@ -20,4 +20,4 @@ def webhook():
     }, headers=headers).json()["translations"][0]["text"]
     return jsonify()
 if __name__ == '__main__':
-    app.run(host="158.160.153.133", debug=True)
+    app.run(host="158.160.153.133:5000", debug=True)
