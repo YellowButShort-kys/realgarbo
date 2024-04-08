@@ -15,9 +15,9 @@ def webhook():
     r = requests.post("https://translate.api.cloud.yandex.net/translate/v2/translate", data={
         "sourceLanguageCode": "ru",
         "targetLanguageCode": "en",
-        "texts": [str],
+        "texts": [data["ToTranslate"]],
         "folderId": "b1g15f5au931q1a4dqve",
     }, headers=headers).json()["translations"][0]["text"]
-    return jsonify(r)
+    return jsonify({"Translated": r})
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
