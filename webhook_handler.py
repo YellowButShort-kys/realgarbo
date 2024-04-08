@@ -17,7 +17,7 @@ def webhook():
         "targetLanguageCode": "en",
         "texts": [data["ToTranslate"]],
         "folderId": "b1g15f5au931q1a4dqve",
-    }, headers=headers).json()["translations"][0]["text"]
+    }, headers=headers).json()
     return jsonify({"Translated": r})
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
