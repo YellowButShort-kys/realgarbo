@@ -18,6 +18,6 @@ def webhook():
         "texts": [str],
         "folderId": "b1g15f5au931q1a4dqve",
     }, headers=headers).json()["translations"][0]["text"]
-    return jsonify()
+    return jsonify(r)
 if __name__ == '__main__':
-    app.run(host="158.160.153.133:5000", debug=True)
+    app.run(host="0.0.0.0", debug=True)
