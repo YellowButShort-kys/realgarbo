@@ -425,9 +425,10 @@ function db_Load()
             return chat
         end
         function AppendUserChat(chat, role, str)
+            print()
             print("AppendUserChat", chat, role, str)
             table.insert(chat.content, {id = #chat.content+1, role = role, content = str})
-            
+            prettyprint(chat.content)
             local commit = sqlite3.open(PATH_DB_CHATS)
             local stmt = commit:prepare(([[
                 INSERT INTO "%s" 
@@ -436,7 +437,7 @@ function db_Load()
                 (?, ?, ?);
             ]]):format(chat.id .. "_" .. chat.owner.id))
             stmt:bind_values(#chat.content, role, str)
-            stmt:step()
+            print(stmt:step())
             print(stmt:finalize())
             
             commit:close() 
