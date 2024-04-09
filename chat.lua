@@ -136,7 +136,7 @@ end
 function base:ResetChat()
     self:RemoveLastResponse(0)
     self:AppendContent(self.char:GetSystem(self.owner), "system")
-    self:AppendContent(self.char:GetStarter(self.owner), "assistant")
+    self:AppendContent(self.char:GetStarter(self.owner), "system")
 end
 --[[
 function base:SetContent(str)
