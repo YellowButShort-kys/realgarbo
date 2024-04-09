@@ -288,17 +288,16 @@ function CreateLanguagedMenu(langcode)
         local chat, another_chat, msg, user = task.extra[1], task.extra[2], task.extra[3], task.extra[4]
         local translated_text = telegramformat(translation.Translate(text, "en", langcode))
         another_chat.task = nil
-        if translated_text:len() > 3 then
+        --if translated_text:len() > 3 then
             msg:EditMessageText(translated_text, ikm)
             another_chat:AppendContent(text, "assistant")
             
             UpdateUserToDB(user.id, "tokens", GetUserFromDB(user.id).tokens - task.kudos)
             AVG_KUDOS_PRICE = AVG_KUDOS_PRICE + task.kudos
             AVG_KUDOS_PRICE_N = AVG_KUDOS_PRICE_N + 1
-        else
-            client.active_chats[user.id]:RemoveLastResponse()
-            client.active_chats[user.id]:GetResponse(chat, client.active_chats[user.id].lastmsg, user, callback, errcallback)
-        end
+        --else
+        --    client.active_chats[user.id]:GetResponse(chat, client.active_chats[user.id].lastmsg, user, callback, errcallback)
+        --end
     end
     function errcallback(task, errmsg)
         local chat, another_chat, msg, user = task.extra[1], task.extra[2], task.extra[3], task.extra[4]
