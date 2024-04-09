@@ -110,7 +110,7 @@ local function __promise(retryafter, f, count, ...)
     local r = f(...)
     if not r then
         love.timer.sleep(retryafter)
-        __promise(nil, f, ...)
+        __promise(retryafter, f, count, ...)
     end
     return r
 end
@@ -135,7 +135,7 @@ local headers = {
 }
 
 function horde.Generate(prompt, callback, errcallback, extra, stop_sequence)
-    local res = __promise(0.1, horde.__Generate, 0, prompt, callback, errcallback, extra, stop_sequence)
+    local res = __promise(0.05, horde.__Generate, 0, prompt, callback, errcallback, extra, stop_sequence)
     if res then
         return res
     else
