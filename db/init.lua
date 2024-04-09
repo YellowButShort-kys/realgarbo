@@ -444,13 +444,17 @@ function db_Load()
             commit:close() 
         end
         function RemoveResponseChat(chat, i)
-            local size = #chat.content or 0
-            if i then
-                for x = size, i do
-                    table.remove(chat.content, x)
-                end
+            if i == 0 then
+                chat.content = {}
             else
-                table.remove(chat.content)
+                local size = #chat.content or 0
+                if i then
+                    for x = size, i do
+                        table.remove(chat.content, x)
+                    end
+                else
+                    table.remove(chat.content)
+                end
             end
             local commit = sqlite3.open(PATH_DB_CHATS)
             commit:execute(([[
