@@ -453,13 +453,10 @@ function db_Load()
                 table.remove(chat.content)
             end
             local commit = sqlite3.open(PATH_DB_CHATS)
-            local stmt = commit:prepare(([[
+            commit:execute(([[
                 DELETE FROM "%s" 
-                WHERE id >= ?;
-            ]]):format(chat.id .. "_" .. chat.owner.id))
-            stmt:bind_values(i or size)
-            stmt:step()
-            stmt:finalize()
+                WHERE id >= %s;
+            ]]):format(chat.id .. "_" .. chat.owner.id, i or size))
             
             commit:close() 
         end
