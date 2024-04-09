@@ -428,6 +428,7 @@ function db_Load()
             print()
             print("AppendUserChat", chat, role)
             table.insert(chat.content, {id = #chat.content+1, role = role, content = str})
+            print("ID: ", chat.content[#chat.content].id)
             local commit = sqlite3.open(PATH_DB_CHATS)
             local stmt = commit:prepare(([[
                 INSERT INTO "%s" 
