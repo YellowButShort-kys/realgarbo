@@ -101,7 +101,11 @@ local payload = {
     ["dry_run"] = false,
     ["disable_batching"] = false
 }
-local function __promise(retryafter, f, ...)
+local function __promise(retryafter, f, count, ...)
+    if count >= 24 then
+        return false
+    end
+    count = count + 1
     retryafter = retryafter or 0.1
     local r = f(...)
     if not r then
@@ -131,7 +135,12 @@ local headers = {
 }
 
 function horde.Generate(prompt, callback, errcallback, extra, stop_sequence)
-    return __promise(0.5, horde.__Generate, prompt, callback, errcallback, extra, stop_sequence)
+    local res = __promise(0.1, horde.__Generate, 0, prompt, callback, errcallback, extra, stop_sequence)
+    if res then
+        return res
+    else
+        errcallback("Timedout") 
+    end
 end
 function horde.__Generate(prompt, callback, errcallback, extra, stop_sequence)
     local task = {}

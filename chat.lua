@@ -76,19 +76,51 @@ function base:__load(owner, id, char, content)
     return self
 end
 
-function base:GetContents()
-    local str = ""
-    for _, var in ipairs(self:GetRawContents()) do
-        if var.role == "assistant" then
-            str = str .. "### Response:\n"
-            str = str .. self.char.name .. ": "
-        elseif var.role == "user" then
-            str = str .."### Instruction:\n"
-            str = str .. GetUserName(self.owner) .. ": "
+function base:GetContents(limit)
+    if limit then
+        local t = {}
+        local current = 0
+        for _, var in ipairs(self:GetRawContents()) do
+            local str = ""
+            if var.role == "assistant" then
+                str = str .. "### Response:\n"
+                str = str .. self.char.name .. ": "
+            elseif var.role == "user" then
+                str = str .."### Instruction:\n"
+                str = str .. GetUserName(self.owner) .. ": "
+            end
+            str = str .. (var.content:gsub("{{user}}", GetUserName(self.owner)):gsub("{{char}}", self.char.name)) .. "\n\n"
+            current = current + telelove.__counttokens(str)
+            table.insert(t, {var.role, str})
         end
-        str = str .. (var.content:gsub("{{user}}", GetUserName(self.owner)):gsub("{{char}}", self.char.name)) .. "\n\n"
+        while current > limit do
+            for i, var in ipairs(t) do
+                if var[1] ~= "system" then
+                    current = current - telelove.__counttokens(table.remove(t, i)[2])
+                    break
+                end
+            end
+        end
+        
+        local str = ""
+        for _, var in ipairs(t) do
+            str = str .. var[2]
+        end
+        return str
+    else
+        local str = ""
+        for _, var in ipairs(self:GetRawContents()) do
+            if var.role == "assistant" then
+                str = str .. "### Response:\n"
+                str = str .. self.char.name .. ": "
+            elseif var.role == "user" then
+                str = str .."### Instruction:\n"
+                str = str .. GetUserName(self.owner) .. ": "
+            end
+            str = str .. (var.content:gsub("{{user}}", GetUserName(self.owner)):gsub("{{char}}", self.char.name)) .. "\n\n"
+        end
+        return str
     end
-    return str
 end
 function base:GetRawContents()
     return self.content
@@ -139,7 +171,7 @@ function base:GetLastResponse()
 end
 
 function base:GetResponse(chat, msg, user, callback, errcallback)
-    self.task = horde.Generate(self:GetContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+    self.task = horde.Generate(self:GetContents(CONTEXT_LIMIT), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
 end
 
 return chats

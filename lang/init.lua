@@ -1,4 +1,5 @@
 LANG = {}
+local default = {__index = LANG["en"]}
 require("lang.en")
-require("lang.ru")
-require("lang.ua")
+setmetatable(require("lang.ru"), default)
+setmetatable(require("lang.ua"), default)

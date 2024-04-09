@@ -306,6 +306,8 @@ function CreateLanguagedMenu(langcode)
             msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_FAULT"], ikm)
         elseif errmsg == "impossible" then
             msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_IMPOSSIBLE"], ikm)
+        elseif errmsg == "Timedout" then
+            msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_TIMEOUT"], ikm) 
         end
         
         another_chat.task = nil
@@ -421,7 +423,7 @@ function CreateLanguagedMenu(langcode)
             end
             
             msg.chat:SendChatAction("typing")
-            client.active_chats[msg.from.id]:AppendContent(translation.Translate(msg.text, langcode, "en"):gsub("♪", "*"), "user")
+            client.active_chats[msg.from.id]:AppendContent((translation.Translate(msg.text, langcode, "en"):gsub("♪", "*")), "user")
             local new_msg = msg.chat:SendMessage(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
             client.active_chats[msg.from.id].lastmsg = new_msg
             client.active_chats[msg.from.id]:GetResponse(msg.chat, new_msg, msg.from, callback, errcallback)

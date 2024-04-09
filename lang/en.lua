@@ -25,6 +25,7 @@ LANG["en"]["$CHAT_REGENERATE"]          = "Regenerate"
 LANG["en"]["$CHAT_NOT_ENOUGH_TOKENS"]   = "You don't have enough tokens!."
 LANG["en"]["$CHAT_GENERATION_FAULT"]    = "An error occured during message generation. Try again"
 LANG["en"]["$CHAT_GENERATION_IMPOSSIBLE"]= "Due to the highened demand, the generation cannot be finished. Try again"
+LANG["en"]["$CHAT_GENERATION_TIMEOUT"]  = "Unforseen error. Try again. If it doesn't resolve within several minutes, please contact the support"
 
 
 LANG["en"]["$TOKENS"]                   = "Wallet"
