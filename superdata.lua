@@ -1,6 +1,6 @@
 PATH_PROMOCODES = "promocodes.json"
-PATH_DB_USERS = love.filesystem.getRealDirectory("db/chats.db") .. "db/userlist.db"
-PATH_DB_CHATS = love.filesystem.getRealDirectory("db/chats.db") .. "db/chats.db"
+PATH_DB_USERS = "/home/yellowbutshort/code/realgarbo/./db/users.db"
+PATH_DB_CHATS = "/home/yellowbutshort/code/realgarbo/./db/chats.db"
 print("", PATH_DB_USERS)
 print("", PATH_DB_CHATS)
 

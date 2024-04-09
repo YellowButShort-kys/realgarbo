@@ -315,7 +315,7 @@ announcement.description = "{string}"
 announcement.__callback = function(user, chat, msg)
     for _, var in pairs(GetAllUsers()) do
         if var.chatid then
-            master_client:SendMessage(var.chatid, msg)
+            client:SendMessage(var.chatid, msg)
         end
     end
 end
