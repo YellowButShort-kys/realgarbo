@@ -261,6 +261,8 @@ function horde.FetchUpdate(task)
         task.name             =   r.generations and r.generations[1] and r.generations[1].worker_name or ""
         if task.done then
             if task.callback then
+                print(task.text)
+                print(r.generations and r.generations[1].text)
                 task:callback(task.text ~= "" and task.text or " ")
             end
             RemoveByValue(tasks, task)
