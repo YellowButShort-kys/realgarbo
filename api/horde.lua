@@ -282,7 +282,7 @@ function horde.Update()
     
     if nextupdate <= love.timer.getTime() then
         for _, var in ipairs(tasks) do
-            __promise(0.1, horde.FetchUpdate, var)
+            __promise(0.1, horde.FetchUpdate, 1, var)
         end
         
         nextupdate = love.timer.getTime() + 2
