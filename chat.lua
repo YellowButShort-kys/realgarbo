@@ -171,7 +171,9 @@ function base:GetLastResponse()
 end
 
 function base:GetResponse(chat, msg, user, callback, errcallback)
-    self.task = horde.Generate(self:GetContents(CONTEXT_LIMIT), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+    local str = self:GetContents(CONTEXT_LIMIT)
+    str = str .. "### Response:\n"..self.char.name..":"
+    self.task = horde.Generate(str, callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
 end
 
 return chats
