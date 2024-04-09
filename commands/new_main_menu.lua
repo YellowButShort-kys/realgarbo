@@ -45,7 +45,7 @@ function CreateLanguagedMenu(langcode)
             button_more.text = var.display_name[langcode] or var.name
             button_more.char = var
             button_more.callback = function(self, query)
-                client:EditMessageText(query.message.chat, query.message, var.display_name[langcode] or var.name..":\n"..var.description[langcode], self.ikm)
+                client:EditMessageText(query.message.chat, query.message, (var.display_name[langcode] or var.name..":\n")..var.description[langcode], self.ikm)
             end
             
             

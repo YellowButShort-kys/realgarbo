@@ -20,6 +20,8 @@ local query_init_userlist = [[
         referal INTEGER DEFAULT 0 NOT NULL, 
         lang TEXT DEFAULT "ru" NOT NULL,
         tokens INTEGER,
+        subscriptionlevel INTEGER DEFAULT 0 NOT NULL,
+        subscriptiontokens INTEGER DEFAULT 0 NOT NULL,
         next_daily INTEGER DEFAULT 0 NOT NULL,
         chatid TEXT
     );
