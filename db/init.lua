@@ -48,7 +48,7 @@ local query_add_userlist =  [[
 
 local query_get_chat = [[
     CREATE TABLE IF NOT EXISTS "%s_%s" (
-        id INTEGER PRIMARY KEY,
+        id INTEGER,
         content TEXT,
         role TEXT
     );
@@ -73,7 +73,7 @@ local query_check_if_exists = [[
     VALUES (%s);
     
     CREATE TABLE IF NOT EXISTS "%s" (
-        id INTEGER PRIMARY KEY,
+        id INTEGER,
         role TEXT,
         content TEXT
     );
@@ -426,7 +426,7 @@ function db_Load()
         end
         function AppendUserChat(chat, role, str)
             print()
-            print("AppendUserChat", chat, role, str)
+            print("AppendUserChat", chat, role)
             table.insert(chat.content, {id = #chat.content+1, role = role, content = str})
             local commit = sqlite3.open(PATH_DB_CHATS)
             local stmt = commit:prepare(([[
