@@ -28,7 +28,7 @@ LANG["ua"]["$CHAT_GENERATION_IMPOSSIBLE"]= "Через підвищений по
 
 
 LANG["ua"]["$TOKENS"] = "Гаманець"
-LANG["ua"]["$TOKENS_CURRENT_BALANCE"] = "У вас є %s токенів"
+LANG["ua"]["$TOKENS_CURRENT_BALANCE"] = "У вас є %s токенів.\nВаш рівень підписки також дає вам екстра %s токенів на цей місяць"
 LANG["ua"]["$TOKENS_BACK"] = "Назад"
 
 

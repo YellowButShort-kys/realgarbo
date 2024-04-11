@@ -27,7 +27,7 @@ LANG["ru"]["$CHAT_GENERATION_IMPOSSIBLE"]= "Ввиду повышенной на
 
 
 LANG["ru"]["$TOKENS"]                   = "Баланс"
-LANG["ru"]["$TOKENS_CURRENT_BALANCE"]   = "У вас имеется %s токенов"
+LANG["ru"]["$TOKENS_CURRENT_BALANCE"]   = "У вас имеется %s токенов.\nВаш уровень подписки также дает вам экстра %s токенов на этот месяц"
 LANG["ru"]["$TOKENS_BACK"]              = "Назад"
 
 

@@ -186,10 +186,40 @@ end
 ]]
 
 require("__master_client")
+
+local nextcheck = tonumber((love.filesystem.read("subs_check.txt")))
+local subbonus = {
+    {500, 3700},
+    {1750, 12950},
+    {3780, 27720}
+}
+local function checksubs()
+    if os.time() >= nextcheck then
+        local d = os.date("*t", nextcheck)
+        local month = d.month + 1
+        local year = d.year
+        local day = 1
+        if month > 12 then
+            month = 1
+            year = year+1
+        end
+        nextcheck = os.time({year=year, month=month, day=1})
+        love.filesystem.write("subs_check.txt", tostring(nextcheck))
+        
+        for _, var in pairs(GetAllUsers()) do
+            if var.subscriptionlevel > 0 then
+                UpdateUserToDB(var.id, "tokens", var.tokens + subbonus[var.subscriptionlevel][1])
+                UpdateUserToDB(var.id, "subscriptiontokens", subbonus[var.subscriptionlevel][2])
+            end
+        end
+    end
+end
+
 function love.update()
     --love.timer.sleep(3)
     --db_Update()
     client:Update()
     horde.Update()
     MasterUpdate()
+    checksubs()
 end

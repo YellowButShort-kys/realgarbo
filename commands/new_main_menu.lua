@@ -215,7 +215,8 @@ function CreateLanguagedMenu(langcode)
         
         my_tokens.text = LANG[langcode]["$TOKENS"]
         my_tokens.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$TOKENS_CURRENT_BALANCE"]:format(GetUserFromDB(query.from.id).tokens), {inline_keyboard = {{back}}})
+            local user = GetUserFromDB(query.from.id)
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$TOKENS_CURRENT_BALANCE"]:format(user.tokens, user.subscriptiontokens), {inline_keyboard = {{back}}})
         end
         
         donate.text = LANG[langcode]["$DONATE"]
@@ -292,7 +293,12 @@ function CreateLanguagedMenu(langcode)
             msg:EditMessageText(translated_text, ikm)
             another_chat:AppendContent(text, "assistant")
             
-            UpdateUserToDB(user.id, "tokens", GetUserFromDB(user.id).tokens - task.kudos)
+            local dbuser = GetUserFromDB(user.id)
+            if dbuser.subscriptiontokens - task.kudos >= 0 then
+                UpdateUserToDB(user.id, "subscriptiontokens", dbuser.subscriptiontokens - task.kudos)
+            else
+                UpdateUserToDB(user.id, "tokens", dbuser.tokens - task.kudos)
+            end
             AVG_KUDOS_PRICE = AVG_KUDOS_PRICE + task.kudos
             AVG_KUDOS_PRICE_N = AVG_KUDOS_PRICE_N + 1
         --else
@@ -443,8 +449,8 @@ end
 
 
 local onMessage = {}
-for i, var in pairs(LANG) do
-    languaged_menu[i], onMessage[i] = CreateLanguagedMenu(i)
+for i, var in ipairs(LANG) do
+    languaged_menu[var], onMessage[var] = CreateLanguagedMenu(var)
 end
 local comms = {}
 
@@ -467,7 +473,8 @@ function client:onMessage(msg)
     if not GetUserFromDB(msg.from.id) then
         AddUserToDB(msg.from, tostring(msg.chat.id))
     end
-    if GetUserFromDB(msg.from.id).chatid == "EMPTY" then
+    local user = GetUserFromDB(msg.from.id)
+    if user.chatid == "EMPTY" then
         UpdateUserToDB(msg.from.id, "chatid", tostring(msg.chat.id))
     end
     

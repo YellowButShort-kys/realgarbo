@@ -29,7 +29,7 @@ LANG["en"]["$CHAT_GENERATION_TIMEOUT"]  = "Unforseen error. Try again. If it doe
 
 
 LANG["en"]["$TOKENS"]                   = "Wallet"
-LANG["en"]["$TOKENS_CURRENT_BALANCE"]   = "You have %s tokens"
+LANG["en"]["$TOKENS_CURRENT_BALANCE"]   = "You have %s tokens.\nYour current subscription provides you with extra %s tokens for this month"
 LANG["en"]["$TOKENS_BACK"]              = "Back"
 
 
