@@ -40,7 +40,7 @@ return function(telelove)
     end
     
     function telelove.__saferequest(link, table, counter)
-        if not counter then counter = 1
+        if not counter then counter = 1 end
         if counter == 24 then telelove.__error("Request failed after 24 attempts!") return false end
         local code, body, headers = https.request(link, table)
         if code == 0 then
