@@ -39,11 +39,13 @@ return function(telelove)
         return math.ceil(n * 0.75)
     end
     
-    function telelove.__saferequest(link, table, data)
-        local code, body, headers = https.request(link, table, data)
+    function telelove.__saferequest(link, table, counter)
+        if not counter then counter = 1
+        if counter == 24 then telelove.__error("Request failed after 24 attempts!") return false end
+        local code, body, headers = https.request(link, table)
         if code == 0 then
             love.timer.sleep(0.05)
-            return telelove.__saferequest(link, table, data)
+            return telelove.__saferequest(link, table, counter + 1)
         elseif code == 200 then
             return body
         else
