@@ -1,10 +1,14 @@
 LANG["en"] = {}
 LANG["en"]["$SYMBOL"] = "🇺🇸"
 --LANG["en"]["$COMMAND_SELECT_DESCRIPTION"] = 
-LANG["en"]["$INTRODUCTION"]             = [[[CLOSED BETA VERSION]
-Welcome to another trap crap! This time it's an RP bot for people who are just too bored. Communicate with all sorts of characters without any limitation, I personally do not give a fuck. If you want your own character then DM me, I will add.
+LANG["en"]["$INTRODUCTION"]             = [[[OPEN BETA VERSION]
+Welcome! This is the first open beta of the CarpAI, meaning that it comes with crashes, bugs and all sorts of quirky unexpected behavior.
+This is a bot that allows you to chat freely with characters from anime, games... you got the idea 
+You are free to do anything you want with these characters. I do not endorse any sort of censorship. Just have fun!
+Every message costs tokens, you gain them with a free daily bonus, or by buying them either as subscription (better value for your money) or as a separate purchase.
+If you encounter anything weird, or have a cool idea, feel free to write to our customer support (https://t.me/CarpAISupport_bot)
 
-Guide on the design of messages:
+Guide on the how to write messages:
 It's simple. Normal text is speech, everything that is encapsulated in asterisks are actions.]]
 
 LANG["en"]["$NEW_CHAR"]                 = "Create a new chat"
@@ -33,7 +37,7 @@ LANG["en"]["$TOKENS_CURRENT_BALANCE"]   = "You have %s tokens.\nYour current sub
 LANG["en"]["$TOKENS_BACK"]              = "Back"
 
 
-LANG["en"]["$DONATE_TEXT"]              = [[The purchase of tokens or subscriptions takes place through lava.top via the link https://app.lava.top/carp\_ai. Any support is incredibly important to us and helps us to become better. Thank you very much!]]
+LANG["en"]["$DONATE_TEXT"]              = [[The purchase of tokens or subscriptions is currently manual and comes through the customer support (https://t.me/CarpAISupport_bot). Any support is incredibly important to us and helps us to become better. Thank you very much!]]
 LANG["en"]["$DONATE"]                   = "Buy tokens"
 
 

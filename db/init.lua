@@ -362,7 +362,7 @@ function db_Load()
             commit:close()
         end
         function AddUserToDB(user, chatid)
-            db_userlist_id[user.id] = {id = user.id, first_name = user.first_name, last_name = user.last_name, username = user.username, lang = "ru", tokens = 50, next_daily = 0, chatid = chatid}
+            db_userlist_id[user.id] = {id = user.id, first_name = user.first_name, last_name = user.last_name, username = user.username, lang = "ru", tokens = 200, subscriptionlevel = 0, subscriptiontokens = 0, next_daily = 0, chatid = chatid}
             
             
             local commit = sqlite3.open(PATH_DB_USERS)

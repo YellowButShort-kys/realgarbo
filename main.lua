@@ -150,7 +150,7 @@ function sqlite3.open_memory(...) --because fuck me
 end
 
 
-local token = "6784923911:AAGYu58tW8UDIV7ZiRjQrEI_iRmjr-WcLDs"
+local token = "7125567639:AAHbDOdYbO_3sCFdzxQ6djbqs4BvAcxQd3U"
 
 telelove = require("extern.Telelove")
 client = telelove.NewClient()
@@ -198,7 +198,6 @@ local function checksubs()
         local d = os.date("*t", nextcheck)
         local month = d.month + 1
         local year = d.year
-        local day = 1
         if month > 12 then
             month = 1
             year = year+1
