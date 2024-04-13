@@ -74,15 +74,15 @@ function instance:Update()
                         if not self:__ProcessCommands(self.__telelove.__class.__message(update.message)) then
                             self:onMessage(self.__telelove.__class.__message(update.message))
                         end
-                        print("", "Package (message):", love.timer.getTime()-t2)
+                        self.__telelove.__print("   Package (message): " .. tostring(love.timer.getTime()-t2))
                     elseif update.callback_query then
                         self:__ProcessCallbackQuery(self.__telelove.__class.__callbackquery(update.callback_query))
-                        print("", "Package (query):", love.timer.getTime()-t2)
+                        self.__telelove.__print("   Package (query): " .. tostring(love.timer.getTime()-t2))
                     end
                 end
             end
             if #collection > 0 then
-                print("Update (n="..tostring(#collection).."):",love.timer.getTime()-t1)
+                self.__telelove.__print("Update (n="..tostring(#collection).."): " .. tostring(love.timer.getTime()-t1))
             end
         --end
     end
