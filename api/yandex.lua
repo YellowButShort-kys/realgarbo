@@ -13,7 +13,7 @@ local data
 local function __saferequest(link, table, data)
     local code, body, headers = https.request(link, table, data)
     if code == 0 then
-        love.timer.sleep(0.1)
+        love.timer.sleep(0.2)
         return __saferequest(link, table, data)
     elseif code == 200 then
         return body

@@ -53,8 +53,8 @@ function instance:GetMe()
     return self.__identity
 end
 function instance:Update()
-    local skip
-    if not self.__offset then skip = true end
+    --local skip
+    --if not self.__offset then skip = true end
     
     local body = self.__telelove.__saferequest(
         "https://api.telegram.org/bot"..self.__token.."/getUpdates", 
@@ -69,7 +69,7 @@ function instance:Update()
                 local t2 = love.timer.getTime()
                 local update = self.__telelove.__class.__update(package)
                 self.__offset = math.max(self.__offset or 0, update.update_id + 1)
-                if not skip then
+                --if not skip then
                     if update.message then
                         if not self:__ProcessCommands(self.__telelove.__class.__message(update.message)) then
                             self:onMessage(self.__telelove.__class.__message(update.message))
@@ -79,7 +79,7 @@ function instance:Update()
                         self:__ProcessCallbackQuery(self.__telelove.__class.__callbackquery(update.callback_query))
                         print("", "Package (query):", love.timer.getTime()-t2)
                     end
-                end
+                --end
             end
             if #collection > 0 then
                 print("Update (n="..tostring(#collection).."):",love.timer.getTime()-t1)

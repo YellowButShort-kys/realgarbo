@@ -42,7 +42,7 @@ return function(telelove)
     function telelove.__saferequest(link, table, data)
         local code, body, headers = https.request(link, table, data)
         if code == 0 then
-            love.timer.sleep(0.1)
+            love.timer.sleep(0.05)
             return telelove.__saferequest(link, table, data)
         elseif code == 200 then
             return body
