@@ -387,12 +387,13 @@ function db_Load()
             for i, chat in pairs(t) do
                 local contents = db:execute(query_get_chat:format(chat.id, var.id, chat.id, var.id)) or {}
                 chat.id = tonumber(chat.id)
-                --db_ram_chats[tonumber(var.id)][chat.id] = chats.SetMetatable(chat)
+                -- = chats.SetMetatable(chat)
                 db_ram_chats[tonumber(var.id)][chat.id] = {
                     char = characters.GetCharacter(db_ram_chats[tonumber(var.id)][chat.id].id),
-                    owner = var,
+                    owner = tonumber(var),
                     content = contents
                 }
+                chats.SetMetatable(db_ram_chats[tonumber(var.id)][chat.id])
             end
         end
         function GetUserChat(owner, char)
