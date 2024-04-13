@@ -170,7 +170,7 @@ function base:RemoveLastResponse(i)
     RemoveResponseChat(self, i)
 end
 function base:GetLastResponse()
-    return self.content[#self.content]
+    return self.content[#self.content].content
 end
 
 function base:GetResponse(chat, msg, user, callback, errcallback)
