@@ -478,7 +478,7 @@ function client:onMessage(msg)
         UpdateUserToDB(msg.from.id, "chatid", tostring(msg.chat.id))
     end
     
-    love.filesystem.append("usage_message.csv", tostring(os.date("%")) .. "," .. tostring(msg.from.id) .. "\n")
+    love.filesystem.append("usage_message.csv", tostring(os.date("%x")) .. "," .. tostring(os.date("%X")) .. "," .. tostring(msg.from.id) .. "\n")
     
     onMessage[GetUserLang(msg.from.id)](client, msg)
 end
