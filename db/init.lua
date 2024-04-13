@@ -183,13 +183,15 @@ function love.quit()
 end
 
 local function error_printer(msg, layer)
-	print((debug.traceback("Error: " .. tostring(msg), 1+(layer or 1)):gsub("\n[^\n]+$", "")))
+	local bruh = ((debug.traceback("Error: " .. tostring(msg), 1+(layer or 1)):gsub("\n[^\n]+$", "")))
+    master_client:SendToFather(bruh)
+    print(bruh)
 end
 
 
 local utf8 = require("utf8")
 function love.errorhandler(msg)
-    db_Update(true)
+    --db_Update(true)
 	msg = tostring(msg)
 
 	error_printer(msg, 2)
