@@ -184,7 +184,7 @@ end
 
 local function error_printer(msg, layer)
 	local bruh = ((debug.traceback("Error: " .. tostring(msg), 1+(layer or 1)):gsub("\n[^\n]+$", "")))
-    master_client:SendToFather(bruh)
+    --master_client:SendToFather(bruh)
     print(bruh)
 end
 
