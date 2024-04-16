@@ -340,6 +340,9 @@ function db_Load()
         function GetAllUsers()
             return db_userlist_id
         end
+        function GetAllUsersI()
+            return db_ram_userlist
+        end
         function GetUserLang(id)
             return db_userlist_id[id].lang
         end
@@ -381,7 +384,7 @@ function db_Load()
     do
         local db = sqlite3.open(PATH_DB_CHATS)
         local db_ram_chats = {}
-        for _, var in ipairs(GetAllUsers()) do
+        for _, var in ipairs(GetAllUsersI()) do
             local t = db:execute(query_get_all_chats:format(var.id, var.id)) or {}
             db_ram_chats[tonumber(var.id)] = {}
             for i, chat in pairs(t) do
