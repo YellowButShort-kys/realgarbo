@@ -458,10 +458,10 @@ function db_Load()
             commit:close()
         end
         function RemoveResponseChat(chat, i)
+            local size = #chat.content or 0
             if i == 0 then
                 chat.content = {}
             else
-                local size = #chat.content or 0
                 if i then
                     for x = size, i do
                         table.remove(chat.content, x)
