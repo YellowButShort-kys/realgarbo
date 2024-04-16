@@ -184,7 +184,7 @@ end
 
 local function error_printer(msg, layer)
 	local bruh = ((debug.traceback("Error: " .. tostring(msg), 1+(layer or 1)):gsub("\n[^\n]+$", "")))
-    --master_client:SendToFather(bruh)
+    master_client:SendToFather(bruh)
     print(bruh)
 end
 
@@ -386,11 +386,9 @@ function db_Load()
         local db_ram_chats = {}
         for _, var in ipairs(GetAllUsersI()) do
             local t = db:execute(query_get_all_chats:format(var.id, var.id)) or {}
-            --local t = {}
             db_ram_chats[tonumber(var.id)] = {}
             for i, chat in pairs(t) do
-                --local contents = db:execute(query_get_chat:format(chat.id, var.id, chat.id, var.id)) or {}
-                local contents = {}
+                local contents = db:execute(query_get_chat:format(chat.id, var.id, chat.id, var.id)) or {}
                 chat.id = tonumber(chat.id)
                 -- = chats.SetMetatable(chat)
                 db_ram_chats[tonumber(var.id)][chat.id] = {
