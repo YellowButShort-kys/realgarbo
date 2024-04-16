@@ -60,7 +60,7 @@ local query_get_all_chats = [[
         id INTEGER PRIMARY KEY
     );
 
-    SELECT * FROM ("%s");
+    SELECT * FROM "%s";
 ]]
 
 local query_check_if_exists = [[
@@ -399,6 +399,7 @@ function db_Load()
         function GetUserChat(owner, char)
             if not db_ram_chats[owner.id] then
                 db_ram_chats[owner.id] = {}
+                print("fuck")
             end
             return char and db_ram_chats[owner.id][char.id] or db_ram_chats[owner.id]
         end
