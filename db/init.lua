@@ -381,7 +381,7 @@ function db_Load()
     do
         local db = sqlite3.open(PATH_DB_CHATS)
         local db_ram_chats = {}
-        for _, var in ipairs(GetAllUsers()) do
+        for _, var in pairs(GetAllUsers()) do
             local t = db:execute(query_get_all_chats:format(var.id, var.id)) or {}
             db_ram_chats[tonumber(var.id)] = {}
             for i, chat in pairs(t) do
