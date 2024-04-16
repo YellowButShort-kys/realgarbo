@@ -60,7 +60,7 @@ local query_get_all_chats = [[
         id INTEGER PRIMARY KEY
     );
 
-    SELECT * FROM "%s";
+    SELECT * FROM ("%s");
 ]]
 
 local query_check_if_exists = [[
