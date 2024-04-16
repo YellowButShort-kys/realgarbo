@@ -53,7 +53,7 @@ require("superdata")
 
 
 https = require("https")
-requests = require("extern.threaded_requests")
+--requests = require("extern.threaded_requests")
 sql = require("extern.sqlite3")
 
 horde = require("api.horde")
