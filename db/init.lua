@@ -440,10 +440,22 @@ function db_Load()
             ]]):format(chat.id .. "_" .. chat.owner.id))
             stmt:bind_values(#chat.content, role, str)
             stmt:step()
-            commit:errmsg()
             stmt:finalize()
+        end
+        function ClearChat(chat)
+            chat.content = {}
             
-            commit:close() 
+            local commit = sqlite3.open(PATH_DB_CHATS)
+            commit:execute(([[
+                DROP TABLE "%s";
+                
+                CREATE TABLE "%s" (
+                    id INTEGER,
+                    role TEXT,
+                    content TEXT
+                );
+            ]]):format(chat.id .. "_" .. chat.owner.id, chat.id .. "_" .. chat.owner.id))
+            commit:close()
         end
         function RemoveResponseChat(chat, i)
             if i == 0 then

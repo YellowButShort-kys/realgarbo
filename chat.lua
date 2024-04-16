@@ -134,7 +134,8 @@ function base:AppendContent(str, role)
     ]]
 end
 function base:ResetChat()
-    self:RemoveLastResponse(0)
+    --self:RemoveLastResponse(0)
+    ClearChat(self)
     self:AppendContent(self.char:GetSystem(self.owner), "system")
     self:AppendContent(self.char:GetStarter(self.owner), "system")
     for _, var in ipairs(self.char.history) do
