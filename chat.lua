@@ -111,7 +111,7 @@ function base:GetContents(limit)
         local str = ""
         for _, var in ipairs(self:GetRawContents()) do
             if var.role == "assistant" then
-                str = str .. "### Response:\n"
+                str = str .. "### Response: (reply size=short)\n"
                 str = str .. self.char.name .. ": "
             elseif var.role == "user" then
                 str = str .."### Instruction:\n"
