@@ -125,6 +125,13 @@ end
 function base:GetRawContents()
     return self.content
 end
+function base:GetOpenAIContents()
+    local out = {}
+    for _, var in ipairs(self:GetRawContents()) do
+        table.insert(out, {role = var.role, content = (var.content:gsub("{{user}}", GetUserName(self.owner)):gsub("{{char}}", self.char.name))})
+    end
+    return out
+end
 
 function base:AppendContent(str, role)
     AppendUserChat(self, role, str)
@@ -182,7 +189,7 @@ function base:GetResponse(chat, msg, user, callback, errcallback)
         self.task = horde.Generate(str, callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     elseif model == "openai" then
         print("GetResponse")
-        self.task = openai.Generate(self:GetRawContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+        self.task = openai.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     end
 end
 
