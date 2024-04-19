@@ -12,39 +12,6 @@ local function decode(t, key)
     return key
 end
 
-function prettyjson(t)
-    local minified = json.encode(t)
-    
-    local newtext = ""
-    local tabulation = 0
-    for c in minified:gmatch(".") do
-        if c == "{" then
-            newtext = newtext .. c
-            tabulation = tabulation + 1
-            newtext = newtext .. "\n"
-            for x = 1, tabulation do
-                newtext = newtext .. "    "
-            end
-        elseif c == "}" then
-            tabulation = tabulation - 1
-            newtext = newtext .. "\n"
-            for x = 1, tabulation do
-                newtext = newtext .. "    "
-            end
-            newtext = newtext .. c
-        elseif c == "," then
-            newtext = newtext .. c
-            newtext = newtext .. "\n"
-            for x = 1, tabulation do
-                newtext = newtext .. "    "
-            end
-        else
-            newtext = newtext .. c
-        end
-    end
-    return newtext
-end
-
 while true do
     local counter = 1
     local task = receiver:demand()
@@ -65,10 +32,12 @@ while true do
         if code == 0 then
             love.timer.sleep(retryafter)
         elseif code == 200 then
-            transmiter:push({success = true, errcode = code, result = pcall(decode, body) or body})
+            local bool, res = pcall(decode, body)
+            transmiter:push({success = true, errcode = code, result = (bool and res) or body})
             break
         else
-            transmiter:push({success = false, errcode = code, result = pcall(decode, body, "description") or body})
+            local bool, res = pcall(decode, body, "description")
+            transmiter:push({success = false, errcode = code, result = (bool and res) or body})
             break
         end
         counter = counter + 1
