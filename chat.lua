@@ -175,9 +175,13 @@ function base:GetLastResponse()
 end
 
 function base:GetResponse(chat, msg, user, callback, errcallback)
-    local str = self:GetContents(CONTEXT_LIMIT)
-    str = str .. "### Response:\n"..self.char.name..":"
-    self.task = horde.Generate(str, callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+    if user.model == "horde" then
+        local str = self:GetContents(CONTEXT_LIMIT)
+        str = str .. "### Response:\n"..self.char.name..":"
+        self.task = horde.Generate(str, callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+    elseif user.model == "openai" then
+        self.task = openai.Generate(self:GetRawContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+    end
 end
 
 return chats

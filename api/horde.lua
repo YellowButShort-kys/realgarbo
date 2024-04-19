@@ -234,10 +234,10 @@ end
 local function cut_unfinished_sentence(str)
     local f = str:find("#")
     if f then
-        return str:sub(0, f - 1)
-    else
-        return str
+        str = str:sub(0, f - 1)
     end
+    
+    return str
     --return str:sub(0, math.max(str:find("%.[^%.]*$") or 0, str:find("%?[^%?]*$") or 0, str:find("%![^%!]*$") or 0, str:find("%*[^%*]*$") or 0)):gsub("%\\", ""):sub(0, (str:find("%#") or 0)-1)
 end
 function horde.FetchUpdate(task)

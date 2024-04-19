@@ -24,12 +24,13 @@ end
 
 function CreateLanguagedMenu(langcode)
     local menu = {}
-    local new_chat, load_chat = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
+    local char_creation = client:NewInlineKeyboardButton()
+    local new_chat, load_chat,select_model = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local donate, display_name = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local promocode, dailies, my_tokens = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local language = client:NewInlineKeyboardButton()
     menu.inline_keyboard = {
-        {new_chat, load_chat},
+        {new_chat, load_chat, select_model},
         {donate, display_name},
         {promocode, dailies, my_tokens},
         {language}
@@ -114,6 +115,7 @@ function CreateLanguagedMenu(langcode)
             back.callback = function(self, query)
                 client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$NEW_CHAR_MSG"], ikm)
             end
+            table.insert(tagikm.inline_keyboard, {})
             table.insert(tagikm.inline_keyboard, {back})
             
             local button = client:NewInlineKeyboardButton()
@@ -313,6 +315,8 @@ function CreateLanguagedMenu(langcode)
             msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_IMPOSSIBLE"], ikm)
         elseif errmsg == "Timedout" then
             msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_TIMEOUT"], ikm) 
+        else
+            msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_UNEXPECTED"], ikm) 
         end
         
         another_chat.task = nil
@@ -354,6 +358,49 @@ function CreateLanguagedMenu(langcode)
             else
                 client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DAILIES_TIME_FAILURE"], {inline_keyboard = {{back}}})
             end
+        end
+    end
+    
+    ----------------------------------------------------------------------
+    --------------------------- Char Creation ----------------------------
+    ----------------------------------------------------------------------
+    
+    do
+        char_creation.text = LANG[langcode]["$CREATE_CHAR"]
+        char_creation.callback = function(self, query)
+            
+        end
+    end
+    
+    
+    -----------------------------------------------------------------------
+    ---------------------------- SELECT MODEL -----------------------------
+    -----------------------------------------------------------------------
+
+    do
+        local back = client:NewInlineKeyboardButton()
+        back.text = LANG[langcode]["$TOKENS_BACK"]
+        back.callback = function(self, query)
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], menu)
+        end
+        
+        local openai = client:NewInlineKeyboardButton()
+        openai.text = LANG[langcode]["$MODEL_OPENAI"]
+        openai.callback = function(self, query)
+            UpdateUserToDB(query.from.id, "model", "openai")
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
+        end
+        
+        local horde = client:NewInlineKeyboardButton()
+        horde.text = LANG[langcode]["$MODEL_HORDE"]
+        horde.callback = function(self, query)
+            UpdateUserToDB(query.from.id, "model", "horde")
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
+        end
+        
+        select_model.text = LANG[langcode]["$SELECT_MODEL"]
+        select_model.callback = function(self, query)
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_TEXT"], {inline_keyboard = {{horde, openai}, {back}}})
         end
     end
     

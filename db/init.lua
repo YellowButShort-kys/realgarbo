@@ -23,7 +23,8 @@ local query_init_userlist = [[
         subscriptionlevel INTEGER DEFAULT 0 NOT NULL,
         subscriptiontokens INTEGER DEFAULT 0 NOT NULL,
         next_daily INTEGER DEFAULT 0 NOT NULL,
-        chatid TEXT
+        chatid TEXT,
+        model TEXT DEFAULT "horde" NOT NULL
     );
 ]]
 local query_update_userlist = [[
@@ -333,6 +334,14 @@ function db_Load()
             db_userlist_id[tonumber(var.id)].subscriptionlevel = tonumber(db_userlist_id[tonumber(var.id)].subscriptionlevel)
             db_userlist_id[tonumber(var.id)].referal = tonumber(db_userlist_id[tonumber(var.id)].referal)
             db_userlist_id[tonumber(var.id)].next_daily = tonumber(db_userlist_id[tonumber(var.id)].next_daily)
+        end
+        function AddUserColumn(value)
+            local commit = sqlite3.open(PATH_DB_USERS)
+            commit:execute(([[
+                ALTER TABLE (Users) 
+                ADD COLUMN %s;
+            ]]):format(value))
+            commit:close()
         end
         function GetUserFromDB(id)
             return db_userlist_id[id]
