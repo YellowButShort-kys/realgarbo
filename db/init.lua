@@ -338,7 +338,7 @@ function db_Load()
         function AddUserColumn(value)
             local commit = sqlite3.open(PATH_DB_USERS)
             commit:execute(([[
-                ALTER TABLE (Users) 
+                ALTER TABLE Users 
                 ADD COLUMN %s;
             ]]):format(value))
             commit:close()
