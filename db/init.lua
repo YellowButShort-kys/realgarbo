@@ -386,8 +386,6 @@ function db_Load()
             --table.insert(db_userlist_additions, db_userlist_id[user.id])
         end
         function GetUserName(user)
-            print("I WANT TO DIE", user)
-            prettyprint(user)
             return db_userlist_id[user.id].display_name ~= "_NONAME_" and db_userlist_id[user.id].display_name or db_userlist_id[user.id].first_name
         end
         db:close()
@@ -452,7 +450,6 @@ function db_Load()
         function AppendUserChat(chat, role, str)
             table.insert(chat.content, {id = #chat.content+1, role = role, content = str})
             local commit = sqlite3.open(PATH_DB_CHATS)
-            print(chat.id, chat.owner.id)
             local stmt = commit:prepare(([[
                 INSERT INTO "%s" 
                 (id, role, content)
