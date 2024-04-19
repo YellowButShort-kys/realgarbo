@@ -22,9 +22,12 @@ while true do
     --local data = json.encode(task.data)
     while true do
         if counter == attempts then 
-            transmiter:push({success = false, errcode = 0, result = "Request failed after 24 attempts!"})
+            transmiter:push({success = false, errcode = 0, result = "Request failed after " .. tostring(attempts) .. " attempts!"})
         end
         
+        if task.data.data then
+            task.data.data = json.encode(task.data.data)
+        end
         local code, body, headers = https.request(link, task.data)
         if code == 0 then
             love.timer.sleep(retryafter)
