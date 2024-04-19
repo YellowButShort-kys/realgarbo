@@ -25,7 +25,7 @@ end
 function CreateLanguagedMenu(langcode)
     local menu = {}
     local char_creation = client:NewInlineKeyboardButton()
-    local new_chat, load_chat,select_model = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
+    local new_chat, load_chat, select_model = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local donate, display_name = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local promocode, dailies, my_tokens = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local language = client:NewInlineKeyboardButton()
