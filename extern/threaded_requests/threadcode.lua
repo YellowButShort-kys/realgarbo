@@ -53,7 +53,7 @@ while true do
     local attempts = task.attempts or def_attempts
     local link = task.link
     --local data = json.encode(task.data)
-    prettyjson(task.data)
+    print(prettyjson(task.data))
     if task.data.data then
         print("", "converted")
         task.data.data = json.encode(task.data.data)
@@ -66,6 +66,7 @@ while true do
         
 
         local code, body, headers = https.request(link, task.data)
+        print("", "success")
         if code == 0 then
             love.timer.sleep(retryafter)
         elseif code == 200 then
