@@ -57,7 +57,7 @@ requests = require("extern.threaded_requests")
 sql = require("extern.sqlite3")
 
 horde = require("api.horde")
-openai = requests("api.openai")
+openai = require("api.openai")
 --translation = require("api.translation")
 translation = require("api.yandex")
 
