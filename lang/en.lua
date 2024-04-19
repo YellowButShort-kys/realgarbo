@@ -62,14 +62,14 @@ LANG["en"]["$DAILIES_BALANCE_FAILURE"]    = "You need to have less tokens on you
 
 LANG["en"]["$LANG_CHANGE_TEXT"]          = "Select a language"
 
-LANG["en"]["SELECT_MODEL"]               = "[NEW] Select AI"
-LANG["en"]["SELECT_MODEL_TEXT"]          = [[Select the model that will be used to generate responses.
+LANG["en"]["$SELECT_MODEL"]               = "[NEW] Select AI"
+LANG["en"]["$SELECT_MODEL_TEXT"]          = [[Select the model that will be used to generate responses.
 Horde: default value. It's cheap in tokens, slow, and responses lack in quality
 OpenAI: More expensive and generates better answers, but the performance in NSFW chats is terrible
 ]]
-LANG["en"]["SELECT_MODEL_SUCCESS"]       = "Success!"
-LANG["en"]["MODEL_OPENAI"]               = "[NEW] OpenAI"
-LANG["en"]["MODEL_HORDE"]                = "Horde"
+LANG["en"]["$SELECT_MODEL_SUCCESS"]       = "Success!"
+LANG["en"]["$MODEL_OPENAI"]               = "[NEW] OpenAI"
+LANG["en"]["$MODEL_HORDE"]                = "Horde"
 
 
 LANG["en"]["$AWAIT_FOR_MESSAGE"]        = "Message is being generated..."
