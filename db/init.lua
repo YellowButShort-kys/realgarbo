@@ -329,6 +329,7 @@ function db_Load()
         local db_userlist_id = {}
         for _, var in ipairs(db_ram_userlist) do
             db_userlist_id[tonumber(var.id)] = var
+            db_userlist_id[tonumber(var.id)].id = tonumber(db_userlist_id[tonumber(var.id)].id)
             db_userlist_id[tonumber(var.id)].tokens = tonumber(db_userlist_id[tonumber(var.id)].tokens)
             db_userlist_id[tonumber(var.id)].subscriptiontokens = tonumber(db_userlist_id[tonumber(var.id)].subscriptiontokens)
             db_userlist_id[tonumber(var.id)].subscriptionlevel = tonumber(db_userlist_id[tonumber(var.id)].subscriptionlevel)
