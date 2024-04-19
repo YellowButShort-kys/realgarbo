@@ -15,6 +15,7 @@ end
 while true do
     local counter = 1
     local task = receiver:demand()
+    print("","New task!")
     local retryafter = task.retryafter or def_retryafter
     local attempts = task.attempts or def_attempts
     local link = task.link
@@ -35,6 +36,7 @@ while true do
             break
         end
         counter = counter + 1
+        print("",counter)
     end
 end
 

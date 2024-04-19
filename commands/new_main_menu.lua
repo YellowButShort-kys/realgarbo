@@ -316,7 +316,7 @@ function CreateLanguagedMenu(langcode)
         elseif errmsg == "Timedout" then
             msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_TIMEOUT"], ikm) 
         else
-            msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_UNEXPECTED"], ikm) 
+            msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_FAULT"], ikm) 
         end
         
         another_chat.task = nil

@@ -18,6 +18,7 @@ local megacallback = function(success, errcode, result, extra)
     if success then
         extra.kudos = result.total_tokens / 10
         extra:callback(result.choices[1].message.content or " ")
+        print("Done")
     else
         print(errcode)
         print()
@@ -28,6 +29,7 @@ local megacallback = function(success, errcode, result, extra)
 end
 
 function openai.Generate(messages, callback, errcallback, extra, stop_sequence)
+    print("Generate")
     local old_messages = data["messages"]
     local old_stop = data["stop"]
     data["messages"] = messages
@@ -44,7 +46,9 @@ function openai.Generate(messages, callback, errcallback, extra, stop_sequence)
     task.callback = callback
     task.extra = extra
     
+    print("Request submitted")
     requests.Request(LINK, data, megacallback, task)
+    print("Success")
     data["messages"] = old_messages
     data["stop"] = old_stop
     
