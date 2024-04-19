@@ -23,6 +23,7 @@ local data = {
 }
 local megacallback = function(success, errcode, result, extra)
     if success then
+        print(telelove.json.encode(result))
         extra.kudos = result.total_tokens / 10
         extra:callback(result.choices[1].message.content or " ")
     else
