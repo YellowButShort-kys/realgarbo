@@ -385,7 +385,7 @@ function db_Load()
             --table.insert(db_userlist_additions, db_userlist_id[user.id])
         end
         function GetUserName(user)
-            print(user)
+            print("I WANT TO DIE", user)
             return db_userlist_id[user.id].display_name ~= "_NONAME_" and db_userlist_id[user.id].display_name or db_userlist_id[user.id].first_name
         end
         db:close()
