@@ -32,12 +32,10 @@ while true do
         if code == 0 then
             love.timer.sleep(retryafter)
         elseif code == 200 then
-            local bool, res = pcall(decode, body)
-            transmiter:push({success = true, errcode = code, result = (bool and res) or body})
+            transmiter:push({success = true, errcode = code, result = decode(body)})
             break
         else
-            local bool, res = pcall(decode, body, "description")
-            transmiter:push({success = false, errcode = code, result = (bool and res) or body})
+            transmiter:push({success = false, errcode = code, result = decode(body, "description")})
             break
         end
         counter = counter + 1
