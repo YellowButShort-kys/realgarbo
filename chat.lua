@@ -188,7 +188,6 @@ function base:GetResponse(chat, msg, user, callback, errcallback)
         str = str .. "### Response:\n"..self.char.name..":"
         self.task = horde.Generate(str, callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     elseif model == "openai" then
-        print("GetResponse")
         self.task = openai.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     end
 end

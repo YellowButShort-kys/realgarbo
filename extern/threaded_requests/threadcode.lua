@@ -48,7 +48,6 @@ end
 while true do
     local counter = 1
     local task = receiver:demand()
-    print("","New task!")
     local retryafter = task.retryafter or def_retryafter
     local attempts = task.attempts or def_attempts
     local link = task.link
@@ -56,17 +55,13 @@ while true do
     if task.data.data then
         task.data.data = json.encode(task.data.data)
     end
-    print(task.data.data)
     while true do
-        print("",counter)
         if counter == attempts then 
             transmiter:push({success = false, errcode = 0, result = "Request failed after " .. tostring(attempts) .. " attempts!"})
         end
         
 
         local code, body, headers = https.request(link, task.data)
-        print("", "success")
-        print(code, body)
         if code == 0 then
             love.timer.sleep(retryafter)
         elseif code == 200 then

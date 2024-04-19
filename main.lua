@@ -223,4 +223,5 @@ function love.update()
     horde.Update()
     MasterUpdate()
     checksubs()
+    requests.Update()
 end
