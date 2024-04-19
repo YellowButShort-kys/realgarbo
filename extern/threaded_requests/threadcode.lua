@@ -9,7 +9,7 @@ local function decode(t, key)
     if key then
         val = val[key]
     end
-    return key
+    return val
 end
 
 while true do
