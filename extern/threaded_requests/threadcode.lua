@@ -3,6 +3,7 @@ local https = require("https")
 local json = require(cwd .. ".json")
 local receiver = love.thread.getChannel("threaded_requests_" .. id .. "_in")
 local transmiter = love.thread.getChannel("threaded_requests_" .. id .. "_out")
+require("love.timer")
 
 local function decode(t, key)
     local val = json.decode(t)

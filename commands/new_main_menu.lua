@@ -57,7 +57,7 @@ function CreateLanguagedMenu(langcode)
             btn_select.text = LANG[langcode]["$NEW_CHAR_SELECT"]
             btn_select.char = var
             btn_select.callback = function(self, query)
-                if not chats.GetUserChat(query.from, self.char).id then 
+                if not chats.GetUserChat(query.from, self.char) then 
                     client.active_chats[query.from.id] = chats.NewChat(query.from, self.char)
                     client:EditMessageText(query.message.chat, query.message, telegramformat(translation.Translate(self.char:GetFirstMessage(query.from), "en", langcode)))
                 else

@@ -411,9 +411,12 @@ function db_Load()
         function GetUserChat(owner, char)
             if not db_ram_chats[owner.id] then
                 db_ram_chats[owner.id] = {}
-                print("fuck")
             end
-            return char and db_ram_chats[owner.id][char.id] or db_ram_chats[owner.id]
+            if char then
+                return db_ram_chats[owner.id][char.id]
+            else
+                return db_ram_chats[owner.id]
+            end
         end
         function NewUserChat(chat)
             db_ram_chats[chat.owner.id][chat.id] = chat
