@@ -470,7 +470,7 @@ function db_Load()
                     role TEXT,
                     content TEXT
                 );
-            ]]):format(chat.id .. "_" .. chat.owner.id, chat.id .. "_" .. chat.owner.id))
+            ]]):format(chat.char.id .. "_" .. chat.owner.id, chat.char.id .. "_" .. chat.owner.id))
             commit:close()
         end
         function RemoveResponseChat(chat, i)
