@@ -5,7 +5,7 @@ local cwd = ...
 
 function t_requests.Init(n_threads, retryafter, attempts)
     for x = 1, n_threads do
-        local t = love.thread.newThread(cwd .. "/threadcode.lua")
+        local t = love.thread.newThread(cwd:gsub("%.", "/") .. "/threadcode.lua")
         t:start(x, cwd, retryafter or 0.05, attempts or 24)
         table.insert(threads, {
             thread = t,
