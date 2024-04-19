@@ -13,7 +13,7 @@ local function decode(t, key)
 end
 
 function prettyjson(t)
-    local minified = master_client.__telelove.json.encode(t)
+    local minified = json.encode(t)
     
     local newtext = ""
     local tabulation = 0
