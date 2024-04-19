@@ -386,6 +386,7 @@ function db_Load()
         end
         function GetUserName(user)
             print("I WANT TO DIE", user)
+            prettyprint(user)
             return db_userlist_id[user.id].display_name ~= "_NONAME_" and db_userlist_id[user.id].display_name or db_userlist_id[user.id].first_name
         end
         db:close()
