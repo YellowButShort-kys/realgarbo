@@ -12,6 +12,39 @@ local function decode(t, key)
     return key
 end
 
+function prettyjson(t)
+    local minified = master_client.__telelove.json.encode(t)
+    
+    local newtext = ""
+    local tabulation = 0
+    for c in minified:gmatch(".") do
+        if c == "{" then
+            newtext = newtext .. c
+            tabulation = tabulation + 1
+            newtext = newtext .. "\n"
+            for x = 1, tabulation do
+                newtext = newtext .. "    "
+            end
+        elseif c == "}" then
+            tabulation = tabulation - 1
+            newtext = newtext .. "\n"
+            for x = 1, tabulation do
+                newtext = newtext .. "    "
+            end
+            newtext = newtext .. c
+        elseif c == "," then
+            newtext = newtext .. c
+            newtext = newtext .. "\n"
+            for x = 1, tabulation do
+                newtext = newtext .. "    "
+            end
+        else
+            newtext = newtext .. c
+        end
+    end
+    return newtext
+end
+
 while true do
     local counter = 1
     local task = receiver:demand()
@@ -20,14 +53,18 @@ while true do
     local attempts = task.attempts or def_attempts
     local link = task.link
     --local data = json.encode(task.data)
+    prettyjson(task.data)
+    if task.data.data then
+        print("", "converted")
+        task.data.data = json.encode(task.data.data)
+    end
     while true do
+        print("",counter)
         if counter == attempts then 
             transmiter:push({success = false, errcode = 0, result = "Request failed after " .. tostring(attempts) .. " attempts!"})
         end
         
-        if task.data.data then
-            task.data.data = json.encode(task.data.data)
-        end
+
         local code, body, headers = https.request(link, task.data)
         if code == 0 then
             love.timer.sleep(retryafter)
@@ -39,7 +76,6 @@ while true do
             break
         end
         counter = counter + 1
-        print("",counter)
     end
 end
 
