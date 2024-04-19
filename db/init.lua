@@ -404,6 +404,7 @@ function db_Load()
                 chat.id = tonumber(chat.id)
                 -- = chats.SetMetatable(chat)
                 db_ram_chats[tonumber(var.id)][chat.id] = {
+                    id = chat.id,
                     char = characters.GetCharacter(chat.id),
                     owner = var,
                     content = contents
