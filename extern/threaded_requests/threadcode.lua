@@ -30,14 +30,13 @@ while true do
         
 
         local code, body, headers = https.request(link, task.data)
-        print(code, body)
         if code == 0 then
             love.timer.sleep(retryafter)
         elseif code == 200 then
             transmiter:push({success = true, errcode = code, result = decode(body)})
             break
         else
-            transmiter:push({success = false, errcode = code, result = decode(body, "description")})
+            transmiter:push({success = false, errcode = code, result = body})
             break
         end
         counter = counter + 1

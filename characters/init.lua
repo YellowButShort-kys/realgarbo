@@ -118,4 +118,10 @@ function base:GetName()
     return self.name
 end
 
+function base:FormatMessage(chat, str)
+    return str
+end
+function base:FormatOutput(chat, str)
+    return str
+end
 return characters

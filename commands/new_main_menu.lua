@@ -292,7 +292,7 @@ function CreateLanguagedMenu(langcode)
         local translated_text = telegramformat(translation.Translate(text, "en", langcode))
         another_chat.task = nil
         --if translated_text:len() > 3 then
-            msg:EditMessageText(translated_text, ikm)
+            msg:EditMessageText(chat.char:FormatOutput(another_chat, translated_text), ikm)
             another_chat:AppendContent(text, "assistant")
             
             local dbuser = GetUserFromDB(user.id)
@@ -475,7 +475,7 @@ function CreateLanguagedMenu(langcode)
             end
             
             msg.chat:SendChatAction("typing")
-            client.active_chats[msg.from.id]:AppendContent((translation.Translate(msg.text, langcode, "en"):gsub("♪", "*")), "user")
+            client.active_chats[msg.from.id]:AppendContent((translation.Translate(client.active_chats[msg.from.id].char:FormatMessage(client.active_chats[msg.from.id], msg.text), langcode, "en"):gsub("♪", "*")), "user")
             local new_msg = msg.chat:SendMessage(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
             client.active_chats[msg.from.id].lastmsg = new_msg
             client.active_chats[msg.from.id]:GetResponse(msg.chat, new_msg, msg.from, callback, errcallback)
