@@ -30,6 +30,7 @@ while true do
         
 
         local code, body, headers = https.request(link, task.data)
+        print(code, body)
         if code == 0 then
             love.timer.sleep(retryafter)
         elseif code == 200 then

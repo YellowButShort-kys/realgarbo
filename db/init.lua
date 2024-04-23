@@ -383,6 +383,7 @@ function db_Load()
             local commit = sqlite3.open(PATH_DB_USERS)
             commit:execute(query_add_userlist:format(db_userlist_id[user.id].id, db_userlist_id[user.id].first_name or "", db_userlist_id[user.id].last_name or "", db_userlist_id[user.id].username or db_userlist_id[user.id].first_name, 100, chatid))
             commit:close()
+            return db_userlist_id[user.id]
             --table.insert(db_userlist_additions, db_userlist_id[user.id])
         end
         function GetUserName(user)
