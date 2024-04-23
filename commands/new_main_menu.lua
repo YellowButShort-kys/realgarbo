@@ -292,7 +292,7 @@ function CreateLanguagedMenu(langcode)
         local translated_text = telegramformat(translation.Translate(text, "en", langcode))
         another_chat.task = nil
         --if translated_text:len() > 3 then
-            msg:EditMessageText(chat.char:FormatOutput(another_chat, translated_text), ikm)
+            msg:EditMessageText(another_chat.char:FormatOutput(another_chat, translated_text), ikm)
             another_chat:AppendContent(text, "assistant")
             
             local dbuser = GetUserFromDB(user.id)
