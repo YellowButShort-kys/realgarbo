@@ -29,6 +29,7 @@ hub[10] = setmetatable(require(... .. ".helper_creativity"), {__index = base})
 hub[11] = setmetatable(require(... .. ".helper_elisa"), {__index = base})
 hub[12] = setmetatable(require(... .. ".games_dante"), {__index = base})
 hub[13] = setmetatable(require(... .. ".person_marie"), {__index = base})
+hub[14] = setmetatable(require(... .. ".rpg_zdrocharis"), {__index = base})
 
 local _tags = {}
 for _, var in ipairs(hub) do
