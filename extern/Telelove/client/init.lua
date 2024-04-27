@@ -258,6 +258,7 @@ end
 do
     local memsave = {parse_mode = "Markdown"}
     function instance:EditMessageText(chat, message, text, reply_markup)
+        text = text or "The text value is empty. Please try again"
         assert(chat and message and text, tostring(chat or "nil") .. ";   " .. tostring(message or "nil") .. ";   " .. tostring(text or "nil"))
         memsave.chat_id = chat.id
         memsave.message_id = message.message_id
