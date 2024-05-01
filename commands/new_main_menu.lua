@@ -414,13 +414,21 @@ function CreateLanguagedMenu(langcode)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
         end
         
+        local dolphin = client:NewInlineKeyboardButton()
+        dolphin.text = LANG[langcode]["$MODEL_DOLPHIN"]
+        dolphin.callback = function(self, query)
+            UpdateUserToDB(query.from.id, "model", "dolphin")
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
+        end
+        
         select_model.text = LANG[langcode]["$SELECT_MODEL"]
         select_model.callback = function(self, query)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_TEXT"], {inline_keyboard = {
                 {
                     --horde, 
                     openai, 
-                    mistral7b
+                    capybara,
+                    dolphin
                 }, 
                 {back}}})
         end

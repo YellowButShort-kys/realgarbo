@@ -59,6 +59,7 @@ sql = require("extern.sqlite3")
 horde = require("api.horde")
 openai = require("api.openai")
 capybara = require("api.capybara_free")
+dolphin = require("api.dolphin")
 --translation = require("api.translation")
 translation = require("api.yandex")
 

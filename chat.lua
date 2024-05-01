@@ -201,6 +201,8 @@ function base:GetResponse(chat, msg, user, callback, errcallback)
         self.task = openai.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     elseif model == "capybara" then
         self.task = capybara.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+    elseif model == "dolphin" then
+        self.task = dolphin.Generate(self:GetInstructContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     end
 end
 

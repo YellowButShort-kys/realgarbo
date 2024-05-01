@@ -67,11 +67,13 @@ LANG["en"]["$SELECT_MODEL"]               = "[NEW] Select AI"
 LANG["en"]["$SELECT_MODEL_TEXT"]          = [[Select the model that will be used to generate responses.
 [NEW] Capybara7B: New default model, cheaper than OpenAI and better than Horde, but still quite mediocre
 OpenAI: More expensive and generates better answers, but the performance in NSFW chats is terrible
+[NEW] Dolphin8x7B: Model based on Mistral8x7b. Great quality of answers, completelly lacks any censorship, but more expensive than Capybara (worth it tho)
 ]]
 LANG["en"]["$SELECT_MODEL_SUCCESS"]       = "Success!"
 LANG["en"]["$MODEL_OPENAI"]               = "OpenAI"
 LANG["en"]["$MODEL_MISTRAL7B"]            = "[NEW] Mistral7b"
 LANG["en"]["$MODEL_HORDE"]                = "Horde"
+LANG["en"]["$MODEL_DOLPHIN"]              = "[NEW] Dolphin8x7B"
 
 
 LANG["en"]["$AWAIT_FOR_MESSAGE"]        = "Message is being generated..."
