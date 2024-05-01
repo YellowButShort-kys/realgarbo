@@ -96,7 +96,9 @@ function CreateLanguagedMenu(langcode)
             end
             
             if var == characters.GetWeekly() then
-                table.insert(ikm.inline_keyboard, {setmetatable({text = LANG[langcode]["$NEW_CHAR_WEEKLY"]:format(var:GetDisplayName(langcode))}, {__index=button_more})})
+                print(pcall(function()
+                    table.insert(ikm.inline_keyboard, {setmetatable({text = LANG[langcode]["$NEW_CHAR_WEEKLY"]:format(var:GetDisplayName(langcode))}, {__index=button_more})})
+                end))
             end
         end
         
