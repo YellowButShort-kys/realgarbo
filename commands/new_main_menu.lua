@@ -269,7 +269,7 @@ function CreateLanguagedMenu(langcode)
         
         local buttons = client:NewInlineKeyboardMarkup()
         table.insert(buttons.inline_keyboard, {})
-        for i, var in pairs(LANG) do
+        for i, var in ipairs(LANG) do
             if #buttons.inline_keyboard[#buttons.inline_keyboard] == 3 then
                 table.insert(buttons.inline_keyboard, {})
             end
