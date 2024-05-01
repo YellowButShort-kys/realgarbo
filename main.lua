@@ -58,7 +58,7 @@ sql = require("extern.sqlite3")
 
 horde = require("api.horde")
 openai = require("api.openai")
-mistral_free = require("api.mistral_free")
+capybara = require("api.capybara_free")
 --translation = require("api.translation")
 translation = require("api.yandex")
 

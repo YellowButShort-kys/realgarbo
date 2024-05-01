@@ -400,10 +400,10 @@ function CreateLanguagedMenu(langcode)
         end
         ]]
         
-        local mistral7b = client:NewInlineKeyboardButton()
-        mistral7b.text = LANG[langcode]["$MODEL_MISTRAL7B"]
-        mistral7b.callback = function(self, query)
-            UpdateUserToDB(query.from.id, "model", "mistral7b")
+        local capybara = client:NewInlineKeyboardButton()
+        capybara.text = LANG[langcode]["$MODEL_CAPYBARA"]
+        capybara.callback = function(self, query)
+            UpdateUserToDB(query.from.id, "model", "capybara")
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
         end
         

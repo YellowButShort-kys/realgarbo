@@ -1,4 +1,4 @@
-local mistral = {}
+local capybara = {}
 local LINK = "https://openrouter.ai/api/v1/chat/completions"
 local pool = requests.CreatePool(6, 0.05, 24)
 local token = [[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]]
@@ -35,7 +35,7 @@ local megacallback = function(success, errcode, result, extra)
     end
 end
 
-function mistral.Generate(messages, callback, errcallback, extra, stop_sequence)
+function capybara.Generate(messages, callback, errcallback, extra, stop_sequence)
     local old_messages = data["data"]["messages"]
     local old_stop = data["data"]["stop"]
     data["data"]["messages"] = messages
@@ -59,4 +59,4 @@ function mistral.Generate(messages, callback, errcallback, extra, stop_sequence)
     return task
 end
 
-return mistral
+return capybara

@@ -64,7 +64,7 @@ LANG["en"]["$LANG_CHANGE_TEXT"]          = "Select a language"
 
 LANG["en"]["$SELECT_MODEL"]               = "[NEW] Select AI"
 LANG["en"]["$SELECT_MODEL_TEXT"]          = [[Select the model that will be used to generate responses.
-[NEW] Mistral7b: New model, not really sure what to expect, but it's cheaper than OpenAI and in theory better than Horde.
+[NEW] Capybara7B: New default model, cheaper than OpenAI and better than Horde, but still quite mediocre
 OpenAI: More expensive and generates better answers, but the performance in NSFW chats is terrible
 ]]
 LANG["en"]["$SELECT_MODEL_SUCCESS"]       = "Success!"

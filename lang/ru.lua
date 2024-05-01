@@ -63,12 +63,12 @@ LANG["ru"]["$LANG_CHANGE_TEXT"]          = "Выберите язык"
 LANG["ru"]["$SELECT_MODEL"]               = "[NEW] Выбрать AI"
 LANG["ru"]["$SELECT_MODEL_TEXT"]          = [[Выберите модель, которая будет использоваться для генерации ответов.
 
-[NEW] Mistral7b: Новая модель в боте, не сильно уверен что от нее ждать, но она дешевле чем OpenAI и должна быть лучше чем орда
-OpenAI: Стоит дороже и генерирует ответы лучшего качества, но производительность в NSFW чатах ужасная
+[NEW] Capybara7B: Новая стандартная модель в боте, дешевле чем OpenAI и лучше чем орда, но все еще довольно посредственно
+OpenAI: Стоит дороже и генерирует ответы лучшего качества, но производительность в NSFW чатах ужасная.
 ]]
 LANG["ru"]["$SELECT_MODEL_SUCCESS"]       = "Получилось!"
 LANG["ru"]["$MODEL_OPENAI"]               = "OpenAI"
-LANG["ru"]["$MODEL_MISTRAL7B"]            = "[NEW] Mistral7b"
+LANG["ru"]["$MODEL_CAPYBARA"]            = "[NEW] Capybara7B"
 LANG["ru"]["$MODEL_HORDE"]                = "Horde"
 
 

@@ -196,13 +196,11 @@ end
 function base:GetResponse(chat, msg, user, callback, errcallback)
     local model = GetUserFromDB(user.id).model
     if model == "horde" then
-        local str = self:GetContents(CONTEXT_LIMIT)
-        str = str .. "### Response:\n"..self.char.name..":"
-        self.task = horde.Generate(str, callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+        self.task = capybara.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     elseif model == "openai" then
         self.task = openai.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
-    elseif model == "mistral7b" then
-        self.task = mistral_free.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+    elseif model == "capybara" then
+        self.task = capybara.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     end
 end
 
