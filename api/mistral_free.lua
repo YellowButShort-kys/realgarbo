@@ -10,8 +10,8 @@ local data = {
     },
     method = "POST",
     data = {
-        ["model"] = "gryphe/mythomist-7b:free",
-        ["max_tokens"] = 250,
+        ["model"] = "google/gemma-7b-it:free",
+        ["max_tokens"] = 120,
         --["temperature"] = 0.9,
         --["top_p"] = 1,
         --["presence_penalty"] = 0,
