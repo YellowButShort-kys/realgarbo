@@ -98,7 +98,7 @@ function CreateLanguagedMenu(langcode)
             if var == characters.GetWeekly() then
                 local btn = button_more
                 btn.text = LANG[langcode]["$NEW_CHAR_WEEKLY"]:format(var:GetDisplayName(langcode))
-                table.insert(ikm.inline_keyboard, btn)
+                table.insert(ikm.inline_keyboard, {btn})
             end
         end
         
