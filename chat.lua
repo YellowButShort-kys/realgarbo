@@ -137,6 +137,13 @@ function base:GetOpenAIContents()
     end
     return out
 end
+function base:GetInstructContents()
+    local out = {}
+    for _, var in ipairs(self:GetRawContents()) do
+        table.insert(out, {role = var.role, content = (var.content:gsub("{{user}}", GetUserName(self.owner)):gsub("{{char}}", self.char.name))})
+    end
+    return out
+end
 
 function base:AppendContent(str, role)
     AppendUserChat(self, role, str)
@@ -194,6 +201,8 @@ function base:GetResponse(chat, msg, user, callback, errcallback)
         self.task = horde.Generate(str, callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     elseif model == "openai" then
         self.task = openai.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+    elseif model == "mistral7b" then
+        self.task = mistral_free.Generate(self:GetInstructContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     end
 end
 
