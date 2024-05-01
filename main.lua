@@ -58,6 +58,7 @@ sql = require("extern.sqlite3")
 
 horde = require("api.horde")
 openai = require("api.openai")
+mistral_free = require("api.mistral_free")
 --translation = require("api.translation")
 translation = require("api.yandex")
 
@@ -157,6 +158,7 @@ local token = "7125567639:AAHbDOdYbO_3sCFdzxQ6djbqs4BvAcxQd3U"
 telelove = require("extern.Telelove")
 client = telelove.NewClient()
 client.active_chats = {}
+client.group_active_chats = {}
 client.display_name_change = {}
 client.promocode_enter = {}
 client.promocodes = telelove.json.decode(love.filesystem.read(PATH_PROMOCODES))

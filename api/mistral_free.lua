@@ -1,20 +1,21 @@
-local openai = {}
-local LINK = "https://unicorn.dragonetwork.pl/proxy/openai/chat/completions"
+local mistral = {}
+local LINK = "https://openrouter.ai/api/v1/chat/completions"
 local pool = requests.CreatePool(6, 0.05, 24)
+local token = [[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]]
 
 local data = {
     headers = {
         ["Content-Type"] = "application/json",
-        ["Authorization"] = "Bearer unicorn"
+        ["Authorization"] = "Bearer "..token
     },
     method = "POST",
     data = {
-        ["model"] = "gpt-3.5-turbo",
+        ["model"] = "mistralai/mistral-7b-instruct:free",
         ["max_tokens"] = 250,
-        ["temperature"] = 0.9,
-        ["top_p"] = 1,
-        ["presence_penalty"] = 0,
-        ["frequency_penalty"] = 0,
+        --["temperature"] = 0.9,
+        --["top_p"] = 1,
+        --["presence_penalty"] = 0,
+        --["frequency_penalty"] = 0,
         ["stop"] = {"<|endoftext|>"},
         ["messages"] = {
             
@@ -23,7 +24,7 @@ local data = {
 }
 local megacallback = function(success, errcode, result, extra)
     if success then
-        extra.kudos = math.ceil(result.usage.total_tokens / 50)
+        extra.kudos = math.ceil(result.usage.total_tokens / 100)
         extra:callback(result.choices[1].message.content or " ")
     else
         print(errcode)
@@ -34,7 +35,7 @@ local megacallback = function(success, errcode, result, extra)
     end
 end
 
-function openai.Generate(messages, callback, errcallback, extra, stop_sequence)
+function mistral.Generate(messages, callback, errcallback, extra, stop_sequence)
     local old_messages = data["data"]["messages"]
     local old_stop = data["data"]["stop"]
     data["data"]["messages"] = messages
@@ -58,4 +59,4 @@ function openai.Generate(messages, callback, errcallback, extra, stop_sequence)
     return task
 end
 
-return openai
+return mistral

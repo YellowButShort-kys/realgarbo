@@ -391,16 +391,31 @@ function CreateLanguagedMenu(langcode)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
         end
         
+        --[[
         local horde = client:NewInlineKeyboardButton()
         horde.text = LANG[langcode]["$MODEL_HORDE"]
         horde.callback = function(self, query)
             UpdateUserToDB(query.from.id, "model", "horde")
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
         end
+        ]]
+        
+        local mistral7b = client:NewInlineKeyboardButton()
+        mistral7b.text = LANG[langcode]["$MODEL_MISTRAL7B"]
+        mistral7b.callback = function(self, query)
+            UpdateUserToDB(query.from.id, "model", "mistral7b")
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
+        end
         
         select_model.text = LANG[langcode]["$SELECT_MODEL"]
         select_model.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_TEXT"], {inline_keyboard = {{horde, openai}, {back}}})
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_TEXT"], {inline_keyboard = {
+                {
+                    --horde, 
+                    openai, 
+                    mistral7b
+                }, 
+                {back}}})
         end
     end
     
