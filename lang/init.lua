@@ -1,5 +1,5 @@
 LANG = {}
-local default = {__index = LANG["en"]}
+local default = {__index = function(self, key) return LANG["en"][key] end}
 require("lang.en")
 require("lang.ru")
 require("lang.ua")
