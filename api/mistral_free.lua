@@ -10,7 +10,7 @@ local data = {
     },
     method = "POST",
     data = {
-        ["model"] = "google/gemma-7b-it:free",
+        ["model"] = "nousresearch/nous-capybara-7b:free",
         ["max_tokens"] = 120,
         --["temperature"] = 0.9,
         --["top_p"] = 1,
