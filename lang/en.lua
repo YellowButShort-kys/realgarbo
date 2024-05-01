@@ -17,6 +17,7 @@ LANG["en"]["$NEW_CHAR_BACK"]            = "Back"
 LANG["en"]["$NEW_CHAR_SELECT"]          = "Select"
 LANG["en"]["$NEW_CHAR_REWRITE"]         = "WARNING: you already have a chat with this characters. You can select it by using the appropriate menu. By continuing you will delete the existing chat. Proceed?"
 LANG["en"]["$NEW_CHAR_CONFIRM"]         = "Confirm removal"
+LANG["en"]["$NEW_CHAR_WEEKLY"]          = "Char of the Week: %s"
 
 
 LANG["en"]["$LOAD_CHAR"]                = "Open active chat"

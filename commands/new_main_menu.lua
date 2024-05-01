@@ -126,6 +126,45 @@ function CreateLanguagedMenu(langcode)
             table.insert(btns, button)
         end
         local counter = 1
+        
+        do
+            local weekly = client:NewInlineKeyboardButton()
+            weekly.char = characters.GetWeekly()
+            weekly.text = LANG[langcode]["$NEW_CHAR_WEEKLY"]:format(weekly.char:GetDisplayName(langcode))
+            weekly.callback = function(self, query)
+                if not chats.GetUserChat(query.from, self.char) then 
+                    client.active_chats[query.from.id] = chats.NewChat(query.from, self.char)
+                    client:EditMessageText(query.message.chat, query.message, telegramformat(translation.Translate(self.char:GetFirstMessage(query.from), "en", langcode)))
+                else
+                    client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$NEW_CHAR_REWRITE"], self.rewrite)
+                end
+            end
+            
+            local btn_rewrite_confirm = client:NewInlineKeyboardButton()
+            btn_rewrite_confirm.text = LANG[langcode]["$NEW_CHAR_CONFIRM"]
+            btn_rewrite_confirm.owner = weekly
+            btn_rewrite_confirm.callback = function(self, query)
+                --chats.DeleteUserChat(query.from, self.owner.char)
+                --client.active_chats[query.from.id] = chats.NewChat(query.from, self.owner.char)
+                client.active_chats[query.from.id] = chats.GetUserChat(query.from, self.owner.char)
+                --client.active_chats[query.from.id]:SetContent(self.owner.char:GetStarter(query.from))
+                client.active_chats[query.from.id]:ResetChat()
+                client:EditMessageText(query.message.chat, query.message, telegramformat(translation.Translate(self.owner.char:GetFirstMessage(query.from), "en", langcode)))
+            end
+            
+
+            local btn_back = client:NewInlineKeyboardButton()
+            btn_back.text = LANG[langcode]["$NEW_CHAR_BACK"]
+            btn_back.callback = function(self, query)
+                new_chat:callback(query)
+            end
+            
+            weekly.rewrite = client:NewInlineKeyboardMarkup()
+            weekly.rewrite.inline_keyboard = {{btn_back, btn_rewrite_confirm}}
+            
+            table.insert(ikm.inline_keyboard, {weekly})
+        end
+        
         while true do
             if not btns[counter] then break end
             table.insert(ikm.inline_keyboard, {

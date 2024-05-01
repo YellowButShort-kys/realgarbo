@@ -16,20 +16,31 @@ function characters.GetHub()
     return hub
 end
 
-hub[1]  = setmetatable(require(... .. ".person_mia"), {__index = base})
-hub[2]  = setmetatable(require(... .. ".anime_megumin"), {__index = base})
-hub[3]  = setmetatable(require(... .. ".anime_kazuma_sato"), {__index = base})
-hub[4]  = setmetatable(require(... .. ".games_tf2heavy"), {__index = base})
-hub[5]  = setmetatable(require(... .. ".games_tf2soldier"), {__index = base})
-hub[6]  = setmetatable(require(... .. ".anime_morgan_le_fey"), {__index = base})
-hub[7]  = setmetatable(require(... .. ".anime_aqua"), {__index = base})
-hub[8]  = setmetatable(require(... .. ".games_alyx"), {__index = base})
-hub[9]  = setmetatable(require(... .. ".anime_tamamo"), {__index = base})
-hub[10] = setmetatable(require(... .. ".helper_creativity"), {__index = base})
-hub[11] = setmetatable(require(... .. ".helper_elisa"), {__index = base})
-hub[12] = setmetatable(require(... .. ".games_dante"), {__index = base})
-hub[13] = setmetatable(require(... .. ".person_marie"), {__index = base})
-hub[14] = setmetatable(require(... .. ".rpg_zdrocharis"), {__index = base})
+local cwd = ...
+local weekly
+local function RegisterChar(path)
+    local t = require(cwd .. "." .. path)
+    setmetatable(t, {__index = base})
+    t.id = #hub+1
+    table.insert(hub, t)
+    weekly = t
+end
+
+RegisterChar("person_mia")
+RegisterChar("anime_megumin")
+RegisterChar("anime_kazuma_sato")
+RegisterChar("games_tf2heavy")
+RegisterChar("games_tf2soldier")
+RegisterChar("anime_morgan_le_fey")
+RegisterChar("anime_aqua")
+RegisterChar("games_alyx")
+RegisterChar("anime_tamamo")
+RegisterChar("helper_creativity")
+RegisterChar("helper_elisa")
+RegisterChar("games_dante")
+RegisterChar("person_marie")
+RegisterChar("rpg_zdrocharis")
+RegisterChar("anime_fern")
 
 local _tags = {}
 for _, var in ipairs(hub) do
@@ -49,6 +60,10 @@ function characters.GetTagged()
 end
 function characters.GetTags()
     return tags
+end
+
+function characters.GetWeekly()
+    return weekly
 end
 
 -------------------------------------------------------------
@@ -117,6 +132,9 @@ end
 
 function base:GetName()
     return self.name
+end
+function base:GetDisplayName(lang)
+    return self.display_name[lang]
 end
 
 function base:FormatMessage(chat, str)
