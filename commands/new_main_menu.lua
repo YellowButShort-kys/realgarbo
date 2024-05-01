@@ -97,7 +97,7 @@ function CreateLanguagedMenu(langcode)
             
             if var == characters.GetWeekly() then
                 print(pcall(function()
-                    prettyjson(LANG)
+                    prettyprint(LANG)
                     table.insert(ikm.inline_keyboard, {setmetatable({text = LANG[langcode]["$NEW_CHAR_WEEKLY"]:format(var:GetDisplayName(langcode))}, {__index=button_more})})
                 end))
             end
