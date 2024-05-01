@@ -127,6 +127,7 @@ function CreateLanguagedMenu(langcode)
         end
         local counter = 1
         
+        --[[
         do
             local weekly = client:NewInlineKeyboardButton()
             weekly.char = characters.GetWeekly()
@@ -164,6 +165,7 @@ function CreateLanguagedMenu(langcode)
             
             table.insert(ikm.inline_keyboard, {weekly})
         end
+        ]]
         
         while true do
             if not btns[counter] then break end
