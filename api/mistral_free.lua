@@ -10,7 +10,7 @@ local data = {
     },
     method = "POST",
     data = {
-        ["model"] = "mistralai/mistral-7b-instruct:free",
+        ["model"] = "gryphe/mythomist-7b:free",
         ["max_tokens"] = 250,
         --["temperature"] = 0.9,
         --["top_p"] = 1,
