@@ -39,12 +39,4 @@ char.greeting = [[
 *Does the American salute* Pain is weakness leaving the body. Do any of your motherfuckers think they are able to defend their god damn country? You are maggots!
 ]]
 
-function char:GetStarter(user)
-    return self.starter:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
-
-function char:GetFirstMessage(user)
-    return self.greeting:gsub("{{user}}", GetUserName(user)):gsub("{{char}}", self.name)
-end
-
 return char
