@@ -23,7 +23,7 @@ local data = {
 }
 local megacallback = function(success, errcode, result, extra)
     if success then
-        extra.kudos = math.ceil(result.usage.total_tokens / 50)
+        extra.kudos = math.ceil(result.usage.total_tokens / 100)
         extra:callback(result.choices[1].message.content or " ")
     else
         print(errcode)

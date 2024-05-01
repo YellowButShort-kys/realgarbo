@@ -202,7 +202,7 @@ function base:GetResponse(chat, msg, user, callback, errcallback)
     elseif model == "openai" then
         self.task = openai.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     elseif model == "mistral7b" then
-        self.task = mistral_free.Generate(self:GetInstructContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+        self.task = mistral_free.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     end
 end
 
