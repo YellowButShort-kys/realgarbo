@@ -78,11 +78,11 @@ return function(telelove)
         replacement['%"'] = '\\"'
         replacement["%."] = "\\."
         function telelove.__httpfy(str)
-            str = str or ""
-            str = str:gsub("%\\", "\\\\")
-            for i, var in pairs(replacement) do
-                str = str:gsub(i, var)
-            end
+            --str = str or ""
+            --str = str:gsub("%\\", "\\\\")
+            --for i, var in pairs(replacement) do
+            --    str = str:gsub(i, var)
+            --end
             return str
         end
     end
