@@ -286,8 +286,29 @@ master_client:RegisterCommand(get_user_chat)
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
+local function telegramformat(str)
+    local __switch = true
+    local newtext = ""
+    for c in str:gmatch(".") do
+        if c == "*" then
+            if __switch then
+                newtext = newtext .. "_"
+            else
+                newtext = newtext .. "_\n"
+            end
+            __switch = not __switch
+        else
+            newtext = newtext .. c
+        end
+    end
+    if not __switch then
+        newtext = newtext .. "_"
+    end
+    return newtext
+end
+
 function master_client:SendToFather(msg)
-    master_client:SendMessage(386513759, msg, {["parse_mode"] = "MarkdownV2"}) 
+    master_client:SendMessage(386513759, telegramformat(msg), {["parse_mode"] = "MarkdownV2"}) 
 end
 
 --==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==
