@@ -32,7 +32,7 @@ local function htmlformat(str)
     if asterics then
         newtext = newtext .. "</i></b>"
     end
-    return str:gsub("%*", match)
+    return (str:gsub("%*", match))
 end
 
 function CreateLanguagedMenu(langcode)
