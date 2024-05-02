@@ -202,7 +202,7 @@ end
 
 do
     function instance:SendMessage(chat, text, extra)
-        local data = {chat_id = type(chat) == "table" and chat.id or chat, text = self.__telelove.__httpfy(text), parse_mode = "MarkdownV2"}
+        local data = {chat_id = type(chat) == "table" and chat.id or chat, text = self.__telelove.__httpfy(text), parse_mode = "HTML"}
         if extra then
             for i, var in pairs(extra) do
                 if i == "reply_markup" and type(var) == "string" then
@@ -256,7 +256,7 @@ do
 end
 
 do
-    local memsave = {parse_mode = "Markdown"}
+    local memsave = {parse_mode = "HTML"}
     function instance:EditMessageText(chat, message, text, reply_markup)
         text = text or "The text value is empty. Please try again"
         assert(chat and message and text, tostring(chat or "nil") .. ";   " .. tostring(message or "nil") .. ";   " .. tostring(text or "nil"))

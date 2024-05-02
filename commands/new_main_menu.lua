@@ -22,6 +22,19 @@ local function telegramformat(str)
     return newtext
 end
 
+local function htmlformat(str)
+    local asterics = false
+    local newtext = ""
+    local function match(s)
+        asterics = not asterics
+        return asterics and "<b><i>" or "</b></i>"
+    end
+    if asterics then
+        newtext = newtext .. "</b></i>"
+    end
+    return str:gmatch("%*")
+end
+
 function CreateLanguagedMenu(langcode)
     local menu = {}
     local char_creation = client:NewInlineKeyboardButton()
@@ -60,7 +73,7 @@ function CreateLanguagedMenu(langcode)
             btn_select.callback = function(self, query)
                 if not chats.GetUserChat(query.from, self.char) then 
                     client.active_chats[query.from.id] = chats.NewChat(query.from, self.char)
-                    client:EditMessageText(query.message.chat, query.message, telegramformat(translation.Translate(self.char:GetFirstMessage(query.from), "en", langcode)))
+                    client:EditMessageText(query.message.chat, query.message, htmlformat(translation.Translate(self.char:GetFirstMessage(query.from), "en", langcode)))
                 else
                     client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$NEW_CHAR_REWRITE"], self.rewrite)
                 end
@@ -75,7 +88,7 @@ function CreateLanguagedMenu(langcode)
                 client.active_chats[query.from.id] = chats.GetUserChat(query.from, self.owner.char)
                 --client.active_chats[query.from.id]:SetContent(self.owner.char:GetStarter(query.from))
                 client.active_chats[query.from.id]:ResetChat()
-                client:EditMessageText(query.message.chat, query.message, telegramformat(translation.Translate(self.owner.char:GetFirstMessage(query.from), "en", langcode)))
+                client:EditMessageText(query.message.chat, query.message, htmlformat(translation.Translate(self.owner.char:GetFirstMessage(query.from), "en", langcode)))
             end
             
 
@@ -170,7 +183,7 @@ function CreateLanguagedMenu(langcode)
             button.callback = function(self, query)
                 local chat = chats.GetUserChat(query.from, self.char)
                 if chat then
-                    client:EditMessageText(query.message.chat, query.message, telegramformat(translation.Translate(chat:GetLastResponse(), "en", langcode)))
+                    client:EditMessageText(query.message.chat, query.message, htmlformat(translation.Translate(chat:GetLastResponse(), "en", langcode)))
                     client.active_chats[query.from.id] = chat
                 end
             end
@@ -299,7 +312,14 @@ function CreateLanguagedMenu(langcode)
         local translated_text = telegramformat(translation.Translate(text, "en", langcode))
         another_chat.task = nil
         --if translated_text:len() > 3 then
-            msg:EditMessageText(another_chat.char:FormatOutput(another_chat, translated_text), ikm)
+            msg:DeleteMessage()
+            --  THERE IS AN EMPTY CHAR BELOW TO PREVENT LLMs 
+            --  FROM         |    RETURNING EMPTY MESSAGES
+            --  AND BREAKING |    FUCKING EVERYTHING
+            --               V
+            chat:SendMessage("󠄀"..another_chat.char:FormatOutput(another_chat, translated_text), ikm)
+            
+            --msg:EditMessageText(another_chat.char:FormatOutput(another_chat, translated_text), ikm)
             another_chat:AppendContent(text, "assistant")
             
             local dbuser = GetUserFromDB(user.id)

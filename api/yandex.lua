@@ -56,7 +56,7 @@ function translator.Translate(str, source, target, test)
         if not test and translator.RetriveToken() then
             return translator.Translate(str, source, target, true)
         else
-            return error("There was an error trying to translate the text!")
+            return "Произошла ошибка во время перевода, скорее всего из за некачественного ответа нейросети. Попробуйте опять."
         end
     end
 end
