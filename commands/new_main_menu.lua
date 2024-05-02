@@ -27,10 +27,10 @@ local function htmlformat(str)
     local newtext = ""
     local function match(s)
         asterics = not asterics
-        return asterics and "<b><i>" or "</b></i>"
+        return asterics and "<b><i>" or "</i></b>"
     end
     if asterics then
-        newtext = newtext .. "</b></i>"
+        newtext = newtext .. "</i></b>"
     end
     return str:gsub("%*", match)
 end
