@@ -55,6 +55,10 @@ require("superdata")
 https = require("https")
 requests = require("extern.threaded_requests")
 sql = require("extern.sqlite3")
+require("db")
+db_Init()
+db_Load()
+
 
 horde = require("api.horde")
 openai = require("api.openai")
@@ -186,10 +190,6 @@ FALLBACK = {}
 
 chats = require("chat")
 characters = require("characters")
-
-require("db")
-db_Init()
-db_Load()
 
 function client:onStart()
     commands = require("commands")
