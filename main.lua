@@ -221,6 +221,8 @@ SUBBONUS = {
 }
 local function checksubs()
     if os.time() >= nextcheck then
+        print("SUBS TIME LOL")
+        master_client:SendToFather("SUBS TIME LOL")
         local d = os.date("*t", nextcheck)
         local month = d.month + 1
         local year = d.year
@@ -231,12 +233,16 @@ local function checksubs()
         nextcheck = os.time({year=year, month=month, day=1})
         love.filesystem.write("subs_check.txt", tostring(nextcheck))
         
+        local count = 0
         for _, var in pairs(GetAllUsers()) do
             if var.subscriptionlevel > 0 then
                 UpdateUserToDB(var.id, "tokens", var.tokens + SUBBONUS[var.subscriptionlevel][1])
                 UpdateUserToDB(var.id, "subscriptiontokens", SUBBONUS[var.subscriptionlevel][2])
+                count = count + 1
             end
         end
+        print(count .. " subs are active")
+        master_client:SendToFather(count .. " subs are active")
     end
 end
 
