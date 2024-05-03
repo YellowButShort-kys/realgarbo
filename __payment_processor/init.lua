@@ -111,7 +111,9 @@ end
 
 local nextcheck = 0
 function radom.Update()
+    print("RADOM Update")
     pool:Update()
+    print("Pool Update DONE")
     
     if love.timer.getTime() > nextcheck then
         for i = #monitored, 1, -1 do
@@ -119,6 +121,7 @@ function radom.Update()
         end
         nextcheck = love.timer.getTime() + 30
     end
+    print("RADOM Update DONE")
 end
 
 return radom
