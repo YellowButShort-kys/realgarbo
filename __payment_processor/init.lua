@@ -19,7 +19,7 @@ local function Callback_ListProducts(success, errcode, result, extra)
         for _, var in ipairs(result) do
             table.insert(products, setmetatable(var, products_base))
         end
-        print("[RADON]: Loaded ".. tostring(#result) .. " products")
+        print("\033[33m[RADON]\033[0m: Loaded ".. tostring(#result) .. " products")
     else
         error("There was an error trying loading products:" .. "\n  " .. result)
     end
@@ -36,7 +36,7 @@ local function Callback_CreateCheckoutSession(success, errcode, result, extra)
     if success then
         extra.onStart(result.checkoutSessionUrl, result.checkoutSessionId)
         radom.StartMonitoringCheckout(result.checkoutSessionId, extra.onPayment)
-        print("[RADON] Created a new checkout session")
+        print("\033[33m[RADON]\033[0m: Created a new checkout session")
     else
         error("There was an error trying to create a checkout session:" .. "\n  " .. result)
     end
@@ -62,6 +62,7 @@ end
 local function CheckSuccess(success, errcode, result, extra)
     if success then
         if result.sessionStatus == "success" then
+            print("\033[33m[RADON]\033[0m: Payment received!")
             extra[2](extra[1])
         elseif result.sessionStatus == "cancelled" or result.sessionStatus == "expired" then
             for i, var in ipairs(monitored) do
