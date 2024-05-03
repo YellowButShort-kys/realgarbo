@@ -1,7 +1,7 @@
 local radom = {}
 
 local cwd = ...
-local ansicolors = require("cwd" .. ".ansicolors")
+local ansicolors = require(cwd .. ".ansicolors")
 local requests = require(cwd .. ".threaded_requests")
 local pool = requests.CreatePool(3)
 
