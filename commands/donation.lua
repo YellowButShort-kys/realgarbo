@@ -21,7 +21,7 @@ return function(langcode, menu, button)
     local subsikm = {}
     local regikm = {}
     for i, product in ipairs(products) do
-        if product:GetName() then do --bruh
+        if product:GetName() then --bruh
         local options = client:NewInlineKeyboardButton()    
         local crypto = client:NewInlineKeyboardButton()
         local crypto_agree = client:NewInlineKeyboardButton()
