@@ -335,7 +335,7 @@ function db_Load()
         print("  DONE")
         print("EXEC")
         local db_ram_userlist = db:execute([[
-            SELECT * FROM ("Users")
+            SELECT * FROM (Users)
         ]]) or {}
         print("  DONE")
         print("CONVERT")
