@@ -328,6 +328,7 @@ end
 
 
 function db_Load()
+    print("LOAD")
     do
         local db = sqlite3.open(PATH_DB_USERS)
         local db_ram_userlist = db:execute([[
@@ -399,6 +400,7 @@ function db_Load()
         db:close()
     end
 
+    print("CHATS")
     do
         local db = sqlite3.open(PATH_DB_CHATS)
         local db_ram_chats = {}
