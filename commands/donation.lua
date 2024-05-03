@@ -21,6 +21,7 @@ return function(langcode, menu, button)
     local subsikm = {}
     local regikm = {}
     for i, product in ipairs(products) do
+        if product:GetName() then do --bruh
         local options = client:NewInlineKeyboardButton()    
         local crypto = client:NewInlineKeyboardButton()
         local crypto_agree = client:NewInlineKeyboardButton()
@@ -76,6 +77,7 @@ return function(langcode, menu, button)
             regikm[tonumber(btn.text:sub(-2, -1))] = {btn}
         end
         print("GetChargingInterval Done")
+        end
     end
     table.insert(subsikm, {donationback})
     table.insert(regikm, {donationback})
