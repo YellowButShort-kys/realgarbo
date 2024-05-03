@@ -17,6 +17,7 @@ function radom.SetToken(token)
 end
 
 local function Callback_ListProducts(success, errcode, result, extra)
+    --[[
     awaitforproducts = false
     if success then
         for _, var in ipairs(result) do
@@ -26,8 +27,10 @@ local function Callback_ListProducts(success, errcode, result, extra)
     else
         error("There was an error trying loading products:" .. "\n  " .. result)
     end
+    ]]
 end
 function radom.ListProducts(include_archived)
+    --[[
     assert(TOKEN, "Token was not provided")
     pool:Request("https://api.radom.com/products", {method = "get", headers = {["Content-Type"] = "application/json", ["Authorization"] = TOKEN}}, Callback_ListProducts)
     awaitforproducts = true
@@ -35,12 +38,14 @@ function radom.ListProducts(include_archived)
         love.timer.sleep(0.05)
         pool:Update()
     end
+    ]]
 end
 function radom.GetProducts()
     return products
 end
 
 local function Callback_CreateCheckoutSession(success, errcode, result, extra)
+    --[[
     if success then
         extra.onStart(result.checkoutSessionUrl, result.checkoutSessionId)
         radom.StartMonitoringCheckout(result.checkoutSessionId, extra.onPayment)
@@ -48,8 +53,10 @@ local function Callback_CreateCheckoutSession(success, errcode, result, extra)
     else
         error("There was an error trying to create a checkout session:" .. "\n  " .. result)
     end
+    ]]
 end
 function radom.CreateCheckoutSession(product, onStart, onPayment, successUrl)
+    --[[
     assert(TOKEN, "Token was not provided")
     assert(product, "Product was not provided")
     assert(onStart, "onStart callback was not provided")
@@ -69,6 +76,7 @@ function radom.CreateCheckoutSession(product, onStart, onPayment, successUrl)
         },
         ["expiresAt"] = os.time() + 3600 --hour?
     }}, Callback_CreateCheckoutSession, {onStart = onStart, onPayment = onPayment})
+    ]]
 end
 
 function radom.StartMonitoringCheckout(id, callback)
@@ -92,9 +100,11 @@ local function CheckSuccess(success, errcode, result, extra)
     end
 end
 function radom.CheckCheckoutSession(session)
+    --[[
     assert(TOKEN, "Token was not provided")
     assert(session, "Session was not provided")
     pool:Request("https://api.radom.com/checkout_session/"..session[1], {method = "get", headers = {["Content-Type"] = "application/json", ["Authorization"] = TOKEN}}, CheckSuccess)
+    ]]
 end
 
 local nextcheck = 0
