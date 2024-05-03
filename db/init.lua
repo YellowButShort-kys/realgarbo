@@ -328,7 +328,6 @@ end
 
 
 function db_Load()
-    --[==[
     do
         local db = sqlite3.open(PATH_DB_USERS)
         local db_ram_userlist = db:execute([[
@@ -507,6 +506,5 @@ function db_Load()
         end
         db:close()
     end
-    ]==]
     print("DB success")
 end
