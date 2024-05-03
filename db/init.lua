@@ -331,7 +331,7 @@ function db_Load()
     print("LOAD")
     do
         print("OPEN")
-        local db = sqlite3.open(PATH_DB_USERS)
+        local db = sqlite3.open("/home/yellowbutshort/code/realgarbo/db/users.db")
         print("  DONE")
         print("EXEC")
         local db_ram_userlist = db:execute([[
