@@ -59,6 +59,14 @@ function radom.CreateCheckoutSession(product, onStart, onPayment, successUrl)
         ["lineItems"] = {
             {["productId"] = product:GetID()}
         },
+        ["gateway"] = {
+            ["managed"] = {
+                ["methods"] = {
+                    {["network"] = "Bitcoin"},
+                    {["network"] = "Tron", ["token"] = "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t"}
+                }
+            }
+        },
         ["expiresAt"] = os.time() + 1800 --half an hour
     }}, {onStart = onStart, onPayment = onPayment}, Callback_CreateCheckoutSession)
 end
