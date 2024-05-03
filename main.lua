@@ -220,7 +220,6 @@ SUBBONUS = {
     {3780, 27720}
 }
 local function checksubs()
-    print(os.time(),  nextcheck)
     if os.time() >= nextcheck then
         print("SUBS TIME LOL")
         master_client:SendToFather("SUBS TIME LOL")
