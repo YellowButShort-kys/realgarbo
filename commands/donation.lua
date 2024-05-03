@@ -72,6 +72,7 @@ return function(langcode, menu, button)
         if product:GetChargingInterval() > 0 then
             subsikm[tonumber(btn.text:sub(-2, -1))] = {btn}
         else
+            print(tonumber(btn.text:sub(-2, -1)))
             regikm[tonumber(btn.text:sub(-2, -1))] = {btn}
         end
         print("GetChargingInterval Done")
