@@ -68,7 +68,7 @@ return function(langcode, menu, button)
             btn.callback = function(self, query)
                 client:EditMessageText(query.message.chat, query.message, "*" .. product:GetName() .. "*" .. "\n\n" .. product:GetDescription(), {inline_keyboard = {{crypto}, {cash}, {back}}})
             end
-            ikm[tonumber(btn.text:sub(-2, -1))] = btn
+            ikm[tonumber(btn.text:sub(-2, -1))] = {btn}
         end
     end
     table.insert(ikm, {donationback})
