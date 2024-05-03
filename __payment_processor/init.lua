@@ -68,7 +68,7 @@ function radom.CreateCheckoutSession(product, onStart, onPayment, successUrl)
             }
         },
         ["expiresAt"] = os.time() + 1800 --half an hour
-    }}, {onStart = onStart, onPayment = onPayment}, Callback_CreateCheckoutSession)
+    }}, Callback_CreateCheckoutSession, {onStart = onStart, onPayment = onPayment})
 end
 
 function radom.StartMonitoringCheckout(id, callback)
