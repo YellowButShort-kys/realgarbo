@@ -180,6 +180,7 @@ client.group_active_chats = {}
 client.display_name_change = {}
 client.promocode_enter = {}
 client.promocodes = telelove.json.decode(love.filesystem.read(PATH_PROMOCODES))
+client.payments = {}
 
 chats = require("chat")
 characters = require("characters")
