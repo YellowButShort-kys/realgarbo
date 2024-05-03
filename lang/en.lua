@@ -38,8 +38,43 @@ LANG["en"]["$TOKENS_CURRENT_BALANCE"]   = "You have %s tokens.\nYour current sub
 LANG["en"]["$TOKENS_BACK"]              = "Back"
 
 
-LANG["en"]["$DONATE_TEXT"]              = [[The purchase of tokens or subscriptions is currently manual and comes through the customer support (https://t.me/CarpAISupportBot). Any support is incredibly important to us and helps us to become better. Thank you very much!]]
 LANG["en"]["$DONATE"]                   = "Buy tokens"
+LANG["en"]["$DONATE_BACK"]               = "Back"
+LANG["en"]["$DONATE_CRYPTO"]             = "Crypto (20% off!)"
+LANG["en"]["$DONATE_CRYPTO_GUIDE"]       = "To pay using crypto you can use any Bitcoin/USDT wallet.\nIf anything feels overwhelming, don't worry. Contact the support to get help (https://t.me/CarpAISupportBot)\nFor simplicity, I would recommend https://t.me/wallet (not affiliated). Register and add sufficient amount on your account.\nThen, as soon as the payment link is generated, pay using either the wallet address or QR code within 30 minutes.\n Do not forget to enter promocode CRYPTO to get a 20% off! \n\nWARNING: IF YOU PAY USING USDT, YOU MUST USE TRC20 NETWORK, OTHERWISE YOU WILL LOSE YOUR MONEY."
+LANG["en"]["$DONATE_CRYPTO_PROCEED"]     = "Proceed"
+LANG["en"]["$DONATE_CRYPTO_AWAIT"]       = "Please wait while the payment link is being generated"
+LANG["en"]["$DONATE_CRYPTO_PAYMENT"]     = "Success! Now use this link to pay:\n%s"
+LANG["en"]["$DONATE_SUBSCRIPTIONS"]      = "Subscriptions"
+LANG["en"]["$DONATE_SUBSCRIPTIONS_TEXT"] = [[There are 3 tiers of subscriptions available:
+Tier 1:
+    500 tokens on your wallet each month
+    3700 monthly allowance
+    Price: 500 ₽/month
+
+Tier 2:
+    1750 tokens on your wallet each month
+    12950 monthly allowance
+    Access to closed tests of new features
+    Price: 1500 ₽/month
+    
+Tier 3:
+    3780 tokens on your wallet each month
+    27720 monthly allowance
+    Access to closed tests of new features
+    Basically you become a massive chad and can request almost anything (if it can be done, it will be done)
+    3000 ₽/month]]
+LANG["en"]["$DONATE_OPTIONS"]            = [[We offer two types of payments
+Subscription: Cost-efficiency and comfort
+Regular: A bit more expensive, but at least it's not a subscription eh?
+
+To pay, you can either send money manually or use automatic crypto payments. Crypto payments also receive a 20% off of any purchase!
+]]
+LANG["en"]["$DONATE_CASH"]               = "Cash"
+LANG["en"]["$DONATE_CASH_GUIDE"]         = "Automatic cash payments are not yet available. You will have to contact the support (https://t.me/CarpAISupportBot) and tell what are you looking to buy"
+LANG["en"]["$DONATE_CASH_PAYMENT"]       = "Please contact the support and we will help you with the purchase\nhttps://t.me/CarpAISupportBot"
+LANG["en"]["$DONATE_CASH_PROCEED"]       = "Proceed"
+
 
 
 LANG["en"]["$DISPLAY_NAME"]             = "Chat name"
@@ -78,3 +113,4 @@ LANG["en"]["$MODEL_DOLPHIN"]              = "[NEW] Dolphin8x7B"
 
 LANG["en"]["$AWAIT_FOR_MESSAGE"]        = "Message is being generated..."
 LANG["en"]["$UNFINISHED_GENERATION"]    = "Please wait for the generation to end..."
+

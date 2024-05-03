@@ -63,6 +63,9 @@ dolphin = require("api.dolphin")
 --translation = require("api.translation")
 translation = require("api.yandex")
 
+radom = require("__payment_processor")
+radom.SetToken("eyJhZGRyZXNzIjpudWxsLCJvcmdhbml6YXRpb25faWQiOiJlNjZjMTk5Zi1lYzgzLTRkNWUtYjhkOS0zZWI1NTI4MDI0YzQiLCJzZXNzaW9uX2lkIjoiNGNkNjEzYmMtMmZjMS00NDQ3LWE4NTEtOWIwMTkwN2Y2MjFiIiwiZXhwaXJlZF9hdCI6IjIwMjUtMDUtMDNUMDg6NTY6MjIuOTkyNTgxNDM2WiIsImlzX2FwaV90b2tlbiI6dHJ1ZX0=")
+
 require("lang")
 
 
@@ -206,7 +209,7 @@ end
 require("__master_client")
 
 local nextcheck = tonumber((love.filesystem.read("subs_check.txt")))
-local subbonus = {
+SUBBONUS = {
     {500, 3700},
     {1750, 12950},
     {3780, 27720}
@@ -225,8 +228,8 @@ local function checksubs()
         
         for _, var in pairs(GetAllUsers()) do
             if var.subscriptionlevel > 0 then
-                UpdateUserToDB(var.id, "tokens", var.tokens + subbonus[var.subscriptionlevel][1])
-                UpdateUserToDB(var.id, "subscriptiontokens", subbonus[var.subscriptionlevel][2])
+                UpdateUserToDB(var.id, "tokens", var.tokens + SUBBONUS[var.subscriptionlevel][1])
+                UpdateUserToDB(var.id, "subscriptiontokens", SUBBONUS[var.subscriptionlevel][2])
             end
         end
     end
@@ -240,4 +243,5 @@ function love.update()
     MasterUpdate()
     checksubs()
     requests.Update()
+    radom.Update()
 end

@@ -241,10 +241,14 @@ function CreateLanguagedMenu(langcode)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$TOKENS_CURRENT_BALANCE"]:format(user.tokens, user.subscriptiontokens), {inline_keyboard = {{back}}})
         end
         
+        
+        require("commands.donation")(langcode, menu, donate)
+        --[[
         donate.text = LANG[langcode]["$DONATE"]
         donate.callback = function(self, query)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_TEXT"], {inline_keyboard = {{back}}})
         end
+        ]]
         
         promocode.text = LANG[langcode]["$PROMOCODE"]
         promocode.callback = function(self, query)

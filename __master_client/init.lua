@@ -399,6 +399,7 @@ runstring.callback = function(user, chat, msg)
     
     local op = print
     function print(...)
+        op(...)
         master_client:SendMessage(chat, table.concat({...}, "\n"))
     end
     local r = {pcall(runstring.__callback, user, chat, msg)}
