@@ -59,14 +59,14 @@ return function(langcode, menu, button)
             
             options.text = LANG[langcode]["$DONATE_BACK"]
             options.callback = function(self, query)
-                client:EditMessageText(query.message.chat, query.message, "*" .. product:GetName() .. "*" .. "\n\n" .. product:GetDescription(), {inline_keyboard = {{crypto}, {cash}, {back}}})
+                client:EditMessageText(query.message.chat, query.message, "<b><i>" .. product:GetName() .. "</i></b>" .. "\n\n" .. product:GetDescription(), {inline_keyboard = {{crypto}, {cash}, {back}}})
             end
             
             
             local btn = client:NewInlineKeyboardButton()
             btn.text = product:GetName()
             btn.callback = function(self, query)
-                client:EditMessageText(query.message.chat, query.message, "*" .. product:GetName() .. "*" .. "\n\n" .. product:GetDescription(), {inline_keyboard = {{crypto}, {cash}, {back}}})
+                client:EditMessageText(query.message.chat, query.message, "<b><i>" .. product:GetName() .. "</i></b>" .. "\n\n" .. product:GetDescription(), {inline_keyboard = {{crypto}, {cash}, {back}}})
             end
             ikm[tonumber(btn.text:sub(-2, -1))] = {btn}
         end

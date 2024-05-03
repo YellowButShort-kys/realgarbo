@@ -57,7 +57,7 @@ function radom.CreateCheckoutSession(product, onStart, onPayment, successUrl)
     pool:Request("https://api.radom.com/checkout_session", {method = "post", headers = {["Content-Type"] = "application/json", ["Authorization"] = TOKEN}, data = {
         ["successUrl"] = successUrl or "https://google.com",
         ["lineItems"] = {
-            ["productId"] = product:GetID()
+            {["productId"] = product:GetID()}
         },
         ["expiresAt"] = os.time() + 1800 --half an hour
     }}, {onStart = onStart, onPayment = onPayment}, Callback_CreateCheckoutSession)
