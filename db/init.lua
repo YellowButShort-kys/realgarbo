@@ -330,7 +330,9 @@ end
 function db_Load()
     print("LOAD")
     do
+        print("OPEN")
         local db = sqlite3.open(PATH_DB_USERS)
+        print("DONE")
         local db_ram_userlist = db:execute([[
             SELECT * FROM (Users)
         ]]) or {}
