@@ -316,6 +316,7 @@ function CreateLanguagedMenu(langcode)
         local translated_text = telegramformat(translation.Translate(text, "en", langcode))
         another_chat.task = nil
         --if translated_text:len() > 3 then
+            FALLBACK[msg.id] = nil
             msg:DeleteMessage()
             --  THERE IS AN EMPTY CHAR BELOW TO PREVENT LLMs 
             --  FROM         |    RETURNING EMPTY MESSAGES
@@ -340,6 +341,7 @@ function CreateLanguagedMenu(langcode)
     end
     function errcallback(task, errmsg)
         local chat, another_chat, msg, user = task.extra[1], task.extra[2], task.extra[3], task.extra[4]
+        FALLBACK[msg.id] = nil
         if errmsg == "faulted" then
             msg:EditMessageText(LANG[langcode]["$CHAT_GENERATION_FAULT"], ikm)
         elseif errmsg == "impossible" then
@@ -363,6 +365,7 @@ function CreateLanguagedMenu(langcode)
     regenerate.callback = function(self, query)
         if client.active_chats[query.from.id] and client.active_chats[query.from.id].lastmsg then
             client.active_chats[query.from.id].lastmsg:EditMessageText(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
+            FALLBACK[client.active_chats[query.from.id].lastmsg.id] = client.active_chats[query.from.id].lastmsg
             client.active_chats[query.from.id]:RemoveLastResponse()
             client.active_chats[query.from.id]:GetResponse(query.message.chat, client.active_chats[query.from.id].lastmsg, query.from, callback, errcallback)
             query.message.chat:SendChatAction("typing")
@@ -531,6 +534,7 @@ function CreateLanguagedMenu(langcode)
             msg.chat:SendChatAction("typing")
             client.active_chats[msg.from.id]:AppendContent((translation.Translate(client.active_chats[msg.from.id].char:FormatMessage(client.active_chats[msg.from.id], msg.text), langcode, "en"):gsub("♪", "*")), "user")
             local new_msg = msg.chat:SendMessage(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
+            FALLBACK[new_msg.id] = new_msg
             client.active_chats[msg.from.id].lastmsg = new_msg
             client.active_chats[msg.from.id]:GetResponse(msg.chat, new_msg, msg.from, callback, errcallback)
         end

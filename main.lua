@@ -182,6 +182,8 @@ client.promocode_enter = {}
 client.promocodes = telelove.json.decode(love.filesystem.read(PATH_PROMOCODES))
 client.payments = {}
 
+FALLBACK = {}
+
 chats = require("chat")
 characters = require("characters")
 

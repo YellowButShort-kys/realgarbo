@@ -67,7 +67,7 @@ function radom.CreateCheckoutSession(product, onStart, onPayment, successUrl)
                 }
             }
         },
-        ["expiresAt"] = os.time() + 1800 --half an hour
+        ["expiresAt"] = os.time() + 3600 --hour?
     }}, Callback_CreateCheckoutSession, {onStart = onStart, onPayment = onPayment})
 end
 
