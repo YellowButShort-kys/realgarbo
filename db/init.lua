@@ -332,10 +332,12 @@ function db_Load()
     do
         print("OPEN")
         local db = sqlite3.open(PATH_DB_USERS)
-        print("DONE")
+        print("  DONE")
+        print("EXEC")
         local db_ram_userlist = db:execute([[
             SELECT * FROM (Users)
         ]]) or {}
+        print("  DONE")
         local db_userlist_id = {}
         for _, var in ipairs(db_ram_userlist) do
             db_userlist_id[tonumber(var.id)] = var
