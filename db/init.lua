@@ -527,6 +527,5 @@ function db_Load()
         ]=]
         db:close()
     end
+    print("DB success")
 end
-
-print("DB success")
