@@ -1,6 +1,7 @@
 local radom = {}
 
 local cwd = ...
+local ansicolors = require("cwd" .. ".ansicolors")
 local requests = require(cwd .. ".threaded_requests")
 local pool = requests.CreatePool(3)
 
@@ -19,7 +20,7 @@ local function Callback_ListProducts(success, errcode, result, extra)
         for _, var in ipairs(result) do
             table.insert(products, setmetatable(var, products_base))
         end
-        print("\033[33m[RADON]\033[0m: Loaded ".. tostring(#result) .. " products")
+        print(ansicolors("%{bright yellow}[RADON]%{reset}: Loaded ".. tostring(#result) .. " products"))
     else
         error("There was an error trying loading products:" .. "\n  " .. result)
     end
@@ -36,7 +37,7 @@ local function Callback_CreateCheckoutSession(success, errcode, result, extra)
     if success then
         extra.onStart(result.checkoutSessionUrl, result.checkoutSessionId)
         radom.StartMonitoringCheckout(result.checkoutSessionId, extra.onPayment)
-        print("\033[33m[RADON]\033[0m: Created a new checkout session")
+        print(ansicolors("%{bright yellow}[RADON]%{reset}: Created a new checkout session"))
     else
         error("There was an error trying to create a checkout session:" .. "\n  " .. result)
     end
@@ -62,7 +63,7 @@ end
 local function CheckSuccess(success, errcode, result, extra)
     if success then
         if result.sessionStatus == "success" then
-            print("\033[33m[RADON]\033[0m: Payment received!")
+            print(ansicolors("%{bright yellow}[RADON]%{reset}: Payment received!"))
             extra[2](extra[1])
         elseif result.sessionStatus == "cancelled" or result.sessionStatus == "expired" then
             for i, var in ipairs(monitored) do
