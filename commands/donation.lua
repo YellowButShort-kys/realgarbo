@@ -65,12 +65,16 @@ return function(langcode, menu, button)
         btn.callback = function(self, query)
             client:EditMessageText(query.message.chat, query.message, "<b><i>" .. product:GetName() .. "</i></b>" .. "\n\n" .. product:GetDescription(), {inline_keyboard = {{crypto}, {cash}, {back}}})
         end
-            
+        
+        print("GetChargingInterval")
+        print(product.GetChargingInterval)
+        print(product:GetChargingInterval())
         if product:GetChargingInterval() > 0 then
             subsikm[tonumber(btn.text:sub(-2, -1))] = {btn}
         else
             regikm[tonumber(btn.text:sub(-2, -1))] = {btn}
         end
+        print("GetChargingInterval Done")
     end
     table.insert(subsikm, {donationback})
     table.insert(regikm, {donationback})

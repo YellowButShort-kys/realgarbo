@@ -74,7 +74,7 @@ LANG["en"]["$DONATE_CASH"]               = "Cash"
 LANG["en"]["$DONATE_CASH_GUIDE"]         = "Automatic cash payments are not yet available. You will have to contact the support (https://t.me/CarpAISupportBot) and tell what are you looking to buy"
 LANG["en"]["$DONATE_CASH_PAYMENT"]       = "Please contact the support and we will help you with the purchase\nhttps://t.me/CarpAISupportBot"
 LANG["en"]["$DONATE_CASH_PROCEED"]       = "Proceed"
-LANG["en"]["DONATE_REGULAR"]             = "Обычная покупка"
+LANG["en"]["DONATE_REGULAR"]             = "Single-time purchase"
 LANG["en"]["DONATE_REGULAR_TEXT"]        = [[There are 6 packs available. Every pack is more cost-efficient than the previous one:
 625 Tokens - 100 ₽
 1720 Tokens - 250 ₽
