@@ -8,6 +8,7 @@ local pool = requests.CreatePool(3)
 local products = {}
 local products_base = require(cwd .. ".base")
 local TOKEN
+local awaitforproducts = false
 
 local monitored = {}
 
@@ -16,6 +17,7 @@ function radom.SetToken(token)
 end
 
 local function Callback_ListProducts(success, errcode, result, extra)
+    awaitforproducts = false
     if success then
         for _, var in ipairs(result) do
             table.insert(products, setmetatable(var, products_base))
@@ -28,6 +30,11 @@ end
 function radom.ListProducts(include_archived)
     assert(TOKEN, "Token was not provided")
     pool:Request("https://api.radom.com/products", {method = "get", headers = {["Content-Type"] = "application/json", ["Authorization"] = TOKEN}}, Callback_ListProducts)
+    awaitforproducts = true
+    while awaitforproducts do
+        love.timer.sleep(0.05)
+        pool:Update()
+    end
 end
 function radom.GetProducts()
     return products
