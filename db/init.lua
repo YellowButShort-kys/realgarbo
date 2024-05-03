@@ -328,7 +328,7 @@ end
 
 
 function db_Load()
-    --[=[
+    --[==[
     do
         local db = sqlite3.open(PATH_DB_USERS)
         local db_ram_userlist = db:execute([[
@@ -399,7 +399,7 @@ function db_Load()
         end
         db:close()
     end
-    ]=]
+
     do
         local db = sqlite3.open(PATH_DB_CHATS)
         local db_ram_chats = {}
@@ -505,28 +505,8 @@ function db_Load()
             
             commit:close() 
         end
-        --[=[
-        --TODO: REMOVE THIS 
-        function ChangeUserChat(chat)
-            --table.insert(db_chats_changes, chat)
-            
-            
-            local commit = sqlite3.open(PATH_DB_CHATS)
-            --commit:execute(query_set_chat:format(chat.owner.id, chat.content, chat.id))
-            local stmt = commit:prepare(([[
-                UPDATE "%s" 
-                SET content = ? 
-                WHERE id = ?;
-            ]]):format(chat.owner.id))
-            stmt:bind_values(chat.content, tostring(chat.id))
-            stmt:step()
-            stmt:finalize()
-            
-            commit:close()
-            
-        end
-        ]=]
         db:close()
     end
+    ]==]
     print("DB success")
 end
