@@ -341,13 +341,21 @@ function db_Load()
         print("CONVERT")
         local db_userlist_id = {}
         for _, var in ipairs(db_ram_userlist) do
+            print("  ".."1")
             db_userlist_id[tonumber(var.id)] = var
+            print("  ".."2")
             db_userlist_id[tonumber(var.id)].id = tonumber(db_userlist_id[tonumber(var.id)].id)
+            print("  ".."3")
             db_userlist_id[tonumber(var.id)].tokens = tonumber(db_userlist_id[tonumber(var.id)].tokens)
+            print("  ".."4")
             db_userlist_id[tonumber(var.id)].subscriptiontokens = tonumber(db_userlist_id[tonumber(var.id)].subscriptiontokens)
+            print("  ".."5")
             db_userlist_id[tonumber(var.id)].subscriptionlevel = tonumber(db_userlist_id[tonumber(var.id)].subscriptionlevel)
+            print("  ".."6")
             db_userlist_id[tonumber(var.id)].referal = tonumber(db_userlist_id[tonumber(var.id)].referal)
+            print("  ".."7")
             db_userlist_id[tonumber(var.id)].next_daily = tonumber(db_userlist_id[tonumber(var.id)].next_daily)
+            print("  ".."8")
         end
         print("  DONE")
         function AddUserColumn(value)
