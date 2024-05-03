@@ -19,7 +19,7 @@ local function Callback_ListProducts(success, errcode, result, extra)
         for _, var in ipairs(result) do
             table.insert(products, setmetatable(var, products_base))
         end
-        print("[RADON]: Loaded ".. tostring(#result) .. "products")
+        print("[RADON]: Loaded ".. tostring(#result) .. " products")
     else
         error("There was an error trying loading products:" .. "\n  " .. result)
     end
