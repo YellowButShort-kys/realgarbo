@@ -331,11 +331,11 @@ function db_Load()
     print("LOAD")
     do
         print("OPEN")
-        local db = sqlite3.open("/home/yellowbutshort/code/realgarbo/db/users.db")
+        local db = sqlite3.open(PATH_DB_USERS)
         print("  DONE")
         print("EXEC")
         local db_ram_userlist = db:execute([[
-            SELECT * FROM (Users)
+            SELECT * FROM ("Users")
         ]]) or {}
         print("  DONE")
         print("CONVERT")
