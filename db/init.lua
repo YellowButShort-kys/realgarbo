@@ -340,6 +340,7 @@ function db_Load()
         print("  DONE")
         print("CONVERT")
         local db_userlist_id = {}
+        print("  ",db_ram_userlist)
         for _, var in ipairs(db_ram_userlist) do
             print("  ".."1")
             db_userlist_id[tonumber(var.id)] = var
