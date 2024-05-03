@@ -328,37 +328,21 @@ end
 
 
 function db_Load()
-    print("LOAD")
     do
-        print("OPEN")
         local db = sqlite3.open(PATH_DB_USERS)
-        print("  DONE")
-        print("EXEC")
         local db_ram_userlist = db:execute([[
             SELECT * FROM (Users)
         ]]) or {}
-        print("  DONE")
-        print("CONVERT")
         local db_userlist_id = {}
-        print("  ",db_ram_userlist)
-        for _, var in ipairs(db_ram_userlist) do
-            print("  ".."1")
+        for _, var in pairs(db_ram_userlist) do
             db_userlist_id[tonumber(var.id)] = var
-            print("  ".."2")
             db_userlist_id[tonumber(var.id)].id = tonumber(db_userlist_id[tonumber(var.id)].id)
-            print("  ".."3")
             db_userlist_id[tonumber(var.id)].tokens = tonumber(db_userlist_id[tonumber(var.id)].tokens)
-            print("  ".."4")
             db_userlist_id[tonumber(var.id)].subscriptiontokens = tonumber(db_userlist_id[tonumber(var.id)].subscriptiontokens)
-            print("  ".."5")
             db_userlist_id[tonumber(var.id)].subscriptionlevel = tonumber(db_userlist_id[tonumber(var.id)].subscriptionlevel)
-            print("  ".."6")
             db_userlist_id[tonumber(var.id)].referal = tonumber(db_userlist_id[tonumber(var.id)].referal)
-            print("  ".."7")
             db_userlist_id[tonumber(var.id)].next_daily = tonumber(db_userlist_id[tonumber(var.id)].next_daily)
-            print("  ".."8")
         end
-        print("  DONE")
         function AddUserColumn(value)
             local commit = sqlite3.open(PATH_DB_USERS)
             commit:execute(([[

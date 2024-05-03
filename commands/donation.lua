@@ -5,6 +5,15 @@ local function onSuccessfulPayment(id)
     UpdateUserToDB(client.payments[id][1].id, "subscriptiontokens", SUBBONUS[tonumber(client.payments[id][2]:GetName():sub(-2, -1))][2])
 end
 
+local bundles = {
+    ["Набор: 28125 Токенов"] = 6,
+    ["Набор: 13125 Токенов"] = 5,
+    ["Набор: 8125 Токенов"] = 4,
+    ["Набор: 3750 Токенов"] = 3,
+    ["Набор: 1720 Токенов"] = 2,
+    ["Набор: 625 Токенов"] = 1
+}
+
 return function(langcode, menu, button)
     local products = radom.GetProducts()
     local back = client:NewInlineKeyboardButton()
@@ -21,7 +30,6 @@ return function(langcode, menu, button)
     local subsikm = {}
     local regikm = {}
     for i, product in ipairs(products) do
-        if product:GetName() then --bruh
         local options = client:NewInlineKeyboardButton()    
         local crypto = client:NewInlineKeyboardButton()
         local crypto_agree = client:NewInlineKeyboardButton()
@@ -66,17 +74,11 @@ return function(langcode, menu, button)
         btn.callback = function(self, query)
             client:EditMessageText(query.message.chat, query.message, "<b><i>" .. product:GetName() .. "</i></b>" .. "\n\n" .. product:GetDescription(), {inline_keyboard = {{crypto}, {cash}, {back}}})
         end
-        
-        print("GetChargingInterval")
-        print(product.GetChargingInterval)
-        print(product:GetChargingInterval())
+
         if product:GetChargingInterval() > 0 then
             subsikm[tonumber(btn.text:sub(-2, -1))] = {btn}
         else
-            print(tonumber(btn.text:sub(-2, -1)))
-            regikm[tonumber(btn.text:sub(-2, -1))] = {btn}
-        end
-        print("GetChargingInterval Done")
+            regikm[bundles[btn.text]] = {btn}
         end
     end
     table.insert(subsikm, {donationback})
