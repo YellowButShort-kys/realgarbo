@@ -528,3 +528,5 @@ function db_Load()
         db:close()
     end
 end
+
+print("DB success")
