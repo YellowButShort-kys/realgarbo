@@ -401,7 +401,9 @@ function db_Load()
         function GetUserName(user)
             return db_userlist_id[user.id].display_name ~= "_NONAME_" and db_userlist_id[user.id].display_name or db_userlist_id[user.id].first_name
         end
+        print("CLOSE")
         db:close()
+        print("  DONE")
     end
 
     print("CHATS")
