@@ -343,7 +343,7 @@ function db_Load()
             db_userlist_id[tonumber(var.id)].referal = tonumber(db_userlist_id[tonumber(var.id)].referal)
             db_userlist_id[tonumber(var.id)].next_daily = tonumber(db_userlist_id[tonumber(var.id)].next_daily)
         end
-        print(#db_ram_userlist)
+        prettyprint(db_userlist_id)
         function AddUserColumn(value)
             local commit = sqlite3.open(PATH_DB_USERS)
             commit:execute(([[
