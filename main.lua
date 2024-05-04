@@ -171,9 +171,6 @@ function sqlite3.open_memory(...) --because fuck me
     end
     return output
 end
-require("db")
-db_Init()
-db_Load()
 
 
 local token = "7125567639:AAHbDOdYbO_3sCFdzxQ6djbqs4BvAcxQd3U"
@@ -191,6 +188,10 @@ FALLBACK = {}
 
 chats = require("chat")
 characters = require("characters")
+
+require("db")
+db_Init()
+db_Load()
 
 function client:onStart()
     commands = require("commands")
