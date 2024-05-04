@@ -415,6 +415,7 @@ function db_Load()
                 local contents = db:execute(query_get_chat:format(chat.id, var.id, chat.id, var.id)) or {}
                 print("MBUR")
                 chat.id = tonumber(chat.id)
+                print(222)
                 -- = chats.SetMetatable(chat)
                 db_ram_chats[tonumber(var.id)][chat.id] = {
                     id = chat.id,
@@ -422,6 +423,7 @@ function db_Load()
                     owner = var,
                     content = contents
                 }
+                print(111)
                 chats.SetMetatable(db_ram_chats[tonumber(var.id)][chat.id])
             end
         end
