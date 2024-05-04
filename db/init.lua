@@ -334,7 +334,7 @@ function db_Load()
             SELECT * FROM (Users)
         ]]) or {}
         local db_userlist_id = {}
-        for _, var in pairs(db_ram_userlist) do
+        for _, var in ipairs(db_ram_userlist) do
             db_userlist_id[tonumber(var.id)] = var
             db_userlist_id[tonumber(var.id)].id = tonumber(db_userlist_id[tonumber(var.id)].id)
             db_userlist_id[tonumber(var.id)].tokens = tonumber(db_userlist_id[tonumber(var.id)].tokens)
@@ -343,6 +343,7 @@ function db_Load()
             db_userlist_id[tonumber(var.id)].referal = tonumber(db_userlist_id[tonumber(var.id)].referal)
             db_userlist_id[tonumber(var.id)].next_daily = tonumber(db_userlist_id[tonumber(var.id)].next_daily)
         end
+        print(#db_ram_userlist)
         function AddUserColumn(value)
             local commit = sqlite3.open(PATH_DB_USERS)
             commit:execute(([[
