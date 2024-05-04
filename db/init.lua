@@ -187,9 +187,9 @@ local function ClearMessage(msg)
     msg:EditMessageText(LANG["ru"]["$CRASH"], {inline_keyboard = {}})
 end
 local function error_printer(msg, layer)
-    for _, var in pairs(FALLBACK) do
-        pcall(ClearMessage, var)
-    end
+    --for _, var in pairs(FALLBACK) do
+    --    pcall(ClearMessage, var)
+    --end
     
 	local bruh = ((debug.traceback("Error: " .. tostring(msg), 1+(layer or 1)):gsub("\n[^\n]+$", "")))
     master_client:SendToFather(bruh)
