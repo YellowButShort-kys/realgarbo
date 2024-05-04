@@ -405,11 +405,8 @@ function db_Load()
     do
         local db = sqlite3.open(PATH_DB_CHATS)
         local db_ram_chats = {}
-        print(1)
         for _, var in ipairs(GetAllUsersI()) do
-            print(2)
             local t = db:execute(query_get_all_chats:format(var.id, var.id)) or {}
-            print(3)
             db_ram_chats[tonumber(var.id)] = {}
             for i, chat in pairs(t) do
                 local contents = db:execute(query_get_chat:format(chat.id, var.id, chat.id, var.id)) or {}
@@ -424,6 +421,7 @@ function db_Load()
                 chats.SetMetatable(db_ram_chats[tonumber(var.id)][chat.id])
             end
         end
+        print("!!!!!s")
         function GetUserChat(owner, char)
             if not db_ram_chats[owner.id] then
                 db_ram_chats[owner.id] = {}
