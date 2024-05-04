@@ -416,7 +416,7 @@ function db_Load()
                 print("MBUR")
                 chat.id = tonumber(chat.id)
                 print(222)
-                print(chat.id)
+                print(pcall(function()
                 -- = chats.SetMetatable(chat)
                 db_ram_chats[tonumber(var.id)][chat.id] = {
                     id = chat.id,
@@ -424,6 +424,7 @@ function db_Load()
                     owner = var,
                     content = contents
                 }
+                end))
                 print(111)
                 chats.SetMetatable(db_ram_chats[tonumber(var.id)][chat.id])
             end
