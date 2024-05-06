@@ -328,6 +328,11 @@ function CreateLanguagedMenu(langcode)
         
         --FALLBACK[msg.id] = nil
         msg:DeleteMessage()
+        print(another_chat.char:FormatOutput(another_chat, translated_text))
+        print()
+        print(ikm.inline_keyboard)
+        print()
+        print(legit)
         chat:SendMessage(another_chat.char:FormatOutput(another_chat, translated_text), {reply_markup = ikm.inline_keyboard})
         
         --msg:EditMessageText(another_chat.char:FormatOutput(another_chat, translated_text), ikm)
