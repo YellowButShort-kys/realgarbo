@@ -333,7 +333,7 @@ function CreateLanguagedMenu(langcode)
         print(ikm.inline_keyboard)
         print()
         print(legit)
-        chat:SendMessage(another_chat.char:FormatOutput(another_chat, translated_text), {reply_markup = ikm.inline_keyboard})
+        chat:SendMessage(another_chat.char:FormatOutput(another_chat, translated_text), {inline_keyboard = ikm.inline_keyboard})
         
         --msg:EditMessageText(another_chat.char:FormatOutput(another_chat, translated_text), ikm)
         if legit then
