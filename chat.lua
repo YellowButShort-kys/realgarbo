@@ -144,6 +144,12 @@ function base:GetInstructContents()
         if var.role == "system" then
             out[#out].content = out[#out].content .. "\n<START>"
         end
+        if var.role == "user" then
+            out[#out].content = GetUserName(self.owner) .. ": " .. out[#out].content
+        end
+        if var.role == "assistant" then
+            out[#out].content = self.char.name .. ": " .. out[#out].content
+        end
     end
     return out
 end

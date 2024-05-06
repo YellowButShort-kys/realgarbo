@@ -35,6 +35,10 @@ local function htmlformat(str)
     return (str:gsub("%*", match))
 end
 
+local function isEmpty(str)
+    return str:gsub("\n", ""):gsub(" ", ""):len() > 3
+end
+
 function CreateLanguagedMenu(langcode)
     local menu = {}
     local char_creation = client:NewInlineKeyboardButton()
@@ -313,18 +317,21 @@ function CreateLanguagedMenu(langcode)
     local errcallback
     local function callback(task, text)
         local chat, another_chat, msg, user = task.extra[1], task.extra[2], task.extra[3], task.extra[4]
-        local translated_text = htmlformat(translation.Translate(text, "en", langcode))
+        local legit = isEmpty(text)
+        local translated_text
+        if legit then
+            translated_text = htmlformat(translation.Translate(text, "en", langcode))
+        else
+            translated_text = LANG[langcode]["$CHAT_GENERATION_EMPTY"]
+        end
         another_chat.task = nil
-        --if translated_text:len() > 3 then
-            --FALLBACK[msg.id] = nil
-            msg:DeleteMessage()
-            --  THERE IS AN EMPTY CHAR BELOW TO PREVENT LLMs 
-            --  FROM         |    RETURNING EMPTY MESSAGES
-            --  AND BREAKING |    FUCKING EVERYTHING
-            --               V
-            chat:SendMessage("󠄀"..another_chat.char:FormatOutput(another_chat, translated_text), ikm)
-            
-            --msg:EditMessageText(another_chat.char:FormatOutput(another_chat, translated_text), ikm)
+        
+        --FALLBACK[msg.id] = nil
+        msg:DeleteMessage()
+        chat:SendMessage(another_chat.char:FormatOutput(another_chat, translated_text), {reply_markup = ikm.inline_keyboard})
+        
+        --msg:EditMessageText(another_chat.char:FormatOutput(another_chat, translated_text), ikm)
+        if legit then
             another_chat:AppendContent(text, "assistant")
             
             local dbuser = GetUserFromDB(user.id)
@@ -335,9 +342,7 @@ function CreateLanguagedMenu(langcode)
             end
             AVG_KUDOS_PRICE = AVG_KUDOS_PRICE + task.kudos
             AVG_KUDOS_PRICE_N = AVG_KUDOS_PRICE_N + 1
-        --else
-        --    client.active_chats[user.id]:GetResponse(chat, client.active_chats[user.id].lastmsg, user, callback, errcallback)
-        --end
+        end
     end
     function errcallback(task, errmsg)
         local chat, another_chat, msg, user = task.extra[1], task.extra[2], task.extra[3], task.extra[4]
