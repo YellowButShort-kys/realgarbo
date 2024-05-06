@@ -1,7 +1,7 @@
 local dolphin = {}
 local LINK = "https://openrouter.ai/api/v1/chat/completions"
 local pool = requests.CreatePool(6, 0.05, 24)
-local token = [[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]]
+local token = [[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]]
 
 local data = {
     headers = {
@@ -24,7 +24,7 @@ local data = {
 }
 local megacallback = function(success, errcode, result, extra)
     if success then
-        prettyprint(result)
+        prettyprint(    result)
         extra.kudos = math.ceil(result.usage.total_tokens / 75)
         extra:callback(result.choices[1].message.content or " ")
     else
