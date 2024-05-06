@@ -66,8 +66,7 @@ dolphin = require("api.dolphin")
 translation = require("api.yandex")
 
 radom = require("__payment_processor")
-print(os.getenv("CARPAI_TOKEN_RADOM"))
-radom.SetToken(os.getenv("CARPAI_TOKEN_RADOM"))
+radom.SetToken("eyJhZGRyZXNzIjpudWxsLCJvcmdhbml6YXRpb25faWQiOiJlNjZjMTk5Zi1lYzgzLTRkNWUtYjhkOS0zZWI1NTI4MDI0YzQiLCJzZXNzaW9uX2lkIjoiNGNkNjEzYmMtMmZjMS00NDQ3LWE4NTEtOWIwMTkwN2Y2MjFiIiwiZXhwaXJlZF9hdCI6IjIwMjUtMDUtMDNUMDg6NTY6MjIuOTkyNTgxNDM2WiIsImlzX2FwaV90b2tlbiI6dHJ1ZX0=")
 radom.ListProducts()
 
 require("lang")
@@ -174,7 +173,7 @@ function sqlite3.open_memory(...) --because fuck me
 end
 
 
-local token = os.getenv("CARPAI_TOKEN_MAIN")
+local token = "7125567639:AAHbDOdYbO_3sCFdzxQ6djbqs4BvAcxQd3U"
 
 telelove = require("extern.Telelove")
 client = telelove.NewClient()
