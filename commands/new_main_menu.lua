@@ -313,7 +313,7 @@ function CreateLanguagedMenu(langcode)
     local errcallback
     local function callback(task, text)
         local chat, another_chat, msg, user = task.extra[1], task.extra[2], task.extra[3], task.extra[4]
-        local translated_text = telegramformat(translation.Translate(text, "en", langcode))
+        local translated_text = htmlformat(translation.Translate(text, "en", langcode))
         another_chat.task = nil
         --if translated_text:len() > 3 then
             --FALLBACK[msg.id] = nil

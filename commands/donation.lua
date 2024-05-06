@@ -1,8 +1,20 @@
+local split = function(inputstr, sep)
+    local t = {}
+    for str in string.gmatch(inputstr, "([^"..(sep or "%s").."]+)") do
+        table.insert(t, str)
+    end
+    return t
+end
 local function onSuccessfulPayment(id)
-    master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT A "..(client.payments[id][2]:GetName():sub(-2, -1)) .. " LEVEL SUB")
-    UpdateUserToDB(client.payments[id][1].id, "subscriptionlevel", tonumber(client.payments[id][2]:GetName():sub(-2, -1)))
-    UpdateUserToDB(client.payments[id][1].id, "tokens", GetUserFromDB(client.payments[id][1].id) + SUBBONUS[tonumber(client.payments[id][2]:GetName():sub(-2, -1))][1])
-    UpdateUserToDB(client.payments[id][1].id, "subscriptiontokens", SUBBONUS[tonumber(client.payments[id][2]:GetName():sub(-2, -1))][2])
+    if client.payments[id][2]:GetChargingInterval() > 0 then
+        master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT A "..(client.payments[id][2]:GetName():sub(-2, -1)) .. " LEVEL SUB")
+        UpdateUserToDB(client.payments[id][1].id, "subscriptionlevel", tonumber(client.payments[id][2]:GetName():sub(-2, -1)))
+        UpdateUserToDB(client.payments[id][1].id, "tokens", GetUserFromDB(client.payments[id][1].id).tokens + SUBBONUS[tonumber(client.payments[id][2]:GetName():sub(-2, -1))][1])
+        UpdateUserToDB(client.payments[id][1].id, "subscriptiontokens", SUBBONUS[tonumber(client.payments[id][2]:GetName():sub(-2, -1))][2])
+    else
+        master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT "..(client.payments[id][2]:GetName()))
+        UpdateUserToDB(client.payments[id][1].id, "tokens", GetUserFromDB(client.payments[id][1].id).tokens + tonumber(split(client.payments[id][2]:GetName(), " ")[2]))
+    end
 end
 
 local bundles = {
@@ -74,7 +86,7 @@ return function(langcode, menu, button)
         btn.callback = function(self, query)
             client:EditMessageText(query.message.chat, query.message, "<b><i>" .. product:GetName() .. "</i></b>" .. "\n\n" .. product:GetDescription(), {inline_keyboard = {{crypto}, {cash}, {back}}})
         end
-
+        
         if product:GetChargingInterval() > 0 then
             subsikm[tonumber(btn.text:sub(-2, -1))] = {btn}
         else
