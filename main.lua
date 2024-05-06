@@ -66,6 +66,7 @@ dolphin = require("api.dolphin")
 translation = require("api.yandex")
 
 radom = require("__payment_processor")
+print(os.getenv("CARPAI_TOKEN_RADOM"))
 radom.SetToken(os.getenv("CARPAI_TOKEN_RADOM"))
 radom.ListProducts()
 
