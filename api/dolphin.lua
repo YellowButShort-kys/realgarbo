@@ -10,7 +10,7 @@ local data = {
     },
     method = "POST",
     data = {
-        ["model"] = "neversleep/llama-3-lumimaid-8b",
+        ["model"] = "lynn/soliloquy-l3",
         ["max_tokens"] = 120,
         ["temperature"] = 0.8,
         --["top_p"] = 1,
