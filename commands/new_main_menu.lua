@@ -29,10 +29,11 @@ local function htmlformat(str)
         asterics = not asterics
         return asterics and "<b><i>" or "</i></b>"
     end
+    str = (str:gsub("%*", match))
     if asterics then
         newtext = newtext .. "</i></b>"
     end
-    return (str:gsub("%*", match))
+    return str
 end
 
 local function isEmpty(str)
@@ -328,11 +329,6 @@ function CreateLanguagedMenu(langcode)
         
         --FALLBACK[msg.id] = nil
         msg:DeleteMessage()
-        print(another_chat.char:FormatOutput(another_chat, translated_text))
-        print()
-        print(ikm.inline_keyboard)
-        print()
-        print(legit)
         chat:SendMessage(another_chat.char:FormatOutput(another_chat, translated_text), {reply_markup = {inline_keyboard = ikm.inline_keyboard}})
         
         --msg:EditMessageText(another_chat.char:FormatOutput(another_chat, translated_text), ikm)
