@@ -16,7 +16,7 @@ local data = {
         --["top_p"] = 1,
         --["presence_penalty"] = 0,
         --["frequency_penalty"] = 0,
-        ["stop"] = {"<|endoftext|>", "<START>"},
+        ["stop"] = {"<|endoftext|>", "<START>", "<|eot_id|>"},
         ["messages"] = {
             
         }
