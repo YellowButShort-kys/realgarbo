@@ -114,15 +114,17 @@ LANG["ru"]["$LANG_CHANGE_TEXT"]          = "Выберите язык"
 LANG["ru"]["$SELECT_MODEL"]               = "[NEW] Выбрать AI"
 LANG["ru"]["$SELECT_MODEL_TEXT"]          = [[Выберите модель, которая будет использоваться для генерации ответов.
 
-[NEW] Capybara7B: Новая стандартная модель в боте, дешевле чем OpenAI и лучше чем орда, но все еще довольно посредственно
+Capybara7B: Новая стандартная модель в боте, дешевле чем OpenAI и лучше чем орда, но все еще довольно посредственно
 OpenAI: Стоит дороже и генерирует ответы лучшего качества, но производительность в NSFW чатах ужасная.
-[NEW] Dolphin8x7B: Модель на основе Mistral8x7b. Ответы хорошего качества, полностью отсутствует цензура, но дороже чем капибара (точно стоит того)
+Dolphin8x7B: Модель на основе Mistral8x7b. Ответы хорошего качества, но дороже чем капибара (стоит того)
+Soliloque8B: Модель на основе новенькой Llama3 которая была создана специально для РП. На удивление умная для своего размера модель. Поддерживает NSFW.
 ]]
 LANG["ru"]["$SELECT_MODEL_SUCCESS"]       = "Получилось!"
 LANG["ru"]["$MODEL_OPENAI"]               = "OpenAI"
-LANG["ru"]["$MODEL_CAPYBARA"]             = "[NEW] Capybara7B"
+LANG["ru"]["$MODEL_CAPYBARA"]             = "Capybara7B"
 LANG["ru"]["$MODEL_HORDE"]                = "Horde"
-LANG["ru"]["$MODEL_DOLPHIN"]              = "[NEW] Dolphin8x7B"
+LANG["ru"]["$MODEL_DOLPHIN"]              = "Dolphin8x7B"
+LANG["ru"]["$MODEL_SOLILOQUE"]            = "[NEW] Soliloque8B"
 
 
 

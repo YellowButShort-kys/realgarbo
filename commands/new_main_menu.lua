@@ -454,6 +454,13 @@ function CreateLanguagedMenu(langcode)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
         end
         
+        local soliloque = client:NewInlineKeyboardButton()
+        soliloque.text = LANG[langcode]["$MODEL_SOLILOQUE"]
+        soliloque.callback = function(self, query)
+            UpdateUserToDB(query.from.id, "model", "soliloque")
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
+        end
+        
         select_model.text = LANG[langcode]["$SELECT_MODEL"]
         select_model.callback = function(self, query)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_TEXT"], {inline_keyboard = {

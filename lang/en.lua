@@ -31,6 +31,7 @@ LANG["en"]["$CHAT_NOT_ENOUGH_TOKENS"]   = "You don't have enough tokens!."
 LANG["en"]["$CHAT_GENERATION_FAULT"]    = "An error occured during message generation. Try again"
 LANG["en"]["$CHAT_GENERATION_IMPOSSIBLE"]= "Due to the highened demand, the generation cannot be finished. Try again"
 LANG["en"]["$CHAT_GENERATION_TIMEOUT"]  = "Unforseen error. Try again. If it doesn't resolve within several minutes, please contact the support"
+LANG["en"]["$CHAT_GENERATION_EMPTY"]    = "Model returned an empty response. Tokens were not charged, please try again."
 
 
 LANG["en"]["$TOKENS"]                   = "Wallet"
@@ -107,15 +108,17 @@ LANG["en"]["$LANG_CHANGE_TEXT"]          = "Select a language"
 
 LANG["en"]["$SELECT_MODEL"]               = "[NEW] Select AI"
 LANG["en"]["$SELECT_MODEL_TEXT"]          = [[Select the model that will be used to generate responses.
-[NEW] Capybara7B: New default model, cheaper than OpenAI and better than Horde, but still quite mediocre
+Capybara7B: New default model, cheaper than OpenAI and better than Horde, but still quite mediocre
 OpenAI: More expensive and generates better answers, but the performance in NSFW chats is terrible
-[NEW] Dolphin8x7B: Model based on Mistral8x7b. Great quality of answers, completelly lacks any censorship, but more expensive than Capybara (worth it tho)
+Dolphin8x7B: Model based on Mistral8x7b. Great quality of answers, but more expensive than Capybara (worth it tho)
+Soliloque8B: Llama3 based model that was designed specifically for the roleplay. Suprisingly fast, yet sharp model. Supports NSFW.
 ]]
 LANG["en"]["$SELECT_MODEL_SUCCESS"]       = "Success!"
 LANG["en"]["$MODEL_OPENAI"]               = "OpenAI"
-LANG["en"]["$MODEL_MISTRAL7B"]            = "[NEW] Mistral7b"
+LANG["en"]["$MODEL_MISTRAL7B"]            = "Mistral7b"
 LANG["en"]["$MODEL_HORDE"]                = "Horde"
-LANG["en"]["$MODEL_DOLPHIN"]              = "[NEW] Dolphin8x7B"
+LANG["en"]["$MODEL_DOLPHIN"]              = "Dolphin8x7B"
+LANG["en"]["$MODEL_SOLILOQUE"]            = "[NEW] Soliloque8B"
 
 
 LANG["en"]["$AWAIT_FOR_MESSAGE"]        = "Message is being generated..."

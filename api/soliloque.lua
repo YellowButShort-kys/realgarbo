@@ -1,4 +1,4 @@
-local dolphin = {}
+local soliloquy = {}
 local LINK = "https://openrouter.ai/api/v1/chat/completions"
 local pool = requests.CreatePool(6, 0.05, 24)
 local token = [[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]]
@@ -10,7 +10,7 @@ local data = {
     },
     method = "POST",
     data = {
-        ["model"] = "cognitivecomputations/dolphin-mixtral-8x7b",
+        ["model"] = "lynn/soliloquy-l3",
         ["max_tokens"] = 250,
         ["temperature"] = 0.8,
         --["top_p"] = 1,
@@ -19,17 +19,12 @@ local data = {
         ["stop"] = {"<|endoftext|>", "<START>", "<|eot_id|>"},
         ["messages"] = {
             
-        },
-        ["provider"] = {
-            ["order"] = {
-              "DeepInfra"
-            }
         }
     }
 }
 local megacallback = function(success, errcode, result, extra)
     if success then
-        extra.kudos = math.ceil(result.usage.total_tokens / 100)
+        extra.kudos = math.ceil(result.usage.total_tokens / 75)
         extra:callback(result.choices[1].message.content or " ")
     else
         print(errcode)
@@ -40,7 +35,7 @@ local megacallback = function(success, errcode, result, extra)
     end
 end
 
-function dolphin.Generate(messages, callback, errcallback, extra, stop_sequence)
+function soliloquy.Generate(messages, callback, errcallback, extra, stop_sequence)
     local old_messages = data["data"]["messages"]
     local old_stop = data["data"]["stop"]
     data["data"]["messages"] = messages
@@ -64,4 +59,4 @@ function dolphin.Generate(messages, callback, errcallback, extra, stop_sequence)
     return task
 end
 
-return dolphin
+return soliloquy

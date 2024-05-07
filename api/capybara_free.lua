@@ -11,12 +11,12 @@ local data = {
     method = "POST",
     data = {
         ["model"] = "nousresearch/nous-capybara-7b:free",
-        ["max_tokens"] = 120,
+        ["max_tokens"] = 250,
         ["temperature"] = 0.8,
         --["top_p"] = 1,
         --["presence_penalty"] = 0,
         --["frequency_penalty"] = 0,
-        ["stop"] = {"<|endoftext|>"},
+        ["stop"] = {"<|endoftext|>", "<START>", "<|eot_id|>"},
         ["messages"] = {
             
         }
