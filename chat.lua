@@ -151,6 +151,7 @@ function base:GetInstructContents()
             out[#out].content = self.char.name .. ": " .. out[#out].content
         end
     end
+    table.insert(out, {role = "assistant", content=self.char.name..":"})
     return out
 end
 
