@@ -79,7 +79,7 @@ function CreateLanguagedMenu(langcode)
                 if not chats.GetUserChat(query.from, self.char) then 
                     client.active_chats[query.from.id] = chats.NewChat(query.from, self.char)
                     client:EditMessageText(query.message.chat, query.message, htmlformat(translation.Translate(self.char:GetFirstMessage(query.from), "en", langcode)))
-                    ScienceCharUsage(self.owner.char:GetName())
+                    --ScienceCharUsage(self.owner.char:GetName())
                 else
                     client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$NEW_CHAR_REWRITE"], self.rewrite)
                 end
@@ -95,7 +95,7 @@ function CreateLanguagedMenu(langcode)
                 --client.active_chats[query.from.id]:SetContent(self.owner.char:GetStarter(query.from))
                 client.active_chats[query.from.id]:ResetChat()
                 client:EditMessageText(query.message.chat, query.message, htmlformat(translation.Translate(self.owner.char:GetFirstMessage(query.from), "en", langcode)))
-                ScienceCharUsage(self.owner.char:GetName())
+                --ScienceCharUsage(self.owner.char:GetName())
             end
             
 
