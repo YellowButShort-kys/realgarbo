@@ -77,6 +77,10 @@ local opn = sqlite3.open
 --KOBOLD = 3q7qnr2bMDMUo_5Yww4QHA
 --ANOTHER = 0000000000
 
+local science = require("science")
+ScienceCharUsage = science.New("log_charusage.csv", "%d; %t; %s")
+
+
 
 
 function prettyprint(table, key, indent)
