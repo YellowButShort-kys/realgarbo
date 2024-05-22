@@ -118,13 +118,16 @@ Capybara7B: Новая стандартная модель в боте, деше
 OpenAI: Стоит дороже и генерирует ответы лучшего качества, но производительность в NSFW чатах ужасная.
 Dolphin8x7B: Модель на основе Mistral8x7b. Ответы хорошего качества, но дороже чем капибара (стоит того)
 Soliloque8B: Модель на основе новенькой Llama3 которая была создана специально для РП. На удивление умная для своего размера модель. Поддерживает NSFW.
+[NEW] Llama3: Оригинальная Llama3. Показывает себя хуже чем тот же Soliloque, но все еще неплохо. Стоит так же как и капибара.
 ]]
+
 LANG["ru"]["$SELECT_MODEL_SUCCESS"]       = "Получилось!"
 LANG["ru"]["$MODEL_OPENAI"]               = "OpenAI"
 LANG["ru"]["$MODEL_CAPYBARA"]             = "Capybara7B"
 LANG["ru"]["$MODEL_HORDE"]                = "Horde"
 LANG["ru"]["$MODEL_DOLPHIN"]              = "Dolphin8x7B"
-LANG["ru"]["$MODEL_SOLILOQUE"]            = "[NEW] Soliloque8B"
+LANG["ru"]["$MODEL_SOLILOQUE"]            = "Soliloque8B"
+LANG["ru"]["$MODEL_LLAMA8"]               = "[NEW] Llama3"
 
 
 

@@ -112,13 +112,15 @@ Capybara7B: New default model, cheaper than OpenAI and better than Horde, but st
 OpenAI: More expensive and generates better answers, but the performance in NSFW chats is terrible
 Dolphin8x7B: Model based on Mistral8x7b. Great quality of answers, but more expensive than Capybara (worth it tho)
 Soliloque8B: Llama3 based model that was designed specifically for the roleplay. Suprisingly fast, yet sharp model. Supports NSFW.
+[NEW] Llama3: Original Llama3 model. Performs worse than Soliloque, but still quite formidable. As cheap as Capybara.
 ]]
 LANG["en"]["$SELECT_MODEL_SUCCESS"]       = "Success!"
 LANG["en"]["$MODEL_OPENAI"]               = "OpenAI"
 LANG["en"]["$MODEL_MISTRAL7B"]            = "Mistral7b"
 LANG["en"]["$MODEL_HORDE"]                = "Horde"
 LANG["en"]["$MODEL_DOLPHIN"]              = "Dolphin8x7B"
-LANG["en"]["$MODEL_SOLILOQUE"]            = "[NEW] Soliloque8B"
+LANG["en"]["$MODEL_SOLILOQUE"]            = "Soliloque8B"
+LANG["en"]["$MODEL_LLAMA8"]               = "[NEW] Llama3"
 
 
 LANG["en"]["$AWAIT_FOR_MESSAGE"]        = "Message is being generated..."

@@ -65,6 +65,8 @@ dolphin = require("api.dolphin")
 soliloque = require("api.soliloque")
 --translation = require("api.translation")
 translation = require("api.yandex")
+local OpenRouter = require("api.openrouter")
+llama8 = OpenRouter(nil, "meta-llama/llama-3-8b-instruct:free", 200)
 
 radom = require("__payment_processor")
 radom.SetToken("eyJhZGRyZXNzIjpudWxsLCJvcmdhbml6YXRpb25faWQiOiJlNjZjMTk5Zi1lYzgzLTRkNWUtYjhkOS0zZWI1NTI4MDI0YzQiLCJzZXNzaW9uX2lkIjoiNGNkNjEzYmMtMmZjMS00NDQ3LWE4NTEtOWIwMTkwN2Y2MjFiIiwiZXhwaXJlZF9hdCI6IjIwMjUtMDUtMDNUMDg6NTY6MjIuOTkyNTgxNDM2WiIsImlzX2FwaV90b2tlbiI6dHJ1ZX0=")
@@ -249,6 +251,20 @@ local function checksubs()
         end
         print(count .. " subs are active")
         master_client:SendToFather(count .. " subs are active")
+    end
+end
+
+local nextcheck2 = os.time()
+local function notifications()
+    if os.time() >= nextcheck2 then
+        for _, var in pairs(GetAllUsers()) do
+            if var.nextnotification <= os.time() then
+                UpdateUserToDB(var.id, "nextnotification", os.time() + AFK_NOTIFICATION_TIMEOUT)
+                client:SendMessage(var.chatid, "Привет! Вас давно не было видно, поэтому мы решили напомнить о себе. Если у вас что-то не работает или есть идеи, напишите об этом в поддержку: https://t.me/CarpAISupportBot")
+            end
+        end
+        
+        nextcheck2 = nextcheck2 + 300
     end
 end
 

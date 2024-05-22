@@ -463,16 +463,25 @@ function CreateLanguagedMenu(langcode)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
         end
         
+        local llama8 = client:NewInlineKeyboardButton()
+        llama8.text = LANG[langcode]["$MODEL_LLAMA8"]
+        llama8.callback = function(self, query)
+            UpdateUserToDB(query.from.id, "model", "llama8")
+            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_SUCCESS"], {inline_keyboard = {{back}}})
+        end
+        
         select_model.text = LANG[langcode]["$SELECT_MODEL"]
         select_model.callback = function(self, query)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$SELECT_MODEL_TEXT"], {inline_keyboard = {
                 {
-                    --horde, 
                     openai, 
                     capybara,
-                    dolphin,
-                    soliloque
-                }, 
+                    dolphin
+                },
+                {
+                    soliloque,
+                    llama8
+                },
                 {back}}})
         end
     end

@@ -42,6 +42,7 @@ RegisterChar("person_marie")
 RegisterChar("rpg_zdrocharis")
 RegisterChar("anime_fern")
 RegisterChar("anime_suguru")
+RegisterChar("anime_nami")
 
 local _tags = {}
 for _, var in ipairs(hub) do
