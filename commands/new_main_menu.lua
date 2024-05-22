@@ -607,6 +607,7 @@ function client:onMessage(msg)
     if user.chatid == "EMPTY" then
         UpdateUserToDB(msg.from.id, "chatid", tostring(msg.chat.id))
     end
+    UpdateUserToDB(user.id, "nextnotification", os.time() + AFK_NOTIFICATION_TIMEOUT)
     
     love.filesystem.append("usage_message.csv", tostring(os.date("%x")) .. "," .. tostring(os.date("%X")) .. "," .. tostring(msg.from.id) .. "\n")
     

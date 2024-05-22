@@ -27,6 +27,7 @@ local data = {
         }
     }
 }
+
 local megacallback = function(success, errcode, result, extra)
     if success then
         extra.kudos = math.ceil(result.usage.total_tokens / 100)

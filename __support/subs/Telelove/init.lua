@@ -13,6 +13,7 @@ local defaults_mt = {
     max_messages = 1000
 }
 
+
 ---Creates a new client entity with optional parameters
 ---@param settings table|nil
 ---@return TeleloveClient
