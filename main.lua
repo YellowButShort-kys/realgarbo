@@ -81,7 +81,7 @@ local opn = sqlite3.open
 
 local science = require("science")
 ScienceCharUsage = science.New("log_charusage.csv", "%d; %t; %s")
-
+ScienceTokenUsage = science.New("log_tokenusage.csv", "%d; %t; %s; %s")
 
 
 
