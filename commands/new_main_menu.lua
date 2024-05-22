@@ -339,9 +339,9 @@ function CreateLanguagedMenu(langcode)
             
             local dbuser = GetUserFromDB(user.id)
             if dbuser.subscriptiontokens - task.kudos >= 0 then
-                UpdateUserToDB(user.id, "subscriptiontokens", dbuser.subscriptiontokens - task.kudos)
+                UpdateUserToDB(user.id, "subscriptiontokens", math.max(dbuser.subscriptiontokens - task.kudos, 0))
             else
-                UpdateUserToDB(user.id, "tokens", dbuser.tokens - task.kudos)
+                UpdateUserToDB(user.id, "tokens", math.max(dbuser.tokens - task.kudos, 0))
             end
             AVG_KUDOS_PRICE = AVG_KUDOS_PRICE + task.kudos
             AVG_KUDOS_PRICE_N = AVG_KUDOS_PRICE_N + 1
@@ -542,7 +542,7 @@ function CreateLanguagedMenu(langcode)
         
         
         if client.active_chats[msg.from.id] then
-            if GetUserFromDB(msg.from.id).tokens <= 0 then
+            if GetUserFromDB(msg.from.id).tokens < 0 then
                 msg.chat:SendMessage(LANG[langcode]["$CHAT_NOT_ENOUGH_TOKENS"], {inline_keyboard = {{back}}})
                 return
             end 
