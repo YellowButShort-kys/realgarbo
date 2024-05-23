@@ -6,8 +6,8 @@ function science.New(filename, pattern)
     end
     
     return function(...)
-        local str = pattern:gsub("%&d", os.date("%x")):gsub("%%t", os.date("%X")):format(...)
-        love.filesystem.append(filename, str)
+        --local str = pattern:gsub("%&d", os.date("%x")):gsub("%%t", os.date("%X")):format(...)
+        --love.filesystem.append(filename, str)
     end
 end
 
