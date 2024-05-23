@@ -17,20 +17,25 @@ client:Connect(TG_LINK)
 TICKETS = {}
 
 
-local TYPES = client:NewReplyKeyboardMarkup()
-local technical_issues = client:NewReplyKeyboardButton()
+local TYPES = client:NewInlineKeyboardMarkup()
+local technical_issues = client:NewInlineKeyboardButton()
 technical_issues.text = "Ошибки в работе бота"
 technical_issues.callback = function(self, query)
     TICKETS[query.from.id].type = "Technical Issue"
 end
-
+local purchase = client:NewInlineKeyboardButton()
+purchase.text = "Покупка токенов или подписки"
+purchase.callback = function(self, query)
+    TICKETS[query.from.id].type = "Purchase"
+end
+TYPES.inline_keyboard = {{technical_issues}, {purchase}}
 
 
 local start = client:NewCommand()
 start.command = "start"
 start.available_for_menu = false
 start.callback = function(from, chat, text)
-    chat:SendMessage("Привет! Оставьте свое сообщение здесь и мы ответим вам как можно скорее")
+    chat:SendMessage("Привет! Оставьте свое сообщение здесь и мы ответим вам как можно скорее", TYPES)
     TICKETS[from.id] = {
         from = from,
         chat = chat,

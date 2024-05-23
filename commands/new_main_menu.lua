@@ -23,6 +23,7 @@ local function telegramformat(str)
 end
 
 local function htmlformat(str)
+    print(str)
     local asterics = false
     local newtext = ""
     local function match(s)
@@ -79,7 +80,7 @@ function CreateLanguagedMenu(langcode)
                 if not chats.GetUserChat(query.from, self.char) then 
                     client.active_chats[query.from.id] = chats.NewChat(query.from, self.char)
                     client:EditMessageText(query.message.chat, query.message, htmlformat(translation.Translate(self.char:GetFirstMessage(query.from), "en", langcode)))
-                    --ScienceCharUsage(self.owner.char:GetName())
+                    ScienceCharUsage(self.owner.char:GetName())
                 else
                     client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$NEW_CHAR_REWRITE"], self.rewrite)
                 end
@@ -95,7 +96,7 @@ function CreateLanguagedMenu(langcode)
                 --client.active_chats[query.from.id]:SetContent(self.owner.char:GetStarter(query.from))
                 client.active_chats[query.from.id]:ResetChat()
                 client:EditMessageText(query.message.chat, query.message, htmlformat(translation.Translate(self.owner.char:GetFirstMessage(query.from), "en", langcode)))
-                --ScienceCharUsage(self.owner.char:GetName())
+                ScienceCharUsage(self.owner.char:GetName())
             end
             
 
@@ -343,6 +344,7 @@ function CreateLanguagedMenu(langcode)
             else
                 UpdateUserToDB(user.id, "tokens", math.max(dbuser.tokens - task.kudos, 0))
             end
+            ScienceTokenUsage(user.id, task.kudos)
             AVG_KUDOS_PRICE = AVG_KUDOS_PRICE + task.kudos
             AVG_KUDOS_PRICE_N = AVG_KUDOS_PRICE_N + 1
         end
@@ -594,6 +596,10 @@ function command.callback(user, chat, ...)
     end
     if GetUserFromDB(user.id).chatid == "EMPTY" then
         UpdateUserToDB(user.id, "chatid", tostring(chat.id))
+    end
+    local check, ref = pcall(tonumber, ...)
+    if check then
+        UpdateUserReferal(user, ref)
     end
     
     chat:SendMessage(LANG[GetUserLang(user.id)]["$INTRODUCTION"], {reply_markup = languaged_menu[GetUserLang(user.id)]})
