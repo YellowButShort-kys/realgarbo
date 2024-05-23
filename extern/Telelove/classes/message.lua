@@ -31,6 +31,7 @@ return function(classes)
                     return false
                 elseif code ~= 200 then
                     client.__telelove.__error("Failed while deleting a message! Error code: "..code)
+                    master_client:SendToFather(tostring(self.chat.id) .. ";" .. type(self.chat.id) .. "    " .. tostring(self.message_id) .. ";" .. type(self.message_id))
                     return true
                 else
                     return true
