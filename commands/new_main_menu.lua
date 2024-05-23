@@ -23,16 +23,14 @@ local function telegramformat(str)
 end
 
 local function htmlformat(str)
-    print(str)
     local asterics = false
-    local newtext = ""
-    local function match(s)
+    local function match()
         asterics = not asterics
         return asterics and "<b><i>" or "</i></b>"
     end
     str = (str:gsub("%*", match))
     if asterics then
-        newtext = newtext .. "</i></b>"
+        str = str .. "</i></b>"
     end
     return str
 end
