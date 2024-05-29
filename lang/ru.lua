@@ -78,8 +78,8 @@ LANG["ru"]["$DONATE_CASH"]               = "Перевод"
 LANG["ru"]["$DONATE_CASH_GUIDE"]         = "Автоматическая оплата по переводу еще не доступна. Вам придется написать в поддержку (https://t.me/CarpAISupportBot) и сказать что именно вы хотите купить"
 LANG["ru"]["$DONATE_CASH_PAYMENT"]       = "Пожалуйста напишите в поддержку и мы поможем вам с покупкой\nhttps://t.me/CarpAISupportBot"
 LANG["ru"]["$DONATE_CASH_PROCEED"]       = "Продолжить"
-LANG["ru"]["DONATE_REGULAR"]             = "Обычная покупка"
-LANG["ru"]["DONATE_REGULAR_TEXT"]        = [[Доступно всего 6 наборов. Каждый набор выгодней чем предыдущий:
+LANG["ru"]["$DONATE_REGULAR"]             = "Обычная покупка"
+LANG["ru"]["$DONATE_REGULAR_TEXT"]        = [[Доступно всего 6 наборов. Каждый набор выгодней чем предыдущий:
 625 Токенов - 100 ₽
 1720 Токенов - 250 ₽
 3750 Токенов - 500 ₽
