@@ -7,7 +7,7 @@ headers = {
 from flask import Flask, request, jsonify
 import requests
 #VQ9fzeRfrjQCudkl7jzZLvkF3kwVNw7ACGCA1jzdvDeoFk2H6SDQoGItFnqORZ2E
-app = Flask(__name__)
+app =   (__name__)
 @app.route('/Translator', methods=['POST'])
 def webhook():
     data = request.get_json()

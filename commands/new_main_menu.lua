@@ -542,7 +542,7 @@ function CreateLanguagedMenu(langcode)
         
         
         if client.active_chats[msg.from.id] then
-            if GetUserFromDB(msg.from.id).tokens < 0 then
+            if GetUserFromDB(msg.from.id).tokens <= 0 then
                 msg.chat:SendMessage(LANG[langcode]["$CHAT_NOT_ENOUGH_TOKENS"], {inline_keyboard = {{back}}})
                 return
             end 
@@ -591,13 +591,13 @@ table.insert(comms, client:NewCommand(command))
 function command.callback(user, chat, ...)
     if not GetUserFromDB(user.id) then
         AddUserToDB(user, tostring(chat.id))
+        local check, ref = pcall(tonumber, ...)
+        if check then
+            UpdateUserReferal(user, ref)
+        end
     end
     if GetUserFromDB(user.id).chatid == "EMPTY" then
         UpdateUserToDB(user.id, "chatid", tostring(chat.id))
-    end
-    local check, ref = pcall(tonumber, ...)
-    if check then
-        UpdateUserReferal(user, ref)
     end
     
     chat:SendMessage(LANG[GetUserLang(user.id)]["$INTRODUCTION"], {reply_markup = languaged_menu[GetUserLang(user.id)]})

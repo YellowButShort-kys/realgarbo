@@ -223,9 +223,9 @@ require("__master_client")
 
 local nextcheck = tonumber((love.filesystem.read("subs_check.txt")))
 SUBBONUS = {
-    {500, 3700},
-    {1750, 12950},
-    {3780, 27720}
+    {500, 7400},
+    {1750, 38850},
+    {3780, 83160}
 }
 local function checksubs()
     if os.time() >= nextcheck then
@@ -275,6 +275,7 @@ function love.update()
     horde.Update()
     MasterUpdate()
     checksubs()
+    --notifications()
     requests.Update()
     radom.Update()
 end
