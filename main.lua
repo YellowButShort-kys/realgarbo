@@ -223,7 +223,7 @@ require("__master_client")
 
 local nextcheck = tonumber((love.filesystem.read("subs_check.txt")))
 SUBBONUS = {
-    {500, 7400},
+    {500, 11100},
     {1750, 38850},
     {3780, 83160}
 }

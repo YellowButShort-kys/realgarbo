@@ -48,7 +48,7 @@ LANG["en"]["$DONATE_SUBSCRIPTIONS"]      = "Subscriptions"
 LANG["en"]["$DONATE_SUBSCRIPTIONS_TEXT"] = [[There are 3 tiers of subscriptions available:
 Tier 1:
     500 tokens on your wallet each month
-    7400 monthly allowance
+    11100 monthly allowance
     Price: 500 ₽/month
 
 Tier 2:
