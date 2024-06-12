@@ -182,7 +182,7 @@ return function(langcode, menu, button)
         end
         table.insert(subscriptions_ikm, {btn})
     end
-    table.insert(subscriptions_ikm, donationback)
+    table.insert(subscriptions_ikm, {donationback})
     subscriptions.callback = function(self, query)
         client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_SUBSCRIPTIONS_TEXT"], {inline_keyboard = subscriptions_ikm})
     end
@@ -198,7 +198,7 @@ return function(langcode, menu, button)
         end
         table.insert(packages_ikm, {btn})
     end
-    table.insert(packages_ikm, donationback)
+    table.insert(packages_ikm, {donationback})
     packages.callback = function(self, query)
         client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_REGULAR_TEXT"], {inline_keyboard = packages_ikm})
     end
