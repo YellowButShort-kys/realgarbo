@@ -83,6 +83,15 @@ function instance:Update()
                         if self.onSuccessfulPayment then
                             self:onSuccessfulPayment(update.successful_payment)
                         end
+                    elseif update.pre_checkout_query then
+                        local res = {pre_checkout_query_id = update.pre_checkout_query.id, ok = true}
+                        if self.PreCheckoutQuery then
+                            res["ok"], res["error_message"] = self:PreCheckoutQuery(update.pre_checkout_query.id, self.__telelove.__class.__user(update.pre_checkout_query.from), update.pre_checkout_query.currency, update.pre_checkout_query.total_amount, update.pre_checkout_query.invoice_payload, update.pre_checkout_query.shipping_option_id, update.pre_checkout_query.order_info)
+                        end
+                        self.__telelove.__saferequest(
+                            "https://api.telegram.org/bot"..self.__token.."/answerPreCheckoutQuery", 
+                            {method = "POST", headers = {["Content-Type"] = "application/json"}, data = self.__telelove.json.encode(res)}
+                        )
                     end
                 end
             end
