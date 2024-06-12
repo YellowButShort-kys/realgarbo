@@ -122,6 +122,7 @@ local productsid = {
     products.regular[6]
 }
 
+local __menu
 local split = function(inputstr, sep)
     local t = {}
     for str in string.gmatch(inputstr, "([^"..(sep or "%s").."]+)") do
@@ -130,6 +131,12 @@ local split = function(inputstr, sep)
     return t
 end
 
+
+local success = client:NewInlineKeyboardButton()
+success.text = LANG["ru"]["$DONATE_BACK"]
+success.callback = function(self, query)
+    client:EditMessageText(query.message.chat, query.message, LANG["ru"]["$INTRODUCTION"], __menu)
+end
 function client:onSuccessfulPayment(payload)
     local type, product_i, id = split(payload, "_")
     product_i = tonumber(product_i)
@@ -144,9 +151,14 @@ function client:onSuccessfulPayment(payload)
         master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT "..(product.name))
         UpdateUserToDB(id, "tokens", GetUserFromDB(id).tokens + product.rewards.tokens)
     end
+    
+    client.payments[id]:EditMessageText("Оплата прошла успешно! Спасибо огромное за вашу поддержку!", {inline_keyboard = {success}})
 end
 
 return function(langcode, menu, button)
+    if langcode == "ru" then
+        __menu = menu
+    end
     local back = client:NewInlineKeyboardButton()
     back.text = LANG[langcode]["$DONATE_BACK"]
     back.callback = function(self, query)
@@ -189,5 +201,5 @@ return function(langcode, menu, button)
     donation_ikm = {inline_keyboard = {{subscriptions}, {packages}, {back}}}
     
     button.text = LANG[langcode]["$DONATE"]
-    button.callback = button.callback
+    button.callback = donationback.callback
 end
