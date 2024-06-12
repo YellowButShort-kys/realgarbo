@@ -282,6 +282,13 @@ do
     end
 end
 
+do
+    function instance:SendInvoice(chat_id, name, description, payload, price)
+        local res = self.__telelove.__saferequest("https://api.telegram.org/bot"..self.__token.."/sendInvoice", {method = "POST", headers = {["Content-Type"] = "application/json"}, data = self.__telelove.json.encode({chat_id = chat_id, title = name, description = description, payload = payload, currency = "XTR", prices = {{label = name, amount = price}}})})
+        return self.__telelove.__class.__message(client.__telelove.json.decode(res).result)
+    end
+end
+
 
 
 

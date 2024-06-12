@@ -21,6 +21,10 @@ return function(classes)
         ---@param action action
         SendChatAction = function(self, action)
             return client.__telelove.__promise(nil, self.__SendChatAction, self, action)
+        end,
+        
+        SendInvoice = function(self, name, description, payload, price)
+            return client:SendInvoice(self.id, name, description, payload, price)
         end
     }
 end
