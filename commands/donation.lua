@@ -143,13 +143,22 @@ function client:onSuccessfulPayment(payload)
     id = tonumber(id)
     local product = products[type][product_i]
     if type == "subs" then
-        master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT "..(product.name))
+        master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT "..(product.name).."\n"..tostring(id))
         UpdateUserToDB(id, "subscriptionlevel", product.tier)
         UpdateUserToDB(id, "tokens", GetUserFromDB(id).tokens + product.rewards.tokens)
         UpdateUserToDB(id, "subscriptiontokens", products.rewards.substokens)
     else
-        master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT "..(product.name))
+        master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT "..(product.name).."\n"..tostring(id))
         UpdateUserToDB(id, "tokens", GetUserFromDB(id).tokens + product.rewards.tokens)
+    end
+    
+    local ref = GetUserFromDB(id).referal
+    if ref then
+        local target = GetUserFromDB(tonumber(ref))
+        if target then
+            UpdateUserToDB(ref, "tokens", GetUserFromDB(ref).tokens + math.floor(product.rewards.tokens*0.3))
+            client:SendMessage(target.chatid, "Хей, человек которого вы пригласили только что пополнил свой баланс! Вам было начислено "..tostring(math.floor(product.rewards.tokens*0.3)).." токенов")
+        end
     end
     
     client.payments[id]:EditMessageText("Оплата прошла успешно! Спасибо огромное за вашу поддержку!", {inline_keyboard = {success}})
