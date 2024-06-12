@@ -1,3 +1,127 @@
+local products = {
+    subs = {
+        {
+            tier = 1,
+            type = "subscription",
+            name = "Подписка: Тир 1",
+            description = [[!!!Подписка покупается на 3 месяца!!!
+500 токенов на ваш счет каждый месяц
+7400 дополнительных токенов на месяц (расходуются первыми)
+
+Огромное спасибо за вашу поддержку!]],
+            rewards = {
+                substokens = 7400,
+                tokens = 500
+            },
+            price = 750,
+            lenght = 3
+        },
+        {
+            tier = 2,
+            type = "subscription",
+            name = "Подписка: Тир 2",
+            description = [[!!!Подписка покупается на 3 месяца!!!
+1750 токенов на ваш счет каждый месяц
+38850 дополнительных токенов на месяц (расходуются первыми)
+Доступ к закрытым тестам новых функций
+
+Огромное спасибо за вашу поддержку!]],
+            rewards = {
+                substokens = 38850,
+                tokens = 1750
+            },
+            price = 1500,
+            lenght = 3
+        },
+        {
+            tier = 3,
+            type = "subscription",
+            name = "Подписка: Тир 3",
+            description = [[!!!Подписка покупается на 2 месяца!!!
+3780 токенов на ваш счет каждый месяц
+83160 дополнительных токенов на месяц (расходуются первыми)
+Доступ к закрытым тестам новых функций
+Вы становитесь огромным гигачадом и можете запросить что угодно (в рамках разумного конечно)
+
+Огромное спасибо за вашу поддержку!]],
+            rewards = {
+                substokens = 83160,
+                tokens = 3780
+            },
+            price = 2500,
+            lenght = 2
+        },
+    },
+    regular = {
+        {
+            type = "package",
+            name = "Набор: 625 токенов",
+            description = [[Для тех кто не готов тратиться]],
+            rewards = {
+                tokens = 625
+            },
+            price = 50
+        },
+        {
+            type = "package",
+            name = "Набор: 1720 токенов",
+            description = [[Если вам понравились отдельные персонажи]],
+            rewards = {
+                tokens = 1720
+            },
+            price = 150
+        },
+        {
+            type = "package",
+            name = "Набор: 3750 токенов",
+            description = [[Баланс между выгодой и ценой]],
+            rewards = {
+                tokens = 3750
+            },
+            price = 300
+        },
+        {
+            type = "package",
+            name = "Набор: 8125 токенов",
+            description = [[Хватит надолго]],
+            rewards = {
+                tokens = 8125
+            },
+            price = 600
+        },
+        {
+            type = "package",
+            name = "Набор: 13125 токенов",
+            description = [[Если персонажи стали вам реально близкими]],
+            rewards = {
+                tokens = 13125
+            },
+            price = 900
+        },
+        {
+            type = "package",
+            name = "Набор: 28125 токенов",
+            description = [[Вау... Спасибо за вашу поддержку!]],
+            rewards = {
+                tokens = 8125
+            },
+            price = 2000
+        },
+    }
+}
+
+local productsid = {
+    products.subs[1],
+    products.subs[2],
+    products.subs[3],
+    products.regular[1],
+    products.regular[2],
+    products.regular[3],
+    products.regular[4],
+    products.regular[5],
+    products.regular[6]
+}
+
 local split = function(inputstr, sep)
     local t = {}
     for str in string.gmatch(inputstr, "([^"..(sep or "%s").."]+)") do
@@ -5,113 +129,65 @@ local split = function(inputstr, sep)
     end
     return t
 end
-local function onSuccessfulPayment(id)
-    if client.payments[id][2]:GetChargingInterval() > 0 then
-        master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT A "..(client.payments[id][2]:GetName():sub(-2, -1)) .. " LEVEL SUB")
-        UpdateUserToDB(client.payments[id][1].id, "subscriptionlevel", tonumber(client.payments[id][2]:GetName():sub(-2, -1)))
-        UpdateUserToDB(client.payments[id][1].id, "tokens", GetUserFromDB(client.payments[id][1].id).tokens + SUBBONUS[tonumber(client.payments[id][2]:GetName():sub(-2, -1))][1])
-        UpdateUserToDB(client.payments[id][1].id, "subscriptiontokens", SUBBONUS[tonumber(client.payments[id][2]:GetName():sub(-2, -1))][2])
+
+function client:onSuccessfulPayment(payload)
+    local type, product_i, id = split(payload, "_")
+    product_i = tonumber(product_i)
+    id = tonumber(id)
+    local product = products[type][product_i]
+    if type == "subs" then
+        master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT "..(product.name))
+        UpdateUserToDB(id, "subscriptionlevel", product.tier)
+        UpdateUserToDB(id, "tokens", GetUserFromDB(id).tokens + product.rewards.tokens)
+        UpdateUserToDB(id, "subscriptiontokens", products.rewards.substokens)
     else
-        master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT "..(client.payments[id][2]:GetName()))
-        UpdateUserToDB(client.payments[id][1].id, "tokens", GetUserFromDB(client.payments[id][1].id).tokens + tonumber(split(client.payments[id][2]:GetName(), " ")[2]))
+        master_client:SendToFather("MONEY BITCH YAY!!!\n SOMEBODY HAS BOUGHT "..(product.name))
+        UpdateUserToDB(id, "tokens", GetUserFromDB(id).tokens + product.rewards.tokens)
     end
 end
 
-local bundles = {
-    ["Набор: 28125 Токенов"] = 6,
-    ["Набор: 13125 Токенов"] = 5,
-    ["Набор: 8125 Токенов"] = 4,
-    ["Набор: 3750 Токенов"] = 3,
-    ["Набор: 1720 Токенов"] = 2,
-    ["Набор: 625 Токенов"] = 1
-}
-
 return function(langcode, menu, button)
-    local products = radom.GetProducts()
     local back = client:NewInlineKeyboardButton()
     back.text = LANG[langcode]["$DONATE_BACK"]
     back.callback = function(self, query)
         client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], menu)
     end
-    
-    
+    local donation_ikm
     local donationback = client:NewInlineKeyboardButton()
-
-    
-    
-    local subsikm = {}
-    local regikm = {}
-    for i, product in ipairs(products) do
-        local options = client:NewInlineKeyboardButton()    
-        local crypto = client:NewInlineKeyboardButton()
-        local crypto_agree = client:NewInlineKeyboardButton()
-        crypto.text = LANG[langcode]["$DONATE_CRYPTO"]
-        crypto.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_CRYPTO_GUIDE"], {inline_keyboard = {{options, crypto_agree}}})
-        end
-        crypto_agree.text = LANG[langcode]["$DONATE_CRYPTO_PROCEED"]
-        crypto_agree.callback = function(self, query)
-            radom.CreateCheckoutSession(product, 
-                function(url, id)
-                    client.payments[id] = {query.from, product}
-                    client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_CRYPTO_PAYMENT"]:format(url), {inline_keyboard = {{back}}})
-                end,
-                onSuccessfulPayment,
-                "https://t.me/CarpAI_bot"
-            )
-            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_CRYPTO_AWAIT"])
-        end
-        
-        
-        local cash = client:NewInlineKeyboardButton()
-        local cash_agree = client:NewInlineKeyboardButton()
-        cash.text = LANG[langcode]["$DONATE_CASH"]
-        cash.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_CASH_GUIDE"], {inline_keyboard = {{options, crypto_agree}}})
-        end
-        cash_agree.text = LANG[langcode]["$DONATE_CASH_PROCEED"]
-        cash_agree.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_CASH_PAYMENT"], {inline_keyboard = {{back}}})
-        end
-        
-        
-        options.text = LANG[langcode]["$DONATE_BACK"]
-        options.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, "<b><i>" .. product:GetName() .. "</i></b>" .. "\n\n" .. product:GetDescription(), {inline_keyboard = {{crypto}, {cash}, {back}}})
-        end
-        
-        
-        local btn = client:NewInlineKeyboardButton()
-        btn.text = product:GetName()
-        btn.callback = function(self, query)
-            client:EditMessageText(query.message.chat, query.message, "<b><i>" .. product:GetName() .. "</i></b>" .. "\n\n" .. product:GetDescription(), {inline_keyboard = {{crypto}, {cash}, {back}}})
-        end
-        
-        if product:GetChargingInterval() > 0 then
-            subsikm[tonumber(btn.text:sub(-2, -1))] = {btn}
-        else
-            regikm[bundles[btn.text]] = {btn}
-        end
-    end
-    table.insert(subsikm, {donationback})
-    table.insert(regikm, {donationback})
-    local subscriptions = client:NewInlineKeyboardButton()
-    subscriptions.text = LANG[langcode]["$DONATE_SUBSCRIPTIONS"]
-    subscriptions.callback = function(self, query)
-        client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_SUBSCRIPTIONS_TEXT"], {inline_keyboard = subsikm})
-    end
-    local regular = client:NewInlineKeyboardButton()
-    regular.text = LANG[langcode]["$DONATE_REGULAR"]
-    regular.callback = function(self, query)
-        client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_REGULAR_TEXT"], {inline_keyboard = regikm})
-    end
-    
-    
     donationback.text = LANG[langcode]["$DONATE_BACK"]
     donationback.callback = function(self, query)
-        client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_OPTIONS"], {inline_keyboard = {{subscriptions}, {regular}, {back}}})
+        client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_OPTIONS"], donation_ikm)
     end
     
+    local subscriptions = client:NewInlineKeyboardButton()
+    subscriptions.text = LANG[langcode]["$DONATE_SUBSCRIPTIONS"]
+    subscriptions_ikm = {}
+    for i, var in ipairs(products.subs) do
+        local btn = client:NewInlineKeyboardButton()
+        btn.text = var.name
+        btn.callback = function(self, query)
+            client.payments[query.from.id] = query.message.chat:SendInvoice(var.name, var.description, "subs".."_"..tostring(i).."_"..tostring(query.from), var.price)
+        end
+        table.insert(subscriptions_ikm, {btn})
+    end
+    table.insert(subscriptions_ikm, donationback)
+    
+    local packages = client:NewInlineKeyboardButton()
+    packages.text = LANG[langcode]["$DONATE_REGULAR"]
+    packages_ikm = {}
+    for i, var in ipairs(products.regular) do
+        local btn = client:NewInlineKeyboardButton()
+        btn.text = var.name
+        btn.callback = function(self, query)
+            client.payments[query.from.id] = query.message.chat:SendInvoice(var.name, var.description, "regular".."_"..tostring(i).."_"..tostring(query.from), var.price)
+        end
+        table.insert(packages_ikm, {btn})
+    end
+    table.insert(packages_ikm, donationback)
+    
+
+    donation_ikm = {inline_keyboard = {{subscriptions}, {packages}, {back}}}
+    
     button.text = LANG[langcode]["$DONATE"]
-    button.callback = donationback.callback
+    button.callback = button.callback
 end

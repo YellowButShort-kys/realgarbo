@@ -67,9 +67,9 @@ translation = require("api.yandex")
 local OpenRouter = require("api.openrouter")
 llama8 = OpenRouter(nil, "meta-llama/llama-3-8b-instruct:free", 200)
 
-radom = require("__payment_processor")
-radom.SetToken("eyJhZGRyZXNzIjpudWxsLCJvcmdhbml6YXRpb25faWQiOiJlNjZjMTk5Zi1lYzgzLTRkNWUtYjhkOS0zZWI1NTI4MDI0YzQiLCJzZXNzaW9uX2lkIjoiNGNkNjEzYmMtMmZjMS00NDQ3LWE4NTEtOWIwMTkwN2Y2MjFiIiwiZXhwaXJlZF9hdCI6IjIwMjUtMDUtMDNUMDg6NTY6MjIuOTkyNTgxNDM2WiIsImlzX2FwaV90b2tlbiI6dHJ1ZX0=")
-radom.ListProducts()
+--radom = require("__payment_processor")
+--radom.SetToken("eyJhZGRyZXNzIjpudWxsLCJvcmdhbml6YXRpb25faWQiOiJlNjZjMTk5Zi1lYzgzLTRkNWUtYjhkOS0zZWI1NTI4MDI0YzQiLCJzZXNzaW9uX2lkIjoiNGNkNjEzYmMtMmZjMS00NDQ3LWE4NTEtOWIwMTkwN2Y2MjFiIiwiZXhwaXJlZF9hdCI6IjIwMjUtMDUtMDNUMDg6NTY6MjIuOTkyNTgxNDM2WiIsImlzX2FwaV90b2tlbiI6dHJ1ZX0=")
+--radom.ListProducts()
 
 require("lang")
 
@@ -276,5 +276,5 @@ function love.update()
     checksubs()
     --notifications()
     requests.Update()
-    radom.Update()
+    --radom.Update()
 end

@@ -79,6 +79,10 @@ function instance:Update()
                     elseif update.callback_query then
                         self:__ProcessCallbackQuery(self.__telelove.__class.__callbackquery(update.callback_query))
                         self.__telelove.__print("   Package (query): " .. tostring(love.timer.getTime()-t2))
+                    elseif update.successful_payment then
+                        if self.onSuccessfulPayment then
+                            self:onSuccessfulPayment(update.successful_payment)
+                        end
                     end
                 end
             end
