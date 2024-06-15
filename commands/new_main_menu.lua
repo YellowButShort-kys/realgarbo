@@ -39,17 +39,34 @@ local function isEmpty(str)
     return str:gsub("\n", ""):gsub(" ", ""):len() > 3
 end
 
+
+local encoding_table = {
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+}
+local decoding_table = {}
+for i, var in ipairs(encoding_table) do
+    decoding_table[tostring(var)] = i
+end
+local function decode(string)
+    local offset = 0
+    return (string.gsub(string, ".", function(h)
+        offset = offset + 1
+        return (decoding_table[h]-offset)/2
+    end))
+end
+
 function CreateLanguagedMenu(langcode)
     local menu = {}
     local char_creation = client:NewInlineKeyboardButton()
     local new_chat, load_chat, select_model = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
-    local donate, display_name = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
+    local donate, profile = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local promocode, dailies, my_tokens = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local language = client:NewInlineKeyboardButton()
     menu.inline_keyboard = {
         {new_chat, load_chat, select_model},
-        {donate, display_name},
-        {promocode, dailies, my_tokens},
+        {donate, profile},
+        {promocode, dailies},
         {language}
     }
     
@@ -268,6 +285,9 @@ function CreateLanguagedMenu(langcode)
     ---------------------------- DISPLAY NAME -----------------------------
     -----------------------------------------------------------------------
 
+    
+    require("commands.profile")(langcode, menu, profile)
+    --[[
     do
         local back = client:NewInlineKeyboardButton()
         back.text = LANG[langcode]["$TOKENS_BACK"]
@@ -282,6 +302,7 @@ function CreateLanguagedMenu(langcode)
             client.display_name_change[query.from.id] = query.message
         end
     end
+    ]]
     
     -----------------------------------------------------------------------
     -------------------------------- LANG ---------------------------------
@@ -362,6 +383,8 @@ function CreateLanguagedMenu(langcode)
         
         another_chat.task = nil
     end
+    
+    
 
     local back = client:NewInlineKeyboardButton()
     back.text = LANG[langcode]["$CHAT_BACK"]
@@ -526,6 +549,13 @@ function CreateLanguagedMenu(langcode)
                 else
                     msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_ALREADYUSED"], {reply_markup = {inline_keyboard = {{back}}}})
                 end
+            elseif GetAllUsers()[decode(msg.text)] or GetAllUsers()[tonumber(decode(msg.text))] then
+                if not UpdateUserReferal(msg.from, (GetAllUsers()[decode(msg.text)] or GetAllUsers()[tonumber(decode(msg.text))])) then
+                    msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_REFERAL_FAILURE"], {reply_markup = {inline_keyboard = {{back}}}})
+                else
+                    msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_REFERAL_SUCCESS"], {reply_markup = {inline_keyboard = {{back}}}})
+                    UpdateUserToDB(msg.from.id, "tokens", GetUserFromDB(msg.from.id).tokens + 3000)
+                end
             else
                 msg.chat:SendMessage(LANG[langcode]["$PROMOCODE_NOTFOUND"], {reply_markup = {inline_keyboard = {{back}}}})
             end
@@ -593,7 +623,7 @@ function command.callback(user, chat, ...)
         AddUserToDB(user, tostring(chat.id))
         local check, ref = pcall(tonumber, ...)
         if check then
-            UpdateUserReferal(user, ref)
+            UpdateUserReferal(user, (GetAllUsers()[decode(...)] or GetAllUsers()[tonumber(decode(...))]))
         end
     end
     if GetUserFromDB(user.id).chatid == "EMPTY" then

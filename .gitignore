@@ -1,3 +1,4 @@
 db/userlist.db
 db/chats.db
 *.db
+conf.lua
