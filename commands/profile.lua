@@ -23,10 +23,11 @@ return function(langcode, menu, button)
             local subtokens = user.subscriptiontokens
             local refcode = encode(user.id)
             local reflink = "https://t.me/CarpAI_bot?start="..refcode
+        jit.off()
         print("PRINT")
         print(LANG[langcode]["$PROFILE_TEXT"]:format(tostring(display_name), tostring(balance), tostring(sublevel), tostring(subtokens), tostring(refcode), tostring(reflink)))
         print("PRINT END")
-        client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$PROFILE_TEXT"]:format(tostring(display_name), tostring(balance), tostring(sublevel), tostring(subtokens), tostring(refcode), tostring(reflink)), profile_ikm)
+        --client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$PROFILE_TEXT"]:format(tostring(display_name), tostring(balance), tostring(sublevel), tostring(subtokens), tostring(refcode), tostring(reflink)), profile_ikm)
     end
     
     local display_name = client:NewInlineKeyboardButton()
