@@ -32,6 +32,7 @@ return function(langcode, menu, button)
         client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DISPLAY_NAME_TEXT"], {inline_keyboard = {{profileback}}})
         client.display_name_change[query.from.id] = query.message
     end
+    table.insert(profile_ikm.inline_keyboard, {display_name})
     
     
     local back = client:NewInlineKeyboardButton()
