@@ -23,7 +23,12 @@ return function(langcode, menu, button)
             local subtokens = user.subscriptiontokens
             local refcode = encode(user.id)
             local reflink = "https://t.me/CarpAI_bot?start="..refcode
-        print(LANG[langcode]["$PROFILE_TEXT"])
+        print(("test: %s"):format(display_name))
+        print(("test: %s"):format(balance))
+        print(("test: %s"):format(sublevel))
+        print(("test: %s"):format(subtokens))
+        print(("test: %s"):format(refcode))
+        print(("test: %s"):format(reflink))
         print(pcall(function() 
         --  jit.off()
         print("PRINT")
