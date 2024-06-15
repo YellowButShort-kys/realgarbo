@@ -23,6 +23,7 @@ return function(langcode, menu, button)
             local subtokens = user.subscriptiontokens
             local refcode = encode(user.id)
             local reflink = "https://t.me/CarpAI_bot?start="..refcode
+        print(table.concat({display_name, balance, sublevel, subtokens, refcode, reflink}, "\n"))
         client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$PROFILE_TEXT"]:format(display_name, balance, sublevel, subtokens, refcode, reflink), profile_ikm)
     end
     
