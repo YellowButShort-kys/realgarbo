@@ -78,7 +78,7 @@ local products = {
             rewards = {
                 tokens = 3750
             },
-            price = 300
+            price = 250
         },
         {
             type = "package",
@@ -87,7 +87,7 @@ local products = {
             rewards = {
                 tokens = 8125
             },
-            price = 600
+            price = 500
         },
         {
             type = "package",
@@ -96,7 +96,7 @@ local products = {
             rewards = {
                 tokens = 13125
             },
-            price = 900
+            price = 750
         },
         {
             type = "package",
@@ -105,7 +105,7 @@ local products = {
             rewards = {
                 tokens = 8125
             },
-            price = 2000
+            price = 1500
         },
     }
 }
