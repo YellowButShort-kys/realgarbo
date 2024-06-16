@@ -345,20 +345,24 @@ master_client:RegisterCommand(me_chat)
 local announcement = master_client:NewCommand()
 announcement.command = "announcement"
 announcement.description = "{string}"
-announcement.__callback = function(user, chat, msg)
-    for _, var in pairs(GetAllUsers()) do
-        if var.chatid then
-            client:SendMessage(var.chatid, msg)
-        end
-    end
-end
 announcement.callback = function(user, chat, msg) 
     if user.id ~= 386513759 then
         return
     end
     
-    local r = {pcall(announcement.__callback, user, chat, msg)}
-    for i, var in pairs(r) do
+    local successes = 0
+    local failures = 0
+    for _, var in pairs(GetAllUsers()) do
+        if var.chatid then
+            local res = pcall(client.SendMessage, client, var.chatid, msg)
+            if res then
+                successes = successes + 1
+            else
+                failures = failures + 1
+            end
+        end
+    end
+    for i, var in pairs({successes=successes, failures=failures}) do
         master_client:SendMessage(chat, i .. ": " .. tostring(var))
     end
 end
