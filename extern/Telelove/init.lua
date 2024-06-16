@@ -5,7 +5,8 @@ telelove.Verbosity = true
 local defaults = {
     threads = 1,
     reconnect = false,
-    max_messages = 1000
+    max_messages = 1000,
+    Timeout = 5
 }
 local defaults_mt = {
     Threads = 4,

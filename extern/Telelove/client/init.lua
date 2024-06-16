@@ -59,7 +59,7 @@ function instance:Update()
     
     local body = self.__telelove.__saferequest(
         "https://api.telegram.org/bot"..self.__token.."/getUpdates", 
-        {method = "POST", headers = {["Content-Type"] = "application/json"}, data = self.__telelove.json.encode({offset = self.__offset, timeout = 5})}
+        {method = "POST", headers = {["Content-Type"] = "application/json"}, data = self.__telelove.json.encode({offset = self.__offset, timeout = self.__settings.Timeout})}
     )
     
     if body then

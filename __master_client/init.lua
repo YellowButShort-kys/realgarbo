@@ -1,4 +1,4 @@
-master_client = telelove.NewClient()
+master_client = telelove.NewClient({Timeout = 0})
 --client = master_client
 
 local token = "7021240836:AAFEztcG-PIwyFdyDBzVUrZtNyA5bt49xu0"
