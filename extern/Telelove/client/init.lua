@@ -230,7 +230,9 @@ do
             "https://api.telegram.org/bot"..self.__token.."/sendMessage", 
             {method = "POST", headers = {["Content-Type"] = "application/json"}, data = self.__telelove.json.encode(data)}
         )
-        return self.__telelove.__class.__message(client.__telelove.json.decode(r).result)
+        if r then
+            return self.__telelove.__class.__message(client.__telelove.json.decode(r).result)
+        end
     end
 end
 
