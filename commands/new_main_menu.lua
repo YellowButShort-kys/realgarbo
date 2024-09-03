@@ -623,7 +623,8 @@ function command.callback(user, chat, ...)
         AddUserToDB(user, tostring(chat.id))
         local check, ref = pcall(tonumber, ...)
         if check then
-            UpdateUserReferal(user, (GetAllUsers()[decode(...)] or GetAllUsers()[tonumber(decode(...))]))
+            local dcde = pcall(decode, ...)
+            UpdateUserReferal(user, (GetAllUsers()[dcde] or GetAllUsers()[tonumber(dcde)]))
         end
     end
     if GetUserFromDB(user.id).chatid == "EMPTY" then
