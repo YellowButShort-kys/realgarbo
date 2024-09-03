@@ -33,7 +33,11 @@ while true do
         if code == 0 then
             love.timer.sleep(retryafter)
         elseif code == 200 then
-            transmiter:push({success = true, errcode = code, result = decode(body)})
+            local success, res = pcall(decode, body)
+            if not success then
+                error("Unexpected JSON Character!".."\n\n"..res)
+            end
+            transmiter:push({success = true, errcode = code, result = res})
             break
         else
             transmiter:push({success = false, errcode = code, result = body})
