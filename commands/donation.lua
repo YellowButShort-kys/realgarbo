@@ -171,12 +171,14 @@ return function(langcode, menu, button)
     local back = client:NewInlineKeyboardButton()
     back.text = LANG[langcode]["$DONATE_BACK"]
     back.callback = function(self, query)
+        print("donationback:     ".. langcode)
         client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], menu)
     end
     local donation_ikm
     local donationback = client:NewInlineKeyboardButton()
     donationback.text = LANG[langcode]["$DONATE_BACK"]
     donationback.callback = function(self, query)
+        print("donationback:     ".. langcode)
         client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$DONATE_OPTIONS"], donation_ikm)
     end
     
