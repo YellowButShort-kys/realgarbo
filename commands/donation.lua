@@ -165,7 +165,9 @@ function client:onSuccessfulPayment(payload)
 end
 
 return function(langcode, menu, button)
-    langcode = "ru"
+    if langcode == "ru" then
+        __menu = menu
+    end
     local back = client:NewInlineKeyboardButton()
     back.text = LANG[langcode]["$DONATE_BACK"]
     back.callback = function(self, query)
@@ -180,7 +182,7 @@ return function(langcode, menu, button)
     
     local subscriptions = client:NewInlineKeyboardButton()
     subscriptions.text = LANG[langcode]["$DONATE_SUBSCRIPTIONS"]
-    subscriptions_ikm = {}
+    local subscriptions_ikm = {}
     for i, var in ipairs(products.subs) do
         local btn = client:NewInlineKeyboardButton()
         btn.text = var.name
@@ -196,7 +198,7 @@ return function(langcode, menu, button)
     
     local packages = client:NewInlineKeyboardButton()
     packages.text = LANG[langcode]["$DONATE_REGULAR"]
-    packages_ikm = {}
+    local packages_ikm = {}
     for i, var in ipairs(products.regular) do
         local btn = client:NewInlineKeyboardButton()
         btn.text = var.name
