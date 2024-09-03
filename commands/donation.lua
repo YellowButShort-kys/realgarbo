@@ -165,6 +165,7 @@ function client:onSuccessfulPayment(payload)
 end
 
 return function(langcode, menu, button)
+    print(langcode)
     if langcode == "ru" then
         __menu = menu
     end
