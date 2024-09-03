@@ -64,7 +64,7 @@ function CreateLanguagedMenu(langcode)
     local promocode, dailies, my_tokens = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local language = client:NewInlineKeyboardButton()
     menu.inline_keyboard = {
-        {new_chat, load_chat, select_model},
+        {new_chat, load_chat},
         {donate, profile},
         {promocode, dailies},
         {language}
@@ -443,6 +443,7 @@ function CreateLanguagedMenu(langcode)
     -----------------------------------------------------------------------
 
     do
+        --[=[
         local back = client:NewInlineKeyboardButton()
         back.text = LANG[langcode]["$TOKENS_BACK"]
         back.callback = function(self, query)
@@ -507,6 +508,7 @@ function CreateLanguagedMenu(langcode)
                 },
                 {back}}})
         end
+        ]=]
     end
     
     ----------------------------------------------------------------------

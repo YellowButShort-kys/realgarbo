@@ -204,6 +204,8 @@ function base:GetLastResponse()
 end
 
 function base:GetResponse(chat, msg, user, callback, errcallback)
+    self.task = stheno8.Generate(self:GetInstructContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
+    --[[
     local model = GetUserFromDB(user.id).model
     if model == "horde" then
         self.task = capybara.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
@@ -218,6 +220,7 @@ function base:GetResponse(chat, msg, user, callback, errcallback)
     elseif model == "llama8" then
         self.task = llama8.Generate(self:GetOpenAIContents(), callback, errcallback, {chat, self, msg, user}, {self.char.name..":", GetUserName(self.owner)..":"})
     end
+    ]]
 end
 
 return chats

@@ -65,8 +65,11 @@ soliloque = require("api.soliloque")
 --translation = require("api.translation")
 translation = require("api.yandex")
 local OpenRouter = require("api.openrouter")
-llama8 = OpenRouter(nil, "meta-llama/llama-3-8b-instruct:free", 200)
 
+--llama8 = OpenRouter(nil, "meta-llama/llama-3-8b-instruct:free", {0, 0}, )
+stheno8 = OpenRouter(nil, "sao10k/l3-stheno-8b", {100, 200}, {
+    temperature = 0.85
+})
 --radom = require("__payment_processor")
 --radom.SetToken("eyJhZGRyZXNzIjpudWxsLCJvcmdhbml6YXRpb25faWQiOiJlNjZjMTk5Zi1lYzgzLTRkNWUtYjhkOS0zZWI1NTI4MDI0YzQiLCJzZXNzaW9uX2lkIjoiNGNkNjEzYmMtMmZjMS00NDQ3LWE4NTEtOWIwMTkwN2Y2MjFiIiwiZXhwaXJlZF9hdCI6IjIwMjUtMDUtMDNUMDg6NTY6MjIuOTkyNTgxNDM2WiIsImlzX2FwaV90b2tlbiI6dHJ1ZX0=")
 --radom.ListProducts()
