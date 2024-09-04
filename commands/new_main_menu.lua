@@ -602,7 +602,7 @@ function CreateLanguagedMenu(langcode)
                 client.active_chats[msg.from.id].lastmsg:EditMessageText(htmlformat(msg.text), message_ikm)
                 client.active_chats[msg.from.id].isEditing = false
                 client.active_chats[msg.from.id]:RemoveLastResponse()
-                client.active_chats:AppendContent(translation.Translate(msg.text, langcode, "en"), "assistant")
+                client.active_chats[msg.from.id]:AppendContent(translation.Translate(msg.text, langcode, "en"), "assistant")
                 return
             end
 
