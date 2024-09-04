@@ -70,6 +70,8 @@ function CreateLanguagedMenu(langcode)
         {language}
     }
     
+
+    local message_ikm
     ---------------------------------------------------------------------
     ----------------------------- NEW CHAT ------------------------------
     ---------------------------------------------------------------------
@@ -389,6 +391,9 @@ function CreateLanguagedMenu(langcode)
     local back = client:NewInlineKeyboardButton()
     back.text = LANG[langcode]["$CHAT_BACK"]
     back.callback = function(self, query)
+        if client.active_chats[query.from.id] then
+            client.active_chats[query.from.id].isEditing = false
+        end
         client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], menu)
     end
     local regenerate = client:NewInlineKeyboardButton()
@@ -402,7 +407,26 @@ function CreateLanguagedMenu(langcode)
             query.message.chat:SendChatAction("typing")
         end
     end
-    ikm.inline_keyboard = {{back, regenerate}}
+
+    local rewriteback = client:NewInlineKeyboardButton()
+    rewriteback.text = LANG[langcode]["$CHAT_BACK"]
+    rewriteback.callback = function(self, query)
+        client.active_chats[query.from.id].isEditing = false
+        client:EditMessageText(query.message.chat, query.message, client.active_chats[query.from.id].lasttxt, menu)
+    end
+    local rewriteikm = {inline_keyboard = {{rewriteback}}}
+    local rewrite = client:NewInlineKeyboardButton()
+    rewrite.text = LANG[langcode]["$CHAT_REWRITE"]
+    rewrite.callback = function(self, query)
+        if client.active_chats[query.from.id] and client.active_chats[query.from.id].lastmsg then
+            client.active_chats[query.from.id].lasttxt = client.active_chats[query.from.id].lastmsg.text
+            client.active_chats[query.from.id].isEditing = true
+            client.active_chats[query.from.id].lastmsg:EditMessageText(client.active_chats[query.from.id].lastmsg.text .. "\n\n" .. LANG[langcode]["$CHAT_REWRITE_TEXT"], rewriteikm)
+            --FALLBACK[client.active_chats[query.from.id].lastmsg.id] = client.active_chats[query.from.id].lastmsg
+        end
+    end
+    ikm.inline_keyboard = {{rewrite, regenerate, back}}
+    message_ikm = ikm
     
     ----------------------------------------------------------------------
     ------------------------------ DAILIES -------------------------------
@@ -574,6 +598,11 @@ function CreateLanguagedMenu(langcode)
         
         
         if client.active_chats[msg.from.id] then
+            if client.active_chats[msg.from.id].isEditing then
+                client.active_chats[msg.from.id].lastmsg:EditMessageText(client.active_chats[msg.from.id].lasttxt, message_ikm)
+                client.active_chats[msg.from.id].isEditing = false
+            end
+
             if GetUserFromDB(msg.from.id).tokens <= 0 then
                 msg.chat:SendMessage(LANG[langcode]["$CHAT_NOT_ENOUGH_TOKENS"], {inline_keyboard = {{back}}})
                 return
