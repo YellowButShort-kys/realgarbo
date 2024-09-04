@@ -400,7 +400,7 @@ function CreateLanguagedMenu(langcode)
     regenerate.text = LANG[langcode]["$CHAT_REGENERATE"]
     regenerate.callback = function(self, query)
         if client.active_chats[query.from.id] and client.active_chats[query.from.id].lastmsg then
-            client.active_chats[query.from.id].lastmsg:EditMessageText(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
+            client.active_chats[query.from.id].lastmsg = client.active_chats[query.from.id].lastmsg:EditMessageText(LANG[langcode]["$AWAIT_FOR_MESSAGE"])
             --FALLBACK[client.active_chats[query.from.id].lastmsg.id] = client.active_chats[query.from.id].lastmsg
             client.active_chats[query.from.id]:RemoveLastResponse()
             client.active_chats[query.from.id]:GetResponse(query.message.chat, client.active_chats[query.from.id].lastmsg, query.from, callback, errcallback)
@@ -412,7 +412,7 @@ function CreateLanguagedMenu(langcode)
     rewriteback.text = LANG[langcode]["$CHAT_BACK"]
     rewriteback.callback = function(self, query)
         client.active_chats[query.from.id].isEditing = false
-        client:EditMessageText(query.message.chat, query.message, client.active_chats[query.from.id].lasttxt, menu)
+        client.active_chats[query.from.id].lastmsg = client:EditMessageText(query.message.chat, query.message, client.active_chats[query.from.id].lasttxt, menu)
     end
     local rewriteikm = {inline_keyboard = {{rewriteback}}}
     local rewrite = client:NewInlineKeyboardButton()

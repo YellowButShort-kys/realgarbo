@@ -30,6 +30,8 @@ LANG["en"]["$CHAT_GENERATION_FAULT"]    = "An error occured during message gener
 LANG["en"]["$CHAT_GENERATION_IMPOSSIBLE"]= "Due to the highened demand, the generation cannot be finished. Try again"
 LANG["en"]["$CHAT_GENERATION_TIMEOUT"]  = "Unforseen error. Try again. If it doesn't resolve within several minutes, please contact the support"
 LANG["en"]["$CHAT_GENERATION_EMPTY"]    = "Model returned an empty response. Tokens were not charged, please try again."
+LANG["en"]["$CHAT_REWRITE"]             = "Replace"
+LANG["en"]["$CHAT_REWRITE_TEXT"]        = "Enter the new message..."
 
 
 LANG["en"]["$TOKENS"]                   = "Wallet"
