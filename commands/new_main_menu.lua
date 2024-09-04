@@ -599,8 +599,11 @@ function CreateLanguagedMenu(langcode)
         
         if client.active_chats[msg.from.id] then
             if client.active_chats[msg.from.id].isEditing then
-                client.active_chats[msg.from.id].lastmsg:EditMessageText(client.active_chats[msg.from.id].lasttxt, message_ikm)
+                client.active_chats[msg.from.id].lastmsg:EditMessageText(htmlformat(msg.text), message_ikm)
                 client.active_chats[msg.from.id].isEditing = false
+                client.active_chats[msg.from.id]:RemoveLastResponse()
+                client.active_chats:AppendContent(translation.Translate(msg.text, langcode, "en"), "assistant")
+                return
             end
 
             if GetUserFromDB(msg.from.id).tokens <= 0 then
