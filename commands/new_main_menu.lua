@@ -353,8 +353,8 @@ function CreateLanguagedMenu(langcode)
         
         --FALLBACK[msg.id] = nil
         msg:DeleteMessage()
-        chat:SendMessage(another_chat.char:FormatOutput(another_chat, translated_text), {reply_markup = {inline_keyboard = ikm.inline_keyboard}})
-        
+        client.active_chats[user.id].lastmsg = chat:SendMessage(another_chat.char:FormatOutput(another_chat, translated_text), {reply_markup = {inline_keyboard = ikm.inline_keyboard}})
+
         --msg:EditMessageText(another_chat.char:FormatOutput(another_chat, translated_text), ikm)
         if legit then
             another_chat:AppendContent(text, "assistant")
