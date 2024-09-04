@@ -661,6 +661,11 @@ function command.callback(user, chat, ...)
     if GetUserFromDB(user.id).chatid == "EMPTY" then
         UpdateUserToDB(user.id, "chatid", tostring(chat.id))
     end
+
+    
+    if client.active_chats[user.id] then
+        client.active_chats[user.id].isEditing = false
+    end
     
     chat:SendMessage(LANG[GetUserLang(user.id)]["$INTRODUCTION"], {reply_markup = languaged_menu[GetUserLang(user.id)]})
 end
