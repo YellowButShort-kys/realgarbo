@@ -22,9 +22,6 @@ return function(classes)
             end,
             
             DeleteMessage = function(self)
-                print(client.__telelove.json.encode({chat_id = self.chat.id, message_id = self.message_id}))
-                print()
-                print(body)
                 return client:DeleteMessage(self)
             end,
             
