@@ -21,33 +21,19 @@ return function(classes)
                 end
             end,
             
-            __DeleteMessage = function(self)
-                local code, body, headers = https.request(
-                    "https://api.telegram.org/bot"..client.__token.."/deleteMessage", 
-                    {method = "POST", headers = {["Content-Type"] = "application/json"}, data = client.__telelove.json.encode({chat_id = self.chat.id, message_id = self.message_id})}
-                )
+            DeleteMessage = function(self)
                 print(client.__telelove.json.encode({chat_id = self.chat.id, message_id = self.message_id}))
                 print()
                 print(body)
-                
-                if code == 0 then
-                    return false
-                elseif code ~= 200 then
-                    client.__telelove.__error("Failed while deleting a message! Error code: "..code)
-                    return true
-                else
-                    return false
-                end
-            end,
-            DeleteMessage = function(self)
-                return client.__telelove.__promise(nil, self.__DeleteMessage, self)
+                return client:DeleteMessage(self)
             end,
             
             EditMessageText = function(self, text, reply_markup)
                 local newmsg = client:EditMessageText(self.chat, self, text, reply_markup)
-                self.text = text
-                self.reply_markup = self.reply_markup or reply_markup
-                self.message_id = newmsg.message_id
+                
+                self.text = text or self.text
+                self.reply_markup = reply_markup or self.reply_markup
+                --self.message_id = newmsg.message_id
                 return self
             end,
             EditMessageReplyMarkup = function(self, reply_markup)

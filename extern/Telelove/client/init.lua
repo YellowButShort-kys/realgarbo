@@ -293,6 +293,11 @@ do
     end
 end
 
+function instance:DeleteMessage(message)
+    assert(message, "Message is nil!")
+    return self.__telelove.__saferequest("https://api.telegram.org/bot"..self.__token.."/deleteMessage", {method = "POST", headers = {["Content-Type"] = "application/json"}, data = client.__telelove.json.encode({chat_id = message.chat.id, message_id = message.message_id})})
+end
+
 do
     function instance:SendInvoice(chat_id, name, description, payload, price)
         local res = self.__telelove.__saferequest("https://api.telegram.org/bot"..self.__token.."/sendInvoice", {method = "POST", headers = {["Content-Type"] = "application/json"}, data = self.__telelove.json.encode({chat_id = chat_id, title = name, description = description, payload = payload, currency = "XTR", prices = {{label = name, amount = price}}})})
