@@ -41,9 +41,11 @@ return function(classes)
             end,
             
             EditMessageText = function(self, text, reply_markup)
+                local newmsg = client:EditMessageText(self.chat, self, text, reply_markup)
                 self.text = text
-                --self.reply_markup = self.reply_markup
-                return client:EditMessageText(self.chat, self, text, reply_markup)
+                self.reply_markup = self.reply_markup or reply_markup
+                self.message_id = newmsg.message_id
+                return newmsg
             end,
             EditMessageReplyMarkup = function(self, reply_markup)
                 return client:EditMessageReplyMarkup(self.chat, self, reply_markup)
