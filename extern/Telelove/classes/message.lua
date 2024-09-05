@@ -45,7 +45,7 @@ return function(classes)
                 self.text = text
                 self.reply_markup = self.reply_markup or reply_markup
                 self.message_id = newmsg.message_id
-                return newmsg
+                return self
             end,
             EditMessageReplyMarkup = function(self, reply_markup)
                 return client:EditMessageReplyMarkup(self.chat, self, reply_markup)
