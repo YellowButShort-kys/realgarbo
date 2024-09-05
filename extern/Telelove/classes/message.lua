@@ -26,6 +26,9 @@ return function(classes)
                     "https://api.telegram.org/bot"..client.__token.."/deleteMessage", 
                     {method = "POST", headers = {["Content-Type"] = "application/json"}, data = client.__telelove.json.encode({chat_id = self.chat.id, message_id = self.message_id})}
                 )
+                print(client.__telelove.json.encode({chat_id = self.chat.id, message_id = self.message_id}))
+                print()
+                print(body)
                 
                 if code == 0 then
                     return false
