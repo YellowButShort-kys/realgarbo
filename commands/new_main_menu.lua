@@ -353,6 +353,10 @@ function CreateLanguagedMenu(langcode)
         
         --FALLBACK[msg.id] = nil
         if client.active_chats[user.id].lastmsg then
+            print("{CALLBACK")
+            print("",client.active_chats[user.id].lastmsg.text)
+            print("",client.active_chats[user.id].lastmsg.message_id)
+            print("}")
             client.active_chats[user.id].lastmsg:DeleteMessage()
         end
         client.active_chats[user.id].lastmsg = chat:SendMessage(another_chat.char:FormatOutput(another_chat, translated_text), {reply_markup = {inline_keyboard = ikm.inline_keyboard}})
