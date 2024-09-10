@@ -1,3 +1,5 @@
+
+require("TOKENS")
 function love.run()
 	if love.load then love.load(love.parsedGameArguments, love.rawGameArguments) end
 
@@ -178,7 +180,6 @@ function sqlite3.open_memory(...) --because fuck me
     return output
 end
 
-require("TOKENS")
 
 telelove = require("extern.Telelove")
 client = telelove.NewClient()
