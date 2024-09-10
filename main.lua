@@ -39,15 +39,6 @@ function love.run()
 end
 --love.filesystem = require("extern.nativefs")
 
---[[
-telelove = require("extern.Telelove")
-
-client = telelove.NewThreadedClient():Start()
---SHA256:zLueqjsBInfi3nGjuBRA2N53ZV4vsC2/4cRC8vz4GWc
-do
-    return
-end
-]]
 require("superdata")
 
 
@@ -67,9 +58,15 @@ translation = require("api.yandex")
 local OpenRouter = require("api.openrouter")
 
 --llama8 = OpenRouter(nil, "meta-llama/llama-3-8b-instruct:free", {0, 0}, )
-stheno8 = OpenRouter(nil, "sao10k/l3-stheno-8b", {100, 200}, {
-    temperature = 0.85
+--[[stheno8 = OpenRouter(nil, "sao10k/l3-stheno-8b", {100, 200}, {
+    temperature = 0.85,
+    max_tokens = 80
+})]]
+stheno8 = OpenRouter(nil, "nousresearch/hermes-3-llama-3.1-405b:free", {100, 200}, {
+    temperature = 0.85,
+    max_tokens = 80
 })
+
 --radom = require("__payment_processor")
 --radom.SetToken("eyJhZGRyZXNzIjpudWxsLCJvcmdhbml6YXRpb25faWQiOiJlNjZjMTk5Zi1lYzgzLTRkNWUtYjhkOS0zZWI1NTI4MDI0YzQiLCJzZXNzaW9uX2lkIjoiNGNkNjEzYmMtMmZjMS00NDQ3LWE4NTEtOWIwMTkwN2Y2MjFiIiwiZXhwaXJlZF9hdCI6IjIwMjUtMDUtMDNUMDg6NTY6MjIuOTkyNTgxNDM2WiIsImlzX2FwaV90b2tlbiI6dHJ1ZX0=")
 --radom.ListProducts()
@@ -181,8 +178,7 @@ function sqlite3.open_memory(...) --because fuck me
     return output
 end
 
-
-local token = "7125567639:AAHbDOdYbO_3sCFdzxQ6djbqs4BvAcxQd3U"
+require("TOKENS")
 
 telelove = require("extern.Telelove")
 client = telelove.NewClient()
@@ -209,7 +205,7 @@ function client:onStart()
     --client:RegisterMultipleCommands(commands.new_chat)
 end
 
-client:Connect(token)
+client:Connect(TELEGRAM_TOKEN)
 --[[
 function client:onMessage(message)
     print(1, message.text, message.chat)

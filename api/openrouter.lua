@@ -2,8 +2,8 @@ return function(token, model, price, additional_data)
     local lib = {}
     local LINK = "https://openrouter.ai/api/v1/chat/completions"
     local pool = requests.CreatePool(6, 0.05, 24)
-    token = token or [[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]]
-
+    token = token or OPENROUTER_TOKEN
+    
     local data = {
         headers = {
             ["Content-Type"] = "application/json",
