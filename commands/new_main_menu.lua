@@ -23,6 +23,11 @@ local function telegramformat(str)
 end
 
 local function htmlformat(str)
+    local function cutbs()
+        return ""
+    end
+    str = (str:gsub("%<%|.*%|%>", cutbs))
+
     local asterics = false
     local function match()
         asterics = not asterics
