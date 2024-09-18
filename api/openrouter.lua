@@ -35,7 +35,7 @@ return function(token, model, price, additional_data)
                 master_client:SendToFather(prettyjson(result))
                 error("Looks like we've run out of money...")
             end
-            extra.kudos = math.ceil(result.usage.prompt_tokens / (price[1] or 100)) + math.ceil(result.usage.completion_tokens / (price[2] or 200))
+            extra.kudos = math.ceil(result.usage.prompt_tokens / (price[1] or 100)) + math.ceil(result.usage.completion_tokens / (price[2] or 50))
             extra:callback(result.choices[1].message.content or " ")
         else
             print(errcode)

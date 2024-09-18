@@ -1,4 +1,3 @@
-
 require("TOKENS")
 function love.run()
 	if love.load then love.load(love.parsedGameArguments, love.rawGameArguments) end
@@ -60,14 +59,16 @@ translation = require("api.yandex")
 local OpenRouter = require("api.openrouter")
 
 --llama8 = OpenRouter(nil, "meta-llama/llama-3-8b-instruct:free", {0, 0}, )
---[[stheno8 = OpenRouter(nil, "sao10k/l3-stheno-8b", {100, 200}, {
+stheno8 = OpenRouter(nil, "sao10k/l3-stheno-8b", {100, 50}, {
     temperature = 0.85,
     max_tokens = 80
-})]]
+})
+--[[
 stheno8 = OpenRouter(nil, "nousresearch/hermes-3-llama-3.1-405b:free", {100, 200}, {
     temperature = 0.85,
     max_tokens = 80
 })
+]]
 
 --radom = require("__payment_processor")
 --radom.SetToken("eyJhZGRyZXNzIjpudWxsLCJvcmdhbml6YXRpb25faWQiOiJlNjZjMTk5Zi1lYzgzLTRkNWUtYjhkOS0zZWI1NTI4MDI0YzQiLCJzZXNzaW9uX2lkIjoiNGNkNjEzYmMtMmZjMS00NDQ3LWE4NTEtOWIwMTkwN2Y2MjFiIiwiZXhwaXJlZF9hdCI6IjIwMjUtMDUtMDNUMDg6NTY6MjIuOTkyNTgxNDM2WiIsImlzX2FwaV90b2tlbiI6dHJ1ZX0=")
