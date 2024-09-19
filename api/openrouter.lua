@@ -62,6 +62,8 @@ return function(token, model, price, additional_data)
         task.err = errcallback
         task.callback = callback
         task.extra = extra
+
+        print(client.__telelove.json.encode(data))
         
         pool:Request(LINK, data, megacallback, task)
         data["data"]["messages"] = old_messages
