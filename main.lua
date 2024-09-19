@@ -59,9 +59,14 @@ translation = require("api.yandex")
 local OpenRouter = require("api.openrouter")
 
 --llama8 = OpenRouter(nil, "meta-llama/llama-3-8b-instruct:free", {0, 0}, )
-stheno8 = OpenRouter(nil, "sao10k/l3-stheno-8b", {100, 50}, {
+stheno8 = OpenRouter(nil, "deepseek/deepseek-chat", {100, 50}, {
     temperature = 0.85,
-    max_tokens = 80
+    max_tokens = 80,
+    provider = {
+        ignore = {
+            "Hyperbolic"
+        }
+    },
 })
 --[[
 stheno8 = OpenRouter(nil, "nousresearch/hermes-3-llama-3.1-405b:free", {100, 200}, {
