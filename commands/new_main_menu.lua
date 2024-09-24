@@ -438,7 +438,7 @@ function CreateLanguagedMenu(langcode)
     end
     ikm.inline_keyboard = {{rewrite, regenerate, back}}
     message_ikm = ikm
-    failed_ikm = {inline_keyboard = {regenerate, back}}
+    failed_ikm = {inline_keyboard = {{regenerate, back}}}
     
     ----------------------------------------------------------------------
     ------------------------------ DAILIES -------------------------------
