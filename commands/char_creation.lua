@@ -76,8 +76,10 @@ return function(langcode, menu)
                 client.CharCreation[user_id][var[1]] = text
                 if order[i + 1] then
                     chat:SendMessage(LANG[langcode][order[i + 1][2]], {inline_keyboard = {{back}}})
+                    return
                 else
                     chat:SendMessage(LANG[langcode]["CHAR_CREATION_FINISH"]:format(client.CharCreation[user_id].id), {inline_keyboard = {{Private, Public}}})
+                    return
                 end
             end
         end
