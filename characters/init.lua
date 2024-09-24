@@ -312,4 +312,6 @@ function base:AssemblePrompt()
     end
 end
 
+characters.LoadCustomCharacters()
+
 return characters
