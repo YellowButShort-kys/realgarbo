@@ -127,6 +127,7 @@ LANG["en"]["$AWAIT_FOR_MESSAGE"]        = "Message is being generated..."
 LANG["en"]["$UNFINISHED_GENERATION"]    = "Please wait for the generation to end..."
 
 
+LANG["en"]["CHAR_CREATION"]                    =   "Custom Character"
 LANG["en"]["CHAR_CREATION_INTRODUCTION"]       =   "To create your own character you must first write the name of it. This is how the neural network will refer to them. Enter the name"
 LANG["en"]["CHAR_CREATION_KEY_NAME"]           =   "Supposed to not appear?"
 LANG["en"]["CHAR_CREATION_KEY_DISPLAYNAME"]    =   "Display name is how YOU will see the character in the menu. It will not be used for message generation. Enter the display name"

@@ -553,7 +553,7 @@ function CreateLanguagedMenu(langcode)
         end
 
         if client.CharCreation[msg.from.id] then
-            ProcessCharCreation[langcode](langcode, menu)
+            ProcessCharCreation[langcode](msg.chat, msg.from.id, msg.text)
         end
         if client.CharCreationLoad[msg.from.id] then
             local success, converted_num = pcall(tonumber, msg.text)

@@ -14,7 +14,7 @@ return function(langcode, menu)
     local Private                         = client:NewInlineKeyboardButton()
     local back                            = client:NewInlineKeyboardButton()
     local load_custom_character           = client:NewInlineKeyboardButton()
-    char_creation.text = LANG[langcode]["$CREATE_CHAR"]
+    char_creation.text = LANG[langcode]["CHAR_CREATION"]
     char_creation.callback = function(self, query)
         client:EditMessageText(query.message.chat, query.message, LANG[langcode]["CHAR_CREATION_INTRODUCTION"], {inline_keyboard = {{back}}})
         client.CharCreation[query.from.id] = {}
