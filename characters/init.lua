@@ -94,8 +94,7 @@ do
             id,
             name, 
             display_name, 
-            description, 
-            starter, 
+            description,
             greeting, 
             creator,
             is_public,
@@ -104,7 +103,6 @@ do
             source_greeting
         )
         VALUES ( 
-            ?,
             ?,
             ?, 
             ?, 
