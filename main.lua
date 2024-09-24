@@ -60,7 +60,7 @@ local OpenRouter = require("api.openrouter")
 
 --llama8 = OpenRouter(nil, "meta-llama/llama-3-8b-instruct:free", {0, 0}, )
 stheno8 = OpenRouter(nil, "deepseek/deepseek-chat", {100, 50}, {
-    temperature = 0.85,
+    temperature = 1.5,
     max_tokens = 80,
     provider = {
         ignore = {

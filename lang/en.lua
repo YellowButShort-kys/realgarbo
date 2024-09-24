@@ -126,3 +126,17 @@ LANG["en"]["$MODEL_LLAMA8"]               = "[NEW] Llama3"
 LANG["en"]["$AWAIT_FOR_MESSAGE"]        = "Message is being generated..."
 LANG["en"]["$UNFINISHED_GENERATION"]    = "Please wait for the generation to end..."
 
+
+LANG["en"]["CHAR_CREATION_INTRODUCTION"]       =   "To create your own character you must first write the name of it. This is how the neural network will refer to them. Enter the name"
+LANG["en"]["CHAR_CREATION_KEY_NAME"]           =   "Supposed to not appear?"
+LANG["en"]["CHAR_CREATION_KEY_DISPLAYNAME"]    =   "Display name is how YOU will see the character in the menu. It will not be used for message generation. Enter the display name"
+LANG["en"]["CHAR_CREATION_KEY_DESCRIPTION"]    =   [[Now you need to write a description. Character description usually includes stuff like gender, body type, personality etc.
+To start, you can use simple [key: value] scheme. Each new line starts with a feature you are describing, followed by a colon and a description of that particular feature. This scheme is not mandatory and you can test and try what suits your need best.]]
+LANG["en"]["CHAR_CREATION_KEY_GREETING"]       =   "Enter the first message that the character says. It can include the scenarion, location, or a simple 'Hi'. "
+LANG["en"]["CHAR_CREATION_FINISH"]             =   "Everything is ready! Last question is whether you want your character to be accessed by other people. Public characters allow the creator to earn a share of tokens that other people spend using your bot. Writers with popular bots may be given an option to earn real money from their characters instead of tokens. Regardless, the ID of your character is %s. It can be entered in Load Chat menu."
+LANG["en"]["CHAR_CREATION_BACK"]               =   "Back"
+LANG["en"]["CHAR_CREATION_PUBLIC"]             =   "Public"
+LANG["en"]["CHAR_CREATION_PRIVATE"]            =   "Private"
+LANG["en"]["CHAR_CREATION_LOAD"]               =   "Load Custom Character"
+LANG["en"]["CHAR_CREATION_LOAD_DESC"]          =   "Enter the unique Character ID"
+LANG["en"]["CHAR_CREATION_LOAD_FAILURE"]       =   "The ID is incorrect or the character is private"

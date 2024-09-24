@@ -22,7 +22,7 @@ local function telegramformat(str)
     return newtext
 end
 
-local function htmlformat(str)
+function htmlformat(str)
     local function cutbs()
         return ""
     end
@@ -63,7 +63,7 @@ end
 
 function CreateLanguagedMenu(langcode)
     local menu = {}
-    local char_creation = client:NewInlineKeyboardButton()
+    local char_creation, load_custom_character
     local new_chat, load_chat, select_model = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local donate, profile = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local promocode, dailies, my_tokens = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
@@ -76,7 +76,7 @@ function CreateLanguagedMenu(langcode)
     }
     
 
-    local message_ikm
+    local message_ikm, failed_ikm
     ---------------------------------------------------------------------
     ----------------------------- NEW CHAT ------------------------------
     ---------------------------------------------------------------------
@@ -190,6 +190,7 @@ function CreateLanguagedMenu(langcode)
         back.callback = function(self, query)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], menu)
         end
+        table.insert(ikm.inline_keyboard, {char_creation})
         table.insert(ikm.inline_keyboard, {back})
         
         new_chat.text = LANG[langcode]["$NEW_CHAR"]
@@ -247,6 +248,7 @@ function CreateLanguagedMenu(langcode)
                     table.insert(ikm.inline_keyboard[#ikm.inline_keyboard], available_chats[i])
                 end
             end
+            table.insert(ikm.inline_keyboard, {load_custom_character})
             table.insert(ikm.inline_keyboard, {back})
             
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$LOAD_CHAR_MSG"], ikm)
@@ -349,22 +351,20 @@ function CreateLanguagedMenu(langcode)
         local chat, another_chat, msg, user = task.extra[1], task.extra[2], task.extra[3], task.extra[4]
         local legit = isEmpty(text)
         local translated_text
+        local used_ikm = ikm
         if legit then
             translated_text = htmlformat(translation.Translate(text, "en", langcode))
         else
             translated_text = LANG[langcode]["$CHAT_GENERATION_EMPTY"]
+            used_ikm = failed_ikm
         end
         another_chat.task = nil
         
         --FALLBACK[msg.id] = nil
         if client.active_chats[user.id].lastmsg then
-            print("{CALLBACK")
-            print("",client.active_chats[user.id].lastmsg.text)
-            print("",client.active_chats[user.id].lastmsg.message_id)
-            print("}")
             client.active_chats[user.id].lastmsg:DeleteMessage()
         end
-        client.active_chats[user.id].lastmsg = chat:SendMessage(another_chat.char:FormatOutput(another_chat, translated_text), {reply_markup = {inline_keyboard = ikm.inline_keyboard}})
+        client.active_chats[user.id].lastmsg = chat:SendMessage(another_chat.char:FormatOutput(another_chat, translated_text), {reply_markup = {inline_keyboard = used_ikm.inline_keyboard}})
 
         --msg:EditMessageText(another_chat.char:FormatOutput(another_chat, translated_text), ikm)
         if legit then
@@ -438,6 +438,7 @@ function CreateLanguagedMenu(langcode)
     end
     ikm.inline_keyboard = {{rewrite, regenerate, back}}
     message_ikm = ikm
+    failed_ikm = {inline_keyboard = {regenerate, back}}
     
     ----------------------------------------------------------------------
     ------------------------------ DAILIES -------------------------------
@@ -466,10 +467,7 @@ function CreateLanguagedMenu(langcode)
     ----------------------------------------------------------------------
     
     do
-        char_creation.text = LANG[langcode]["$CREATE_CHAR"]
-        char_creation.callback = function(self, query)
-            
-        end
+        char_creation, load_custom_character = require("commands.char_creation")(langcode)
     end
     
     
@@ -553,6 +551,25 @@ function CreateLanguagedMenu(langcode)
     local function onMessage(self, msg)
         if msg.text == "" then
             return
+        end
+
+        if client.CharCreation[msg.from.id] then
+            ProcessCharCreation[langcode](langcode, menu)
+        end
+        if client.CharCreationLoad[msg.from.id] then
+            local success, converted_num = pcall(tonumber, msg.text)
+            local char
+            if success then
+                char = characters.GetCustomCharacter(converted_num)
+            end
+            if char and (char.public or char.creator == msg.from.id) then
+                client.active_chats[msg.from.id] = chats.NewCustomChat(msg.from, converted_num)
+                msg.chat:SendMessage(htmlformat(char.source_greeting))
+                client.CharCreationLoad[msg.from.id] = nil
+            else
+                msg.chat:SendMessage(LANG[langcode]["CHAR_CREATION_LOAD_FAILURE"], {reply_markup = {inline_keyboard = {{back}}}})
+                client.CharCreationLoad[msg.from.id] = nil
+            end
         end
         
         if client.promocode_enter[msg.from.id] then
@@ -680,6 +697,8 @@ function command.callback(user, chat, ...)
     if client.active_chats[user.id] then
         client.active_chats[user.id].isEditing = false
     end
+
+    client.CharCreation[user.id] = nil
     
     chat:SendMessage(LANG[GetUserLang(user.id)]["$INTRODUCTION"], {reply_markup = languaged_menu[GetUserLang(user.id)]})
 end

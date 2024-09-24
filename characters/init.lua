@@ -16,6 +16,7 @@ function characters.GetHub()
     return hub
 end
 
+
 local cwd = ...
 local weekly
 local function RegisterChar(path)
@@ -67,6 +68,162 @@ end
 
 function characters.GetWeekly()
     return weekly
+end
+
+
+local query_init_characters, query_new_character, query_load_characters
+do
+    query_init_characters = [[
+        create table if not exists "custom_characters" (
+            id INTEGER PRIMARY KEY, 
+            name TEXT, 
+            display_name TEXT, 
+            description TEXT, 
+            starter TEXT,
+            greeting TEXT,
+            creator INTEGER DEFAULT 0 NOT NULL, 
+            tokens_generated INTEGER DEFAULT 0 NOT NULL,
+            is_public INTEGER DEFAULT 0 NOT NULL,
+            source_name TEXT,
+            source_description TEXT,
+            source_greeting TEXT
+        );
+    ]]
+    query_new_character = [[
+        INSERT INTO "custom_characters" (
+            id,
+            name, 
+            display_name, 
+            description, 
+            starter, 
+            greeting, 
+            creator,
+            is_public,
+            source_name,
+            source_description,
+            source_greeting
+        )
+        VALUES ( 
+            ?,
+            ?,
+            ?, 
+            ?, 
+            ?, 
+            ?, 
+            ?, 
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+        );
+    ]]
+    query_load_characters = [[
+        SELECT * FROM ("custom_characters");
+    ]]
+end
+local custom_characters = {}
+local custom_characters_id = {}
+CUSTOM_CHARACTERS_LAST_ID = CUSTOM_CHARACTERS_OFFSET
+function characters.LoadCustomCharacters()
+    print("Loading custom characters...")
+    local db = sqlite3.open(PATH_DB_CUSTOMCHARS)
+    db:execute(query_init_characters)
+    local chars = db:execute(query_load_characters)
+    for _, var in pairs(chars) do
+        local char = setmetatable(var, {__index = base})
+        char.starter = string.format([[
+Name: %s
+%s
+]], char.name, char.description)
+        char.history = {
+            {
+                role = "assistant",
+                content = char.greeting
+            }
+        }
+        char.is_public = char.is_public == 1
+        table.insert(custom_characters, char)
+        custom_characters_id[char.id] = char
+
+        CUSTOM_CHARACTERS_LAST_ID = math.max(CUSTOM_CHARACTERS_LAST_ID, char.id)
+    end
+    print("Finished loading custom characters. Loaded: " .. tostring(#custom_characters) .. " characters")
+    db:close()
+end
+function characters.SaveCustomCharacter(id, name, display_name, description, greeting, creator, is_public, source_name, source_description, source_greeting)
+    local commit = sqlite3.open(PATH_DB_CUSTOMCHARS)
+    
+    local stmt = commit:prepare(query_new_character)
+    stmt:bind_values(
+        id,
+        name,
+        display_name,
+        description,
+        greeting,
+        creator,
+        is_public and 1 or 0,
+        source_name,
+        source_description,
+        source_greeting
+    )
+    stmt:step()
+    stmt:finalize()
+
+    commit:close()
+
+
+    local char = {
+        id = id,
+        name = name,
+        display_name = display_name,
+        description = description,
+        greeting = greeting,
+        creator = creator,
+        is_public = is_public == 1,
+        source_name = source_name,
+        source_description = source_description,
+        source_greeting = source_greeting
+    }
+    setmetatable(char, {__index = base})
+    char.starter = string.format([[
+Name: %s
+%s
+]], char.name, char.description)
+    char.history = {
+        {
+            role = "assistant",
+            content = char.greeting
+        }
+    }
+    table.insert(custom_characters, char)
+    custom_characters_id[char.id] = char
+
+    return char
+end
+function characters.GetCustomCharacters()
+    return custom_characters
+end
+function characters.GetCustomCharacter(id)
+    return custom_characters_id[id]
+end
+function characters.NameSearch(name)
+    local res = {}
+    for _, var in ipairs(custom_characters) do
+        if var.is_public and (var.source_name:find(name) or var.name:find(name)) then
+            table.insert(res, var)
+        end
+    end
+    return res
+end
+function characters.DescriptionSearch(description)
+    local res = {}
+    for _, var in ipairs(custom_characters) do
+        if var.is_public and (var.source_description:find(description) or var.source_description:find(description)) then
+            table.insert(res, var)
+        end
+    end
+    return res
 end
 
 -------------------------------------------------------------
@@ -146,4 +303,13 @@ end
 function base:FormatOutput(chat, str)
     return str
 end
+
+function base:AssemblePrompt()
+    local newtext = ""
+    local counter = 1
+    while true do
+        
+    end
+end
+
 return characters

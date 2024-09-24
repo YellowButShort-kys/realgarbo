@@ -324,9 +324,6 @@ function love.errorhandler(msg)
 
 end
 
-
-
-
 function db_Load()
     do
         local db = sqlite3.open(PATH_DB_USERS)
@@ -343,12 +340,23 @@ function db_Load()
             db_userlist_id[tonumber(var.id)].referal = tonumber(db_userlist_id[tonumber(var.id)].referal)
             db_userlist_id[tonumber(var.id)].next_daily = tonumber(db_userlist_id[tonumber(var.id)].next_daily)
         end
-        function AddUserColumn(value)
+        function AddUserColumn(value, default_val)
             local commit = sqlite3.open(PATH_DB_USERS)
             commit:execute(([[
                 ALTER TABLE Users 
                 ADD COLUMN %s;
             ]]):format(value))
+
+            if default_val then
+                local stmt = commit:prepare(([[
+                    UPDATE Users
+                    SET %s = ?;
+                ]]):format(value))
+                stmt:bind_values(default_val)
+                stmt:step()
+                stmt:finalize()
+            end
+
             commit:close()
         end
         function GetUserFromDB(id)
@@ -413,7 +421,7 @@ function db_Load()
                 chat.id = tonumber(chat.id)
                 db_ram_chats[tonumber(var.id)][chat.id] = {
                     id = chat.id,
-                    char = characters.GetCharacter(chat.id),
+                    char = characters.GetCharacter(chat.id) or characters.GetCustomCharacter(chat.id),
                     owner = var,
                     content = contents
                 }

@@ -5,6 +5,10 @@ function chats.NewChat(owner, char)
     local chat = setmetatable({}, {__index = base}):__new(owner, char)
     return NewUserChat(chat)
 end
+function chats.NewCustomChat(owner, char_id)
+    local chat = setmetatable({}, {__index = base}):__new(owner, characters.GetCustomCharacter(char_id))
+    return NewUserChat(chat)
+end
 function chats.SetMetatable(t)
     return setmetatable(t, {__index = base})
 end
