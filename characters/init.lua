@@ -129,7 +129,7 @@ function characters.LoadCustomCharacters()
     print("Loading custom characters...")
     local db = sqlite3.open(PATH_DB_CUSTOMCHARS)
     db:execute(query_init_characters)
-    local chars = db:execute(query_load_characters)
+    local chars = db:execute(query_load_characters) or {}
     for _, var in pairs(chars) do
         local char = setmetatable(var, {__index = base})
         char.starter = string.format([[
