@@ -142,6 +142,7 @@ Name: %s
         char.is_public = char.is_public == 1
         table.insert(custom_characters, char)
         custom_characters_id[char.id] = char
+        print(char.id, custom_characters_id[char.id])
 
         CUSTOM_CHARACTERS_LAST_ID = math.max(CUSTOM_CHARACTERS_LAST_ID, char.id)
     end
