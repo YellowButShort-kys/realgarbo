@@ -63,7 +63,7 @@ end
 
 function CreateLanguagedMenu(langcode)
     local menu = {}
-    local char_creation, load_custom_character
+    local char_creation, load_custom_character = require("commands.char_creation")(langcode)
     local new_chat, load_chat, select_model = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local donate, profile = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local promocode, dailies, my_tokens = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
@@ -467,7 +467,6 @@ function CreateLanguagedMenu(langcode)
     ----------------------------------------------------------------------
     
     do
-        char_creation, load_custom_character = require("commands.char_creation")(langcode)
     end
     
     
