@@ -140,6 +140,7 @@ Name: %s
             }
         }
         char.id = tonumber(char.id)
+        char.creator = tonumber(char.creator)
         char.is_public = char.is_public == 1
         table.insert(custom_characters, char)
         custom_characters_id[char.id] = char
