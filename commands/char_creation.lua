@@ -29,7 +29,7 @@ return function(langcode, menu)
 
     Public.text = LANG[langcode]["CHAR_CREATION_PUBLIC"]
     Public.callback = function(self, query)
-        client.CharCreation[query.from.id].public = true
+        client.CharCreation[query.from.id].is_public = true
         local char = characters.SaveCustomCharacter(
             client.CharCreation[query.from.id].id,                                                         --id
             translation.Translate(client.CharCreation[query.from.id].name, langcode, "en"),                --name
@@ -48,7 +48,7 @@ return function(langcode, menu)
     end
     Private.text = LANG[langcode]["CHAR_CREATION_PRIVATE"]
     Private.callback = function(self, query)
-        client.CharCreation[query.from.id].public = false
+        client.CharCreation[query.from.id].is_public = false
         local char = characters.SaveCustomCharacter(
             client.CharCreation[query.from.id].id,                                                         --id
             translation.Translate(client.CharCreation[query.from.id].name, langcode, "en"),                --name
