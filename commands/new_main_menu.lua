@@ -561,7 +561,7 @@ function CreateLanguagedMenu(langcode)
             if success then
                 char = characters.GetCustomCharacter(converted_num)
             end
-            print(char)
+            print(success, converted_num)
             print(char and char.public)
             print(char and char.creator, char and type(char.creator))
             print(msg.from.id)
