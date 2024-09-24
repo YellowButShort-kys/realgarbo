@@ -554,6 +554,7 @@ function CreateLanguagedMenu(langcode)
 
         if client.CharCreation[msg.from.id] then
             ProcessCharCreation[langcode](msg.chat, msg.from.id, msg.text)
+            return
         end
         if client.CharCreationLoad[msg.from.id] then
             local success, converted_num = pcall(tonumber, msg.text)
@@ -561,10 +562,6 @@ function CreateLanguagedMenu(langcode)
             if success then
                 char = characters.GetCustomCharacter(converted_num)
             end
-            print(success, converted_num)
-            print(char and char.public)
-            print(char and char.creator, char and type(char.creator))
-            print(msg.from.id)
             if char and (char.is_public or char.creator == msg.from.id) then
                 client.active_chats[msg.from.id] = chats.NewCustomChat(msg.from, converted_num)
                 msg.chat:SendMessage(htmlformat(char.source_greeting))
@@ -573,6 +570,7 @@ function CreateLanguagedMenu(langcode)
                 msg.chat:SendMessage(LANG[langcode]["CHAR_CREATION_LOAD_FAILURE"], {reply_markup = {inline_keyboard = {{back}}}})
                 client.CharCreationLoad[msg.from.id] = nil
             end
+            return
         end
         
         if client.promocode_enter[msg.from.id] then
