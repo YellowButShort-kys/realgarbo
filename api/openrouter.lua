@@ -12,7 +12,7 @@ return function(token, model, price, additional_data)
         method = "POST",
         data = {
             ["model"] = model,
-            ["max_tokens"] = 80,
+            ["max_tokens"] = 150,
             ["temperature"] = 0.8,
             --["top_p"] = 1,
             --["presence_penalty"] = 0,
