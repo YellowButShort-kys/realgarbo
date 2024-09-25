@@ -422,8 +422,10 @@ function CreateLanguagedMenu(langcode)
     local rewriteback = client:NewInlineKeyboardButton()
     rewriteback.text = LANG[langcode]["$CHAT_BACK"]
     rewriteback.callback = function(self, query)
-        client.active_chats[query.from.id].isEditing = false
-        client.active_chats[query.from.id].lastmsg = client:EditMessageText(query.message.chat, query.message, client.active_chats[query.from.id].lasttxt, menu)
+        if client.active_chats[query.from.id] then
+            client.active_chats[query.from.id].isEditing = false
+            client.active_chats[query.from.id].lastmsg = client:EditMessageText(query.message.chat, query.message, client.active_chats[query.from.id].lasttxt, menu)
+        end
     end
     local rewriteikm = {inline_keyboard = {{rewriteback}}}
     local rewrite = client:NewInlineKeyboardButton()
