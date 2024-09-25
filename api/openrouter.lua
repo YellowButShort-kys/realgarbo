@@ -17,7 +17,7 @@ return function(token, model, price, additional_data)
             --["top_p"] = 1,
             --["presence_penalty"] = 0,
             --["frequency_penalty"] = 0,
-            ["stop"] = {"<|endoftext|>", "<START>", "<|eot_id|>"},
+            ["stop"] = {"<|endoftext|>", "<START>", "<|eot_id|>", "#"},
             ["messages"] = {
                 
             }
