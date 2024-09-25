@@ -76,7 +76,7 @@ stheno8 = OpenRouter(nil, "gryphe/mythomax-l2-13b", {100, 50}, {
     max_tokens = 80,
     provider = {
         order = {
-            "NovitaAI"
+            "Novita"
         },
         allow_fallbacks = false,
     },
