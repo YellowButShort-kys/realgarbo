@@ -72,7 +72,7 @@ stheno8 = OpenRouter(nil, "deepseek/deepseek-chat", {100, 50}, {
 })
 ]]
 stheno8 = OpenRouter(nil, "gryphe/mythomax-l2-13b", {100, 50}, {
-    temperature = 0.85,
+    temperature = 1.1,
     max_tokens = 150,
     provider = {
         order = {
@@ -223,6 +223,12 @@ function client:onStart()
     client:RegisterMultipleCommands(commands.main_menu)
     --client:RegisterMultipleCommands(commands.chat_selection)
     --client:RegisterMultipleCommands(commands.new_chat)
+end
+function client:onCallbackError(btn, query, msg)
+    local bruh = ((debug.traceback("Error: " .. tostring(msg), 1+(1)):gsub("\n[^\n]+$", "")))
+    query.message.chat:SendMessage("Произошла ошибка при обработке запроса! Попробуйте открыть меню заново с помощью /start")
+    master_client:SendToFather(bruh)
+    print(bruh)
 end
 
 client:Connect(TELEGRAM_TOKEN)

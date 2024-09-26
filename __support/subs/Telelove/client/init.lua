@@ -109,8 +109,14 @@ function instance:__ProcessCommands(message)
 end
 function instance:__ProcessCallbackQuery(query)
     if query.data and self.__inlinekeyboardbuttons[query.data] then
-        local text, show_alert = self.__inlinekeyboardbuttons[query.data]:callback(query)
-        self:AnswerCallbackQuery(query.id, text, show_alert)
+        local success, text, show_alert = pcall(self.__inlinekeyboardbuttons[query.data].callback, self.__inlinekeyboardbuttons[query.data], query)
+        if not success then
+            if self.onCallbackError then
+                self:onCallbackError(self.__inlinekeyboardbuttons[query.data], query, text)
+            end 
+        else
+            self:AnswerCallbackQuery(query.id, text, show_alert)
+        end
     end
 end
 
