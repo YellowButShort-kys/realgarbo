@@ -439,6 +439,9 @@ function db_Load()
             end
         end
         function NewUserChat(chat)
+            if not db_ram_chats[chat.id] then
+                db_ram_chats[chat.id] = {}
+            end
             db_ram_chats[chat.owner.id][chat.id] = chat
             chat.content = {}
             --table.insert(db_chats_additions, chat)
