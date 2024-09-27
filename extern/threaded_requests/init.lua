@@ -59,8 +59,9 @@ function pool_base:Update()
                 if not result.success then
                     error("There was an error during a request! Error code: "..result.errcode.."\n"..result.result)
                 end
-                
-                var.__callback(result.success, result.errcode, result.result, var.__extra)
+                if var.__callback then
+                    var.__callback(result.success, result.errcode, result.result, var.__extra)
+                end
                 if #self.tasks == 0 then
                     var.free = true
                     var.__callback = nil
