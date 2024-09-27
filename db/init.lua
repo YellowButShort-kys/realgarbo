@@ -466,6 +466,8 @@ function db_Load()
             end
             
             commit:close()
+
+            sciencev2.onNewChat()
             return chat
         end
         function AppendUserChat(chat, role, str)

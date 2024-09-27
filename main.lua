@@ -47,7 +47,7 @@ https = require("https")
 requests = require("extern.threaded_requests")
 sql = require("extern.sqlite3")
 
-
+require("sciencev2")
 
 horde = require("api.horde")
 openai = require("api.openai")
