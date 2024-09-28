@@ -30,7 +30,7 @@ return function(token, model, price, additional_data)
     end
     
     local secondcallback = function(success, errcode, result, extra)
-        extra.kudos = math.ceil(result.data.prompt_tokens / (price[1] or 100)) + math.ceil(result.data.completion_tokens / (price[2] or 50))
+        extra.kudos = math.ceil(result.data.tokens_prompt / (price[1] or 100)) + math.ceil(result.data.tokens_completion / (price[2] or 50))
         extra:callback(extra.result.choices[1].message.content or " ")
     end
 
