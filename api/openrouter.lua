@@ -29,16 +29,19 @@ return function(token, model, price, additional_data)
         end
     end
     
+    local secondcallback = function(success, errcode, result, extra)
+        if not result.usage then
+            master_client:SendToFather(prettyjson(result))
+            error("Looks like we've run out of money...")
+        end
+        extra.kudos = math.ceil(result.usage.prompt_tokens / (price[1] or 100)) + math.ceil(result.usage.completion_tokens / (price[2] or 50))
+        extra:callback(extra.result.choices[1].message.content or " ")
+    end
+
     local megacallback = function(success, errcode, result, extra)
         if success then
-            if not result.usage then
-                master_client:SendToFather(prettyjson(result))
-                error("Looks like we've run out of money...")
-            end
-            print(result.usage.prompt_tokens, result.usage.completion_tokens, result.usage.total_tokens)
-            extra.kudos = math.ceil(result.usage.prompt_tokens / (price[1] or 100)) + math.ceil(result.usage.completion_tokens / (price[2] or 50))
-            print(extra.kudos)
-            extra:callback(result.choices[1].message.content or " ")
+            extra.result = result
+            pool:Request("https://openrouter.ai/api/v1/generation?id="..result.id, {method = "GET", headers = {["Content-Type"] = "application/json", ["Authorization"] = "Bearer "..token}}, secondcallback, extra)
         else
             print(errcode)
             print()

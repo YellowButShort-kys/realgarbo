@@ -145,9 +145,11 @@ function base:GetInstructContents()
     local out = {}
     for _, var in ipairs(self:GetRawContents()) do
         table.insert(out, {role = var.role, content = (var.content:gsub("{{user}}", GetUserName(self.owner)):gsub("{{char}}", self.char.name))})
+        --[[
         if var.role == "system" then
             out[#out].content = out[#out].content .. "\n<START>"
         end
+        ]]
         if var.role == "user" then
             out[#out].content = GetUserName(self.owner) .. ": " .. out[#out].content
         end
