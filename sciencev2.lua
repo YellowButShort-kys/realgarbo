@@ -3,7 +3,7 @@ local pool = requests.CreatePool(2)
 sciencev2 = {}
 
 function sciencev2.onNewUser()
-    pool:Request("http://localhost:5000/AppendNewUsers")
+    pool:Request("http://localhost:5000/AppendNewUsers", {method = "get"})
 end
 
 function sciencev2.onTokensSpent(amount)
@@ -11,5 +11,5 @@ function sciencev2.onTokensSpent(amount)
 end
 
 function sciencev2.onNewChat()
-    pool:Request("http://localhost:5000/AppendNewChats")
+    pool:Request("http://localhost:5000/AppendNewChats", {method = "get"})
 end

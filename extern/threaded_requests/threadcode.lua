@@ -20,7 +20,7 @@ while true do
     local attempts = task.attempts or def_attempts
     local link = task.link
     --local data = json.encode(task.data)
-    if task.data.data then
+    if task.data and task.data.data then
         task.data.data = json.encode(task.data.data)
     end
     while true do
