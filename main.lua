@@ -39,7 +39,14 @@ function love.run()
 	end
 end
 --love.filesystem = require("extern.nativefs")
-
+function prettyprint(table, key, indent)
+    print( ("%s%s (%s): %s"):format(indent or "", key, type(table), tostring(table)) )
+    if type(table) == "table" then
+        for i, var in pairs(table) do
+            prettyprint(var, i, (indent or "").."  ")
+        end
+    end
+end
 require("superdata")
 
 
@@ -107,14 +114,7 @@ ScienceTokenUsage = science.New("log_tokenusage.csv", "%d; %t; %s; %s")
 
 
 
-function prettyprint(table, key, indent)
-    print( ("%s%s (%s): %s"):format(indent or "", key, type(table), tostring(table)) )
-    if type(table) == "table" then
-        for i, var in pairs(table) do
-            prettyprint(var, i, (indent or "").."  ")
-        end
-    end
-end
+
 function shallowcopy(orig)
     local orig_type = type(orig)
     local copy
