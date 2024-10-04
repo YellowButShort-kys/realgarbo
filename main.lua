@@ -246,14 +246,19 @@ end
 require("__master_client")
 
 local nativefs = require("extern/nativefs")
-local nextcheck = tonumber((nativefs.read("/root/Carp/realgarbo/subs_check.txt"))) or 0
+local nextcheck = tonumber((nativefs.read("/root/Carp/realgarbo/subs_check.txt")))
+local rewrite = false
+if not nextcheck then
+    rewrite = true
+    nextcheck = os.time()
+end
 SUBBONUS = {
     {500, 11100},
     {1750, 38850},
     {3780, 83160}
 }
 local function checksubs()
-    if os.time() >= nextcheck then
+    if os.time() >= nextcheck or rewrite then
         print("SUBS TIME LOL")
         master_client:SendToFather("SUBS TIME LOL")
         local d = os.date("*t", nextcheck)
