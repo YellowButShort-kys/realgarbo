@@ -32,6 +32,8 @@ local OR = function(token, model, additional_data)
         end
     end
 
+    prettyprint(ogdata)
+
     function lib.Generate(messages)
         ogdata["messages"] = messages
         
