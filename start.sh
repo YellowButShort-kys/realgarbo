@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "Starting the bot..."
-cd ~/code/realgarbo
+cd ~/Carp/realgarbo
 for (( ; ; ))
 do
     git pull
-    ~/code/love12/love.AppImage ./
+    ~/Carp/love.AppImage ./
     echo "Crash detected... Restarting"
 done
