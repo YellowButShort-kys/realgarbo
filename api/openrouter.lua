@@ -1,5 +1,6 @@
 return function(token, model, price, additional_data)
     local lib = {}
+    price = price or {}
     local LINK = "https://openrouter.ai/api/v1/chat/completions"
     local pool = requests.CreatePool(6, 0.05, 24)
     token = token or OPENROUTER_TOKEN
@@ -30,7 +31,8 @@ return function(token, model, price, additional_data)
     end
     
     local secondcallback = function(success, errcode, result, extra)
-        extra.kudos = math.ceil(result.data.tokens_prompt / (price[1] or 100)) + math.ceil(result.data.tokens_completion / (price[2] or 50))
+        extra.kudos = math.ceil(result.data.tokens_prompt * (price[1] or 1)) + math.ceil(result.data.tokens_completion * (price[2] or 1))
+        extra.kudos = math.ceil(extra.kudos / 100)
         extra:callback(extra.result.choices[1].message.content or " ")
     end
 

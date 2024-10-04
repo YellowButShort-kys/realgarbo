@@ -120,7 +120,7 @@ LANG["ru"]["$PROMOCODE_ALREADYUSED"]     = "Вы уже использовали
 LANG["ru"]["$DAILIES"]                    = "Бонус"
 LANG["ru"]["$DAILIES_SUCCESS"]            = "Вы получили ежедневный бонус!"
 LANG["ru"]["$DAILIES_TIME_FAILURE"]       = "Вы уже получали бонус в последние 24 часа!"
-LANG["ru"]["$DAILIES_BALANCE_FAILURE"]    = "Для получения бонуса нужно иметь меньше токенов на балансе!"
+LANG["ru"]["$DAILIES_BALANCE_FAILURE"]    = "Для получения бонуса нужно иметь меньше чем " .. DAILY_BONUS .. " токенов на балансе!"
 
 LANG["ru"]["$LANG_CHANGE_TEXT"]          = "Выберите язык"
 

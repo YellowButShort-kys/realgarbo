@@ -5,15 +5,14 @@ local products = {
             type = "subscription",
             name = "Подписка: Тир 1",
             description = [[!!!Подписка покупается на 3 месяца!!!
-500 токенов на ваш счет каждый месяц
-7400 дополнительных токенов на месяц (расходуются первыми)
+1350 токенов на месяц (~90 сообщений)
 
 Огромное спасибо за вашу поддержку!]],
             rewards = {
-                substokens = 7400,
-                tokens = 500
+                substokens = 1350,
+                tokens = 0
             },
-            price = 750,
+            price = 450,
             lenght = 3
         },
         {
@@ -21,16 +20,15 @@ local products = {
             type = "subscription",
             name = "Подписка: Тир 2",
             description = [[!!!Подписка покупается на 3 месяца!!!
-1750 токенов на ваш счет каждый месяц
-38850 дополнительных токенов на месяц (расходуются первыми)
+3000 токенов на месяц (~200 сообщений)
 Доступ к закрытым тестам новых функций
 
 Огромное спасибо за вашу поддержку!]],
             rewards = {
-                substokens = 38850,
-                tokens = 1750
+                substokens = 3000,
+                tokens = 0
             },
-            price = 1500,
+            price = 750,
             lenght = 3
         },
         {
@@ -38,75 +36,82 @@ local products = {
             type = "subscription",
             name = "Подписка: Тир 3",
             description = [[!!!Подписка покупается на 3 месяца!!!
-3780 токенов на ваш счет каждый месяц
-83160 дополнительных токенов на месяц (расходуются первыми)
+7500 токенов на месяц (~500 сообщений)
 Доступ к закрытым тестам новых функций
 Вы становитесь огромным гигачадом и можете запросить что угодно (в рамках разумного конечно)
 
 Огромное спасибо за вашу поддержку!]],
             rewards = {
-                substokens = 83160,
-                tokens = 3780
+                substokens = 7500,
+                tokens = 0
             },
-            price = 2500,
+            price = 1500,
             lenght = 3
         },
+        {
+            tier = 4,
+            type = "subscription",
+            name = "Подписка: Тир 4",
+            description = [[!!!Подписка покупается на 3 месяца!!!
+18000 токенов на месяц (~1200 сообщений)
+Доступ к закрытым тестам новых функций
+Вы становитесь огромным гигачадом и можете запросить что угодно (в рамках разумного конечно)
+
+Огромное спасибо за вашу поддержку!]],
+            rewards = {
+                substokens = 18000,
+                tokens = 0
+            },
+            price = 3000,
+            lenght = 3
+        }
     },
     regular = {
         {
             type = "package",
-            name = "Набор: 625 токенов",
+            name = "Набор: 450 токенов",
             description = [[Для тех кто не готов тратиться]],
             rewards = {
-                tokens = 625
+                tokens = 450
             },
             price = 50
         },
         {
             type = "package",
-            name = "Набор: 1720 токенов",
+            name = "Набор: 920 токенов",
             description = [[Если вам понравились отдельные персонажи]],
             rewards = {
-                tokens = 1720
+                tokens = 920
             },
             price = 150
         },
         {
             type = "package",
-            name = "Набор: 3750 токенов",
+            name = "Набор: 1875 токенов",
             description = [[Баланс между выгодой и ценой]],
             rewards = {
-                tokens = 3750
+                tokens = 1875
             },
             price = 250
         },
         {
             type = "package",
-            name = "Набор: 8125 токенов",
+            name = "Набор: 4875 токенов",
             description = [[Хватит надолго]],
             rewards = {
-                tokens = 8125
+                tokens = 4875
             },
             price = 500
         },
         {
             type = "package",
-            name = "Набор: 13125 токенов",
+            name = "Набор: 12000 токенов",
             description = [[Если персонажи стали вам реально близкими]],
             rewards = {
-                tokens = 13125
+                tokens = 12000
             },
-            price = 750
-        },
-        {
-            type = "package",
-            name = "Набор: 28125 токенов",
-            description = [[Вау... Спасибо за вашу поддержку!]],
-            rewards = {
-                tokens = 8125
-            },
-            price = 1500
-        },
+            price = 1000
+        }
     }
 }
 
@@ -114,12 +119,12 @@ local productsid = {
     products.subs[1],
     products.subs[2],
     products.subs[3],
+    products.subs[4],
     products.regular[1],
     products.regular[2],
     products.regular[3],
     products.regular[4],
-    products.regular[5],
-    products.regular[6]
+    products.regular[5]
 }
 
 local __menu
