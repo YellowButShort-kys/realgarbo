@@ -245,7 +245,7 @@ end
 
 require("__master_client")
 
-local nextcheck = tonumber((love.filesystem.read("subs_check.txt")))
+local nextcheck = tonumber((love.filesystem.read("subs_check.txt"))) or 0
 SUBBONUS = {
     {500, 11100},
     {1750, 38850},
