@@ -32,12 +32,13 @@ local OR = function(token, model, additional_data)
         end
     end
 
-    prettyjson(ogdata)
+    prettyprint(ogdata)
 
     function lib.Generate(messages)
         ogdata["messages"] = messages
         
-    prettyjson(ogdata)
+        
+    prettyprint(ogdata)
         local code, body = https.request(LINK, {
             headers = {
                 ["Content-Type"] = "application/json",
