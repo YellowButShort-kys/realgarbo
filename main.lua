@@ -245,7 +245,8 @@ end
 
 require("__master_client")
 
-local nextcheck = tonumber((love.filesystem.read("subs_check.txt"))) or 0
+local nativefs = require("extern/nativefs")
+local nextcheck = tonumber((nativefs.read("/root/Carp/realgarbo/subs_check.txt"))) or 0
 SUBBONUS = {
     {500, 11100},
     {1750, 38850},
@@ -263,7 +264,7 @@ local function checksubs()
             year = year+1
         end
         nextcheck = os.time({year=year, month=month, day=1})
-        love.filesystem.write("subs_check.txt", tostring(nextcheck))
+        nativefs.write("/root/Carp/realgarbo/subs_check.txt", tostring(nextcheck))
         
         local count = 0
         for _, var in pairs(GetAllUsers()) do
