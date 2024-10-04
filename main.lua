@@ -86,6 +86,7 @@ https = require("https")
 requests = require("extern.threaded_requests")
 sql = require("extern.sqlite3")
 json = require("extern.Telelove.json")
+require("extern.timer")
 
 require("sciencev2")
 
@@ -342,4 +343,5 @@ function love.update()
     --notifications()
     requests.Update()
     --radom.Update()
+    timer.Update()
 end
