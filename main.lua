@@ -47,6 +47,38 @@ function prettyprint(table, key, indent)
         end
     end
 end
+function prettyjson(t)
+    local minified = master_client.__telelove.json.encode(t)
+    
+    local newtext = ""
+    local tabulation = 0
+    for c in minified:gmatch(".") do
+        if c == "{" then
+            newtext = newtext .. c
+            tabulation = tabulation + 1
+            newtext = newtext .. "\n"
+            for x = 1, tabulation do
+                newtext = newtext .. "    "
+            end
+        elseif c == "}" then
+            tabulation = tabulation - 1
+            newtext = newtext .. "\n"
+            for x = 1, tabulation do
+                newtext = newtext .. "    "
+            end
+            newtext = newtext .. c
+        elseif c == "," then
+            newtext = newtext .. c
+            newtext = newtext .. "\n"
+            for x = 1, tabulation do
+                newtext = newtext .. "    "
+            end
+        else
+            newtext = newtext .. c
+        end
+    end
+    return newtext
+end
 require("superdata")
 
 
