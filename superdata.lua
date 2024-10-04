@@ -1,8 +1,8 @@
 PATH_PROMOCODES = "promocodes.json"
 print("", love.filesystem.getRealDirectory(PATH_PROMOCODES) .. "/" .. PATH_PROMOCODES)
-PATH_DB_USERS = "/home/yellowbutshort/code/realgarbo/./db/users.db"
-PATH_DB_CHATS = "/home/yellowbutshort/code/realgarbo/./db/chats.db"
-PATH_DB_CUSTOMCHARS = "/home/yellowbutshort/code/realgarbo/./db/customchars.db"
+PATH_DB_USERS = "/home/sibbearing/mystuff/realgarbo/./db/users.db"
+PATH_DB_CHATS = "/home/sibbearing/mystuff/realgarbo/./db/chats.db"
+PATH_DB_CUSTOMCHARS = "/home/sibbearing/mystuff/realgarbo/./db/customchars.db"
 print("Users: ", PATH_DB_USERS)
 print("Chats:", PATH_DB_CHATS)
 print("Custom Characters", PATH_DB_CUSTOMCHARS)
