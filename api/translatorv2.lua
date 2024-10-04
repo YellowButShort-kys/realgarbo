@@ -51,6 +51,7 @@ local OR = function(token, model, additional_data)
         ogdata["messages"] = nil
         
         body = json.decode(body)
+        print(body.id)
         pool:Request("https://openrouter.ai/api/v1/generation?id="..body.id, {method = "GET", headers = {["Content-Type"] = "application/json", ["Authorization"] = "Bearer "..token}}, recordExpenses)
         
         return body.choices[1].message.content or " "
