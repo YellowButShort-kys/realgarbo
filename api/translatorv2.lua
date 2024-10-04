@@ -17,37 +17,35 @@ local OR = function(token, model, additional_data)
     local LINK = "https://openrouter.ai/api/v1/chat/completions"
     token = token or OPENROUTER_TOKEN
     
-    local data = {
-        headers = {
-            ["Content-Type"] = "application/json",
-            ["Authorization"] = "Bearer "..token
-        },
-        method = "POST",
-        data = {
-            ["model"] = model,
-            ["max_tokens"] = 150,
-            ["temperature"] = 0.8,
-            --["top_p"] = 1,
-            --["presence_penalty"] = 0,
-            --["frequency_penalty"] = 0,
-            ["stop"] = {"<|endoftext|>", "<START>", "<|eot_id|>", "#"}
-        }
+    local ogdata = {
+        ["model"] = model,
+        ["max_tokens"] = 150,
+        ["temperature"] = 0.8,
+        --["top_p"] = 1,
+        --["presence_penalty"] = 0,
+        --["frequency_penalty"] = 0,
+        ["stop"] = {"<|endoftext|>", "<START>", "<|eot_id|>", "#"}
     }
     if additional_data then
         for key, val in pairs(additional_data) do
-            data.data[key] = val
+            ogdata[key] = val
         end
     end
 
     function lib.Generate(messages)
-        local old_messages = data["data"]["messages"]
-        data["data"]["messages"] = messages
+        ogdata["messages"] = messages
         
-        
-        local code, body = https.request(LINK, data)
+        local code, body = https.request(LINK, {
+            headers = {
+                ["Content-Type"] = "application/json",
+                ["Authorization"] = "Bearer "..token
+            },
+            method = "POST",
+            data = json.encode(ogdata)
+        })
         assert(code == 200, body)
         
-        data["data"]["messages"] = old_messages
+        ogdata["messages"] = nil
         
         return json.decode(body).result.choices[1].message.content or " "
     end
