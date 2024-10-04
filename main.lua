@@ -46,6 +46,7 @@ require("superdata")
 https = require("https")
 requests = require("extern.threaded_requests")
 sql = require("extern.sqlite3")
+json = require("extern.Telelove.json")
 
 require("sciencev2")
 
@@ -55,8 +56,9 @@ capybara = require("api.capybara_free")
 dolphin = require("api.dolphin")
 soliloque = require("api.soliloque")
 --translation = require("api.translation")
-translation = require("api.yandex")
-local OpenRouter = require("api.openrouter")
+--translation = require("api.yandex")
+require("api.translatorv2")
+OpenRouter = require("api.openrouter")
 
 --llama8 = OpenRouter(nil, "meta-llama/llama-3-8b-instruct:free", {0, 0}, )
 
