@@ -12,6 +12,9 @@ local function __saferequest(link, table, data)
     end
 end
 
+function recordExpenses(success, errcode, result, extra)
+    sciencev2.onExpenses(result.data.total_cost, "Translation")
+end
 local OR = function(token, model, additional_data)
     local lib = {}
     local LINK = "https://openrouter.ai/api/v1/chat/completions"
@@ -46,7 +49,10 @@ local OR = function(token, model, additional_data)
         
         ogdata["messages"] = nil
         
-        return json.decode(body).choices[1].message.content or " "
+        body = json.decode(body)
+        requests.Request("https://openrouter.ai/api/v1/generation?id="..body.id, {method = "GET", headers = {["Content-Type"] = "application/json", ["Authorization"] = "Bearer "..token}}, recordExpenses)
+        
+        return body.choices[1].message.content or " "
     end
 
     return lib

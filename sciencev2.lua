@@ -13,3 +13,7 @@ end
 function sciencev2.onNewChat()
     pool:Request("http://localhost:5000/AppendNewChats", {method = "get"})
 end
+
+function sciencev2.onExpenses(amount, origin)
+    pool:Request("http://localhost:5000/AppendExpenses", {method = "post", headers = {["Content-Type"] = "application/json"}, data = {MoneySpent = amount, Origin = origin}})
+end
