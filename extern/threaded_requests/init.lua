@@ -46,6 +46,7 @@ function pool_base:Request(link, data, callback, extra)
             var.free = false
             var.__callback = callback
             var.__extra = extra
+            var.__traceback = debug.traceback("", 2)
             return
         end
     end
@@ -57,7 +58,7 @@ function pool_base:Update()
             local result = var.receiver:pop()
             if result then
                 if not result.success then
-                    error("There was an error during a request! Error code: "..result.errcode.."\n"..result.result)
+                    error("There was an error during a request! Error code: "..result.errcode.."\n"..result.result.."\nPrior to call traceback:\n"..var.__traceback.."\n\n")
                 end
                 if var.__callback then
                     var.__callback(result.success, result.errcode, result.result, var.__extra)

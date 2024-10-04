@@ -46,7 +46,6 @@ local OR = function(token, model, additional_data)
         
         ogdata["messages"] = nil
         
-        print(body)
         return json.decode(body).choices[1].message.content or " "
     end
 
