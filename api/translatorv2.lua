@@ -31,16 +31,9 @@ local OR = function(token, model, additional_data)
             ogdata[key] = val
         end
     end
-
-    print(json.encode({test = false}))
-
-    prettyprint(ogdata)
     function lib.Generate(messages)
         ogdata["messages"] = messages
         
-        
-        prettyprint(ogdata)
-        print(json.encode(ogdata))
         local code, body = https.request(LINK, {
             headers = {
                 ["Content-Type"] = "application/json",
@@ -85,7 +78,7 @@ function translation.Translate(str, source, target)
     end
 
     return model.Generate({
-        {role = "system", string.format([[Translate this message to %s. Preserve all punctuation including asterisks. Output only the translation:
+        {role = "system", content = string.format([[Translate this message to %s. Preserve all punctuation including asterisks. Output only the translation:
 
 %s]], lookup[target] or target, str)}
     })
