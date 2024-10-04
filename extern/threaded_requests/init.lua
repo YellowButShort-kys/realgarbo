@@ -27,7 +27,9 @@ function t_requests.CreatePool(n_threads, retryafter, attempts)
 end
 
 function t_requests.Request(link, data, callback, extra)
-    assert(main_pool, "Attemped request to an uninitialized main pool. Did you forget to create a main pool?")
+    if not main_pool then
+        error("Attemped request to an uninitialized main pool. Did you forget to create a main pool?", 2)
+    end
     main_pool:Request(link, data, callback, extra)
 end
 function t_requests.Update()
