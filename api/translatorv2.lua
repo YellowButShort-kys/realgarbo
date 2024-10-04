@@ -40,6 +40,7 @@ local OR = function(token, model, additional_data)
         
         
         prettyprint(ogdata)
+        print(json.encode(ogdata))
         local code, body = https.request(LINK, {
             headers = {
                 ["Content-Type"] = "application/json",
