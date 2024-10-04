@@ -71,12 +71,12 @@ stheno8 = OpenRouter(nil, "deepseek/deepseek-chat", {100, 50}, {
     },
 })
 ]]
-stheno8 = OpenRouter(nil, "gryphe/mythomax-l2-13b", {100, 50}, {
+stheno8 = OpenRouter(nil, "qwen/qwen-2.5-72b-instruct", {1, 1}, {
     temperature = 1.1,
     max_tokens = 150,
     provider = {
         order = {
-            "Novita"
+            "DeepInfra"
         },
         allow_fallbacks = false,
     },
