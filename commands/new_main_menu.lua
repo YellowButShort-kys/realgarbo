@@ -214,6 +214,7 @@ function CreateLanguagedMenu(langcode)
 
 
     do
+        print(1)
         local available_chats = {}
         for _, var in ipairs(characters.GetHub()) do
             local button = client:NewInlineKeyboardButton()
@@ -228,6 +229,7 @@ function CreateLanguagedMenu(langcode)
             end
             available_chats[var.id] = button
         end
+        print(2)
         for _, var in ipairs(characters.GetCustomCharacters()) do
             local button = client:NewInlineKeyboardButton()
             button.text = var.name
@@ -241,6 +243,7 @@ function CreateLanguagedMenu(langcode)
             end
             available_chats[var.id] = button
         end
+        print(3)
         
         local back = client:NewInlineKeyboardButton()
         back.text = LANG[langcode]["$LOAD_CHAR_BACK"]
