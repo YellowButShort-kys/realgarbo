@@ -113,7 +113,7 @@ stheno8 = OpenRouter(nil, "deepseek/deepseek-chat", {100, 50}, {
     },
 })
 ]]
-stheno8 = OpenRouter(nil, "gryphe/mythomax-l2-13b", {100, 50}, {
+stheno8 = OpenRouter(nil, "gryphe/mythomax-l2-13b", {1, 1}, {
     temperature = 1.1,
     max_tokens = 150,
     provider = {

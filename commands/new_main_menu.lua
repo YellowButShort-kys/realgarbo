@@ -44,6 +44,14 @@ local function isEmpty(str)
     return str:gsub("\n", ""):gsub(" ", ""):len() > 3
 end
 
+local function flatten(t)
+    local nt = {}
+    for _, var in pairs(t) do
+        table.insert(nt, var)
+    end
+    return nt
+end
+
 
 local encoding_table = {
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -63,13 +71,14 @@ end
 
 function CreateLanguagedMenu(langcode)
     local menu = {}
-    local char_creation, load_custom_character = require("commands.char_creation")(langcode)
+    --local char_creation, load_custom_character = require("commands.char_creation")(langcode)
+    local custom_characters = require("commands.char_creation")(langcode)
     local new_chat, load_chat, select_model = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local donate, profile = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local promocode, dailies, my_tokens = client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton(), client:NewInlineKeyboardButton()
     local language = client:NewInlineKeyboardButton()
     menu.inline_keyboard = {
-        {new_chat, load_chat},
+        {new_chat, custom_characters, load_chat},
         {donate, profile},
         {promocode, dailies},
         {language}
@@ -189,8 +198,7 @@ function CreateLanguagedMenu(langcode)
         back.text = LANG[langcode]["$NEW_CHAR_BACK"]
         back.callback = function(self, query)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], menu)
-        end
-        table.insert(ikm.inline_keyboard, {char_creation})
+        end\
         table.insert(ikm.inline_keyboard, {back})
         
         new_chat.text = LANG[langcode]["$NEW_CHAR"]
@@ -218,8 +226,20 @@ function CreateLanguagedMenu(langcode)
                     client.active_chats[query.from.id] = chat
                 end
             end
-            
-            table.insert(available_chats, button)
+            available_chats[var.id] = button
+        end
+        for _, var in ipairs(characters.GetCustomCharacters()) do
+            local button = client:NewInlineKeyboardButton()
+            button.text = var.name
+            button.char = var
+            button.callback = function(self, query)
+                local chat = chats.GetUserChat(query.from, self.char)
+                if chat then
+                    client:EditMessageText(query.message.chat, query.message, htmlformat(translation.Translate(chat:GetLastResponse(), "en", langcode)))
+                    client.active_chats[query.from.id] = chat
+                end
+            end
+            available_chats[var.id] = button
         end
         
         local back = client:NewInlineKeyboardButton()
@@ -235,20 +255,12 @@ function CreateLanguagedMenu(langcode)
             ikm.inline_keyboard = {{}}
             
             local user_chats = chats.GetChats(query.from)
-            local translated = {}
-            for x = 1, #available_chats do
-                translated[x] = user_chats[x] and 1 or 0
-            end
-            
-            for i, var in ipairs(translated) do
-                if var == 1 then
-                    if #ikm.inline_keyboard[#ikm.inline_keyboard] > 3 then
-                        table.insert(ikm.inline_keyboard, {})
-                    end
-                    table.insert(ikm.inline_keyboard[#ikm.inline_keyboard], available_chats[i])
+            for _, var in pairs(user_chats) do
+                if #ikm.inline_keyboard[#ikm.inline_keyboard] > 3 then
+                    table.insert(ikm.inline_keyboard, {})
                 end
+                table.insert(ikm.inline_keyboard[#ikm.inline_keyboard], available_chats[var.id])
             end
-            table.insert(ikm.inline_keyboard, {load_custom_character})
             table.insert(ikm.inline_keyboard, {back})
             
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$LOAD_CHAR_MSG"], ikm)
