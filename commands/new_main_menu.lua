@@ -44,14 +44,6 @@ local function isEmpty(str)
     return str:gsub("\n", ""):gsub(" ", ""):len() > 3
 end
 
-local function flatten(t)
-    local nt = {}
-    for _, var in pairs(t) do
-        table.insert(nt, var)
-    end
-    return nt
-end
-
 
 local encoding_table = {
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -198,7 +190,8 @@ function CreateLanguagedMenu(langcode)
         back.text = LANG[langcode]["$NEW_CHAR_BACK"]
         back.callback = function(self, query)
             client:EditMessageText(query.message.chat, query.message, LANG[langcode]["$INTRODUCTION"], menu)
-        end\
+        end
+        table.insert(ikm.inline_keyboard, {char_creation})
         table.insert(ikm.inline_keyboard, {back})
         
         new_chat.text = LANG[langcode]["$NEW_CHAR"]
@@ -214,7 +207,6 @@ function CreateLanguagedMenu(langcode)
 
 
     do
-        print(1)
         local available_chats = {}
         for _, var in ipairs(characters.GetHub()) do
             local button = client:NewInlineKeyboardButton()
@@ -229,7 +221,6 @@ function CreateLanguagedMenu(langcode)
             end
             available_chats[var.id] = button
         end
-        print(2)
         for _, var in ipairs(characters.GetCustomCharacters()) do
             local button = client:NewInlineKeyboardButton()
             button.text = var.name
@@ -243,7 +234,6 @@ function CreateLanguagedMenu(langcode)
             end
             available_chats[var.id] = button
         end
-        print(3)
         
         local back = client:NewInlineKeyboardButton()
         back.text = LANG[langcode]["$LOAD_CHAR_BACK"]
