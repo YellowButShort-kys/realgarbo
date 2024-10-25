@@ -44,7 +44,9 @@ return function(token, model, price, additional_data)
                 error("Looks like we've run out of money...")
             end
             extra.result = result
-            pool:Request("https://openrouter.ai/api/v1/generation?id="..result.id, {method = "GET", headers = {["Content-Type"] = "application/json", ["Authorization"] = "Bearer "..token}}, secondcallback, extra)
+            timer.Simple(1,
+                pool.Request, pool, "https://openrouter.ai/api/v1/generation?id="..result.id, {method = "GET", headers = {["Content-Type"] = "application/json", ["Authorization"] = "Bearer "..token}}, secondcallback, extra
+            )
         else
             print(errcode)
             print()
